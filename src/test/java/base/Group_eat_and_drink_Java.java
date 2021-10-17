@@ -130,7 +130,7 @@ public class Group_eat_and_drink_Java {
     }
 
     @Test
-    public void testRegistration() throws InterruptedException {
+    public void testRegistrationTatianaT() throws InterruptedException {
         driver.get("https://humans.net/");
         WebElement signUp = driver.findElement
                 (By.xpath("//a[text()='Sign up']"));
@@ -166,7 +166,7 @@ public class Group_eat_and_drink_Java {
     }
 
     @Test
-    public void testLogInIncorrectValues() throws InterruptedException {
+    public void testLogInIncorrectValuesTatianaT() throws InterruptedException {
         driver.get("https://humans.net/registration");
         WebElement logIn = driver.findElement(By.xpath("//span[text()='Log in']"));
         logIn.click();
