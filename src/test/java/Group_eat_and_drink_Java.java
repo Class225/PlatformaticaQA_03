@@ -1,5 +1,3 @@
-package base;
-
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -25,7 +23,7 @@ public class Group_eat_and_drink_Java {
     String expectedResultSingIn = "Не верный логин или пароль";
 
     @BeforeMethod
-    public void serUp() {
+    public void setUp() {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
