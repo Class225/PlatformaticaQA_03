@@ -221,11 +221,6 @@ public class Test_QA_Group_Timur {
 
     }
 
-
-
-        Assert.assertEquals(driver.getCurrentUrl(), "https://thehostbest.ru/my-custom-development/");
-    }
-
     @Test
     public void findWatchesZA() {
         driver.get(URL);
