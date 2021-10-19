@@ -297,6 +297,7 @@ public class Test_QA_Group_Timur {
 
         WebElement title = driver.findElement(By.xpath("/html/body/div[2]/div[1]/div/h1"));
         title.getText();
+
         Assert.assertEquals(title.getText(),"Работа с молодежью");
 
     }
