@@ -7,6 +7,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -185,6 +186,24 @@ public class Test_QA_Group_Timur {
         //To accept cookies
         WebElement acceptCookie = driver.findElement(By.id("cn-accept-cookie"));
         acceptCookie.click();
+    }
+
+
+    @Test
+    public void malikTimur(){
+
+        driver.get("https://demoqa.com");
+
+        driver.findElement(By.xpath("//div[@class = 'home-banner']")).click();
+        List<String> browserTabs = new ArrayList<>(driver.getWindowHandles());
+        driver.switchTo().window(browserTabs.get(1));
+        Assert.assertEquals(driver.getCurrentUrl(), "https://www.toolsqa.com/selenium-training/");
+
+
+        driver.findElement(By.xpath("//input[@class= 'navbar__search--input']")).sendKeys("selenium\n");
+        Assert.assertEquals(driver.getCurrentUrl(), "https://www.toolsqa.com/search?keyword=selenium");
+
+
     }
 
 
