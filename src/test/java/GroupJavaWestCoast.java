@@ -168,6 +168,29 @@ public class GroupJavaWestCoast {
         Assert.assertEquals(driver.findElement(By.xpath("//span[contains(text(),'Guadalupe St and Ann and Roy Butler Hike and Bike Trail')]")).getText(),
                 "Guadalupe St and Ann and Roy Butler Hike and Bike Trail");
     }
+
+    @Test
+    public void testMaxFindText() throws InterruptedException{
+        String baseUrl = "http://the-internet.herokapp.com/";
+
+        driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
+        driver.get(baseUrl);
+        driver.findElement(By.xpath("//a[@href='/abtest']")).click();
+        Assert.assertEquals(driver.findElement(By.xpath("//*[(text()='A/B Test Control')]")).getText(), "A/B Test Control");
+        driver.navigate().back();
+    }
+
+    @Test
+    public void testMaxCheckElementIsDisplayed() throws InterruptedException{
+        String baseUrl = "http://the-internet.herokapp.com/";
+
+        driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
+        driver.get(baseUrl);
+        driver.findElement(By.xpath("//a[@href='/add_remove_elements/']")).click();
+        driver.findElement(By.xpath("//button[@onclick='addElement()']")).click();
+        Assert.assertTrue(driver.findElement(By.xpath("//button[@class='added-manually']")).isDisplayed());
+        driver.navigate().back();
+    }
 }
 
 
