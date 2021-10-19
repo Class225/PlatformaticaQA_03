@@ -222,7 +222,7 @@ public class Group_eat_and_drink_Java {
         Assert.assertEquals(expectedResult, actualResult);
     }
 
-
+/*
     private static final By EXERCISE1 = By.xpath("//*[@id=\"w3-exerciseform\"]/div/div/pre/input[1]");
 
     private static final By EXERCISE2 = By.name("ex2");
@@ -230,6 +230,7 @@ public class Group_eat_and_drink_Java {
     private static final By EXERCISE3 = By.name("ex3");
 
     private static final By NEXTEX = By.id("correctnextbtn");
+ */
 
     public void navigateToPage() {
 
