@@ -125,8 +125,6 @@ public class GroupJavaWestCoast {
         WebElement startBar = driver.findElement(By.id("_ctl0_btnStart1"));
         startBar.click();
 
-//        searchBar.sendKeys("skirt\n");
-
         String actualUrl = "https://www.simplesite.com/pages/Startwizard.aspx?tr=btn1";
         String expectedUrl = driver.getCurrentUrl();
 
