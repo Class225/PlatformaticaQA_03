@@ -226,11 +226,6 @@ public class Test_QA_Group_Timur {
 
         driver.get("https://thehostbest.ru/my-custom-development/");
 
-
-    public void testLoginZA() {
-
-        driver.get("https://thehostbest.ru/my-custom-development/");
-
         WebElement username = driver.findElement(By.id("form-field-name"));
         WebElement mobile = driver.findElement(By.id("form-field-field_1"));
         WebElement email = driver.findElement(By.id("form-field-email"));
@@ -302,6 +297,7 @@ public class Test_QA_Group_Timur {
 
         WebElement title = driver.findElement(By.xpath("/html/body/div[2]/div[1]/div/h1"));
         title.getText();
+
         Assert.assertEquals(title.getText(),"Работа с молодежью");
 
     }
