@@ -198,6 +198,8 @@ public class Test_QA_Group_Timur {
         List<String> browserTabs = new ArrayList<>(driver.getWindowHandles());
         driver.switchTo().window(browserTabs.get(1));
         Assert.assertEquals(driver.getCurrentUrl(), "https://www.toolsqa.com/selenium-training/");
+
+
         driver.findElement(By.xpath("//input[@class= 'navbar__search--input']")).sendKeys("selenium\n");
         Assert.assertEquals(driver.getCurrentUrl(), "https://www.toolsqa.com/search?keyword=selenium");
 
