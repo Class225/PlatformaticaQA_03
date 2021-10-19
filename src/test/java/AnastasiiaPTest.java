@@ -39,7 +39,7 @@ public class AnastasiiaPTest {
         String expectedResult = "Roses Delivery";
         driver.get("https://www.1800flowers.com/");
 
-        WebDriverWait wait = new WebDriverWait(driver, 10);
+        WebDriverWait wait = new WebDriverWait(driver, 20);
         wait.until(ExpectedConditions.elementToBeClickable(By.id("SearchBox_desktop")));
 
         driver.findElement(By.id("SearchBox_desktop")).sendKeys("Roses");
@@ -62,7 +62,6 @@ public class AnastasiiaPTest {
 
         Assert.assertEquals(actualResult.getText(), expectedResult);
     }
-}
 
     @Test
     public void testAvailabilityMenuButtons() {
