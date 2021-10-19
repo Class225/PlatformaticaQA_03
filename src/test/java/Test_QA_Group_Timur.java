@@ -226,11 +226,6 @@ public class Test_QA_Group_Timur {
 
         driver.get("https://thehostbest.ru/my-custom-development/");
 
-
-    public void testLoginZA() {
-
-        driver.get("https://thehostbest.ru/my-custom-development/");
-
         WebElement username = driver.findElement(By.id("form-field-name"));
         WebElement mobile = driver.findElement(By.id("form-field-field_1"));
         WebElement email = driver.findElement(By.id("form-field-email"));
