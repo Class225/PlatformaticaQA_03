@@ -1,4 +1,5 @@
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -22,6 +23,7 @@ public class GroupJavaWestCoast {
     private static final By EMAILFIELD = By.id("user_email");
     private static final By PASSWORDFIELD = By.id("user_password");
     private static final By SIGNINBUTTON = By.xpath("//button[text()='Sign in']");
+    private static final String EMAILGENERATOR = RandomStringUtils.randomAlphabetic(5) + RandomStringUtils.randomAlphanumeric(2) + "!" + "@gmail.com";
 
     public void signInMethodIliaP(){
         driver.findElement(LOGINBUTTON).click();
@@ -134,6 +136,37 @@ public class GroupJavaWestCoast {
         driver.findElement(By.xpath("//button[contains(text(),\"Let's get started!\")]")).click();
         driver.findElement(By.xpath("//span[contains(text(),'No, thanks. Just take me to my dashboard.')]")).click();
         Assert.assertEquals(driver.getCurrentUrl(),"https://www.ck12.org/my/dashboard-new/content/");
+    }
+
+    @Test
+    public void testAntonHromcenko() {
+        driver.get("https://www.webstaurantstore.com");
+        driver.findElement(By.xpath("//a[@data-testid='register-nav-link']")).click();
+        driver.findElement(By.id("email")).sendKeys(EMAILGENERATOR);
+        driver.findElement(By.id("billname")).sendKeys("test");
+        driver.findElement(By.id("billaddr")).sendKeys("100 Terminal Dr");
+        driver.findElement(By.id("billphone")).sendKeys("9549549544");
+        driver.findElement(By.id("billzip")).sendKeys("33315");
+        driver.findElement(By.id("password")).sendKeys("Test1!");
+        driver.findElement(By.id("complete_registration")).click();
+
+        Assert.assertEquals(driver.getCurrentUrl(),"https://www.webstaurantstore.com/myaccount.html?goto=register");
+    }
+  
+    @Test
+    public void testMarianaLuchynets() {
+
+        driver.get("https://www.google.com/maps");
+
+        driver.findElement(By.cssSelector("#searchboxinput")).sendKeys("Austin Downtown");
+        driver.findElement(By.id("searchbox-searchbutton")).click();
+        driver.findElement(By.xpath("//div[contains(text(),'Directions')]")).click();
+        driver.findElement(By.cssSelector(".Zvyb8e-T3iPGc-icon.reverse")).click();
+        driver.findElement(By.cssSelector("input[placeholder='Choose destination, or click on the map...']")).sendKeys("Zilker park Austin");
+        driver.findElement(By.cssSelector("img[aria-label='Walking']")).click();
+
+        Assert.assertEquals(driver.findElement(By.xpath("//span[contains(text(),'Guadalupe St and Ann and Roy Butler Hike and Bike Trail')]")).getText(),
+                "Guadalupe St and Ann and Roy Butler Hike and Bike Trail");
     }
 }
 

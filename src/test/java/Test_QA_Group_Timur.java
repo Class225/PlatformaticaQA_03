@@ -1,6 +1,7 @@
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -9,7 +10,9 @@ import org.testng.annotations.Test;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-public class QA_Group_Timur {
+import static java.lang.Thread.sleep;
+
+public class Test_QA_Group_Timur {
     public WebDriver driver;
 
     @BeforeMethod
@@ -33,10 +36,6 @@ public class QA_Group_Timur {
                 ("//div[@id='block_top_menu']//a[@title='Women']")).click();
         driver.findElement(By.xpath
                 ("//div[@class='product-image-container']/a[@title='Blouse']")).click();
-        /*      Нажать на обьект buttonWomen без запуска iframe
-         *      JavascriptExecutor jsx = (JavascriptExecutor)driver;
-         *      jsx.executeScript("arguments[0].click()", buttonBlouse);
-         */
 
         WebElement frame = driver.findElement(By.xpath
                 ("//iframe[contains(@id,'fancybox-frame')]"));
@@ -71,7 +70,7 @@ public class QA_Group_Timur {
     }
 
     @Test
-    public void searcheTestKorelov()  {
+    public void searcheTestKorelov() {
         driver.get("https://petrovich.ru/");
         WebElement search = driver.findElement(By.name("q"));
         search.sendKeys("газобетон");
@@ -118,8 +117,7 @@ public class QA_Group_Timur {
         String text = "skepticism";
         driver.findElement(By.id("GlobalSearchField")).sendKeys(text + "\n");
         driver.findElement(By.xpath("//*[@id=\"actuality\"]/div/div/section[1]/div/ul/a")).click();
-        Thread.sleep(500);
-
+        sleep(500);
         JavascriptExecutor jse = (JavascriptExecutor)driver;
         jse.executeScript("scroll(0, 1430);");
 
@@ -129,4 +127,65 @@ public class QA_Group_Timur {
 
         Assert.assertEquals(q.getText(), "Ordeal");
     }
+    @Test
+    public void testAlexeyLugovoy(){
+        driver.get("https://www.anekdot.ru/");
+        WebElement anekdoty = driver.findElement(By.xpath("//ul/li/a[text()='Анекдоты']"));
+        Actions navesti = new Actions(driver);
+        navesti.moveToElement(anekdoty).build().perform();
+        WebElement bestMonth = driver.findElement(By.xpath("//ul/li/a[@title='Самые смешные анекдоты за месяц']"));
+        bestMonth.click();
+        WebElement first = driver.findElement(By.xpath("//div[@data-id='1251367']/div[@class='text']"));
+        System.out.println(first.getText());
+        WebElement h1 = driver.findElement(By.cssSelector("body h1"));
+        Assert.assertEquals(h1.getText().toUpperCase(), "САМЫЕ СМЕШНЫЕ АНЕКДОТЫ ЗА МЕСЯЦ!");
+    }
+    @Test
+    public void evgenyRogoznev(){
+        driver.get("https://hh.ru/");
+        WebElement signIn = driver.findElement(By.xpath("//*[@data-qa='login']"));
+        JavascriptExecutor jse = (JavascriptExecutor)driver;
+        jse.executeScript("arguments[0].click();", signIn);
+        driver.findElement(By.xpath("//*[@data-qa='account-signup-email']")).sendKeys("falseLogin");
+        WebElement submitBtn = driver.findElement(By.xpath("//*[@data-qa='account-signup-submit']"));
+        submitBtn.click();
+        List<WebElement> errors= driver.findElements(By.xpath("//*[text()='Пожалуйста, укажите email или телефон']"));
+        Assert.assertEquals(errors.size(),1,
+                "Сообщение с ошибкой \"Пожалуйста, укажите email или телефон\" отсутствует или их несколько.");
+
+    }
+    @Test
+    public void Hlopuska() throws InterruptedException {
+
+        driver.get("https://naverisk.com/");
+        JavascriptExecutor scrollingPage = (JavascriptExecutor) driver;
+        scrollingPage.executeScript("window.scrollBy(0,3970)", "");
+        Assert.assertEquals(3970, 3970);
+
+        //Scrolling Up
+        scrollingPage.executeScript("scroll(0,-2700);");
+        Assert.assertEquals(-2700, -2700);
+
+        //Find and click button in a top bar
+        WebElement solutionsBtn = driver.findElement(new By.ByXPath("/html/body/div[1]/header/div[1]/div[2]/nav/ul/li[1]/a"));
+        solutionsBtn.click();
+        Assert.assertEquals("Solutions", "Solutions");
+
+        //Move to the next page
+        driver.findElement(By.xpath("/html/body/div[1]/header/div[1]/div[2]/nav/ul/li[1]/ul/li[2]/a")).click();
+        scrollingPage.executeScript("window.scrollBy(0,3970)", "");
+        driver.findElement(By.linkText("Contact us")).click();
+        scrollingPage.executeScript("window.scrollBy(0,500)", "");
+
+        //To get && compare title
+        String actualTitle = driver.getTitle();
+        String expectedTitle = "24/7 Global Support | Naverisk RMM & PSA Software";
+        Assert.assertEquals(actualTitle, expectedTitle);
+
+        //To accept cookies
+        WebElement acceptCookie = driver.findElement(By.id("cn-accept-cookie"));
+        acceptCookie.click();
+    }
+
+
 }

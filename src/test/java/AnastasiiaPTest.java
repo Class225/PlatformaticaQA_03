@@ -13,53 +13,50 @@ import java.util.concurrent.TimeUnit;
 
 public class AnastasiiaPTest {
 
-        private WebDriver driver;
-        WebDriverWait wait;
+    private WebDriver driver;
+    WebDriverWait wait;
 
-        @BeforeMethod
-        public void setUp() {
-            WebDriverManager.chromedriver().setup();
+    @BeforeMethod
+    public void setUp() {
+        WebDriverManager.chromedriver().setup();
 
-            driver = new ChromeDriver();
+        driver = new ChromeDriver();
 
-            driver.manage().timeouts().implicitlyWait(5000, TimeUnit.SECONDS);
-            driver.manage().window().maximize();
-        }
-
-        @AfterMethod
-        public void setDown() {
-            driver.close();
-            driver.quit();
-        }
-
-        @Test
-        public void testCurrentAddressTextField() {
-            driver.get("https://www.1800flowers.com/");
-
-            WebElement searchField = driver.findElement(By.id("SearchBox_desktop"));
-            WebElement submitButton = driver.findElement(By.id("btn-search"));
-            String expectedResult = "Roses Delivery";
-
-            searchField.sendKeys("Roses \n");
-            WebElement actualResult = driver.findElement(By.xpath("//div[h1]"));
-
-            Assert.assertEquals(actualResult.getText(), expectedResult);
-        }
-
-        @Test
-        private void testSearchSubjectTextField() {
-            driver.get("https://shop.mango.com/us/women");
-
-            WebElement searchButton = driver.findElement(By.id("search_icon_button"));
-            searchButton.click();
-            WebElement searchField = driver.findElement(By.xpath("//div//input[@class='search-input']"));
-            searchField.sendKeys("NY dress\n");
-
-            String expectedResult = "SEARCH RESULTS FOR NY DRESS";
-            WebElement actualResult = driver.findElement(By.xpath("//div[@id = 'title']"));
-
-            Assert.assertEquals(actualResult.getText(), expectedResult);
-        }
+        driver.manage().timeouts().implicitlyWait(5000, TimeUnit.SECONDS);
+        driver.manage().window().maximize();
     }
+
+    @AfterMethod
+    public void setDown() {
+        driver.close();
+        driver.quit();
+    }
+
+    @Test
+    public void testCurrentAddressTextField() {
+        String expectedResult = "Roses Delivery";
+
+        driver.get("https://www.1800flowers.com/");
+        driver.findElement(By.id("SearchBox_desktop")).sendKeys("Roses \n");
+        driver.findElement(By.id("btn-search"));
+
+        WebElement actualResult = driver.findElement(By.xpath("//div[h1]"));
+
+        Assert.assertEquals(actualResult.getText(), expectedResult);
+    }
+
+    @Test
+    private void testSearchSubjectTextField() {
+        String expectedResult = "SEARCH RESULTS FOR NY DRESS";
+
+        driver.get("https://shop.mango.com/us/women");
+        driver.findElement(By.id("search_icon_button")).click();
+        driver.findElement(By.xpath("//div//input[@class='search-input']")).sendKeys("NY dress\n");
+
+        WebElement actualResult = driver.findElement(By.xpath("//div[@id = 'title']"));
+
+        Assert.assertEquals(actualResult.getText(), expectedResult);
+    }
+}
 
 

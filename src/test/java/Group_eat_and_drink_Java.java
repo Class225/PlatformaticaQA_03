@@ -10,6 +10,8 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -23,10 +25,12 @@ public class Group_eat_and_drink_Java {
     String expectedResultURLCabinet = "https://askent.ru/order/";
     String expectedResultSingIn = "Не верный логин или пароль";
 
-//    private static final By EXERCISE1 = By.xpath("//*[@id=\"w3-exerciseform\"]/div/div/pre/input[1]");
-//    private static final By EXERCISE2 = By.name("ex2");
-//    private static final By EXERCISE3 = By.name("ex3");
-//    private static final By NEXTEX = By.id("correctnextbtn");
+    private static final String URL = "https://www.godaddy.com/";
+
+    private static final By EXERCISE1 = By.xpath("//*[@id=\"w3-exerciseform\"]/div/div/pre/input[1]");
+    private static final By EXERCISE2 = By.name("ex2");
+    private static final By EXERCISE3 = By.name("ex3");
+    private static final By NEXTEX = By.id("correctnextbtn");
 
     @BeforeMethod
     public void setUp() {
@@ -134,7 +138,7 @@ public class Group_eat_and_drink_Java {
     }
 
     @Test
-    public void testRegistration() throws InterruptedException {
+    public void testRegistrationTatianaT() throws InterruptedException {
         driver.get("https://humans.net/");
         WebElement signUp = driver.findElement
                 (By.xpath("//a[text()='Sign up']"));
@@ -170,7 +174,7 @@ public class Group_eat_and_drink_Java {
     }
 
     @Test
-    public void testLogInIncorrectValues() throws InterruptedException {
+    public void testLogInIncorrectValuesTatianaT() throws InterruptedException {
         driver.get("https://humans.net/registration");
         WebElement logIn = driver.findElement(By.xpath("//span[text()='Log in']"));
         logIn.click();
@@ -191,7 +195,33 @@ public class Group_eat_and_drink_Java {
 
     }
 
+    @Test
+    void testSergeA_navigateMainPage() {
+        driver.get(URL);
+        expectedOrActualResult("https://www.godaddy.com/", URL);
+    }
 
+    @Test
+    void testSergeA_searchDomain() {
+        testSergeA_navigateMainPage();
+        String name = "google.com";
+        WebElement buttonNameForSearch = driver.findElement(By.className("searchText"));
+        buttonNameForSearch.click();
+        WebElement inputSearchDomain = driver.findElement(By.xpath("//input[@type='text'][1]"));
+
+        inputSearchDomain.sendKeys(name);
+        buttonNameForSearch.click();
+
+        String expectedResult = "https://www.godaddy.com/domainsearch/find?checkAvail=1&domainToCheck=" + name;
+        String actualResult = "https://www.godaddy.com/domainsearch/find?checkAvail=1&domainToCheck=" + name;
+        expectedOrActualResult(expectedResult, actualResult);
+    }
+
+    public void expectedOrActualResult(String expectedResult, String actualResult) {
+        Assert.assertEquals(expectedResult, actualResult);
+    }
+
+/*
     private static final By EXERCISE1 = By.xpath("//*[@id=\"w3-exerciseform\"]/div/div/pre/input[1]");
 
     private static final By EXERCISE2 = By.name("ex2");
@@ -199,6 +229,7 @@ public class Group_eat_and_drink_Java {
     private static final By EXERCISE3 = By.name("ex3");
 
     private static final By NEXTEX = By.id("correctnextbtn");
+ */
 
     public void navigateToPage() {
 
@@ -287,3 +318,4 @@ public class Group_eat_and_drink_Java {
         Assert.assertEquals(description.getText(),"Comments in Java are written with special characters. Insert the missing parts:");
     }
 }
+
