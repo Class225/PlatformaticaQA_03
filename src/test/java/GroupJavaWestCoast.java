@@ -177,7 +177,6 @@ public class GroupJavaWestCoast {
         driver.get(baseUrl);
         driver.findElement(By.xpath("//a[@href='/abtest']")).click();
         Assert.assertEquals(driver.findElement(By.xpath("//*[(text()='A/B Test Control')]")).getText(), "A/B Test Control");
-        driver.navigate().back();
     }
 
     @Test
@@ -189,7 +188,6 @@ public class GroupJavaWestCoast {
         driver.findElement(By.xpath("//a[@href='/add_remove_elements/']")).click();
         driver.findElement(By.xpath("//button[@onclick='addElement()']")).click();
         Assert.assertTrue(driver.findElement(By.xpath("//button[@class='added-manually']")).isDisplayed());
-        driver.navigate().back();
     }
 }
 
