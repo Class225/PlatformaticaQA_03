@@ -317,5 +317,23 @@ public class Group_eat_and_drink_Java {
 
         Assert.assertEquals(description.getText(),"Comments in Java are written with special characters. Insert the missing parts:");
     }
+
+    @Test
+    public void SergeyBrigMenuTest() {
+
+        String expectedResult = "http://automationpractice.com/index.php?id_product=1&controller=product";
+
+        driver.get("http://automationpractice.com/index.php?controller=authentication&back=my-account");
+
+        WebElement shirtLink = driver.findElement(By.xpath("//div[@id = 'block_top_menu']/ul/li[3]/a"));
+        shirtLink.click();
+        WebElement productLink = driver.findElement(By.xpath("//a[@class = 'product_img_link']"));
+        productLink.click();
+        String actualResult = driver.getCurrentUrl();
+
+        Assert.assertEquals(actualResult, expectedResult);
+
+    }
+
 }
 
