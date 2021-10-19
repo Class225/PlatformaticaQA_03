@@ -221,7 +221,7 @@ public class Group_eat_and_drink_Java {
     public void expectedOrActualResult(String expectedResult, String actualResult) {
         Assert.assertEquals(expectedResult, actualResult);
     }
-}
+
 
     private static final By EXERCISE1 = By.xpath("//*[@id=\"w3-exerciseform\"]/div/div/pre/input[1]");
 
