@@ -177,6 +177,16 @@ public class GroupJavaWestCoast {
         Assert.assertEquals(driver.findElement(By.xpath("//*[(text()='A/B Test Control')]")).getText(), "A/B Test Control");
         driver.navigate().back();
     }
+
+    @Test
+    public void testMaxCheckElementIsDisplayed() throws InterruptedException{
+        driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
+        driver.get("http://the-internet.herokuapp.com/");
+        driver.findElement(By.xpath("//a[@href='/add_remove_elements/']")).click();
+        driver.findElement(By.xpath("//button[@onclick='addElement()']")).click();
+        Assert.assertTrue(driver.findElement(By.xpath("//button[@class='added-manually']")).isDisplayed());
+        driver.navigate().back();
+    }
 }
 
 
