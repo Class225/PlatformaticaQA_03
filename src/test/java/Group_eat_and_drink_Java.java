@@ -335,5 +335,36 @@ public class Group_eat_and_drink_Java {
 
     }
 
+    @Test
+    public void OlenaMSearchTheItemTest() {
+
+        driver.get("https://www.homedepot.com/");
+        driver.findElement(By.id("headerSearch")).sendKeys("refrigerator\n");
+        driver.findElement(By.id("headerSearchButton")).click();
+
+        driver.findElement(By.linkText("Shop All French Door Refrigerators")).click();
+
+        Assert.assertEquals(driver.getCurrentUrl(), "https://www.homedepot.com/b/Appliances-Refrigerators-French-Door-Refrigerators/N-5yc1vZc3oo");
+    }
+
+    @Test
+    public void OlenaMSignInTest() {
+
+        driver.get("https://www.homedepot.com/");
+
+        driver.findElement(By.id("headerMyAccount")).click();
+        driver.findElement(By.id("SPSOSignIn")).click();
+
+        driver.findElement(By.id("email")).sendKeys("abc@gmail.com");
+        driver.findElement(By.id("password-input-field")).sendKeys("ZXCasd123");
+        driver.findElement(By.xpath("//span[normalize-space()='Sign In']")).click();
+
+        WebElement error = driver.findElement(By.xpath("//span[@class='alert-inline__message']"));
+        Assert.assertEquals(error.getText(), "For your protection, we've locked your account for a short period of time. You may try logging in again in 15 minutes. If you've forgotten your password, you may change it using the link below.");
+
+    }
+
+
+
 }
 
