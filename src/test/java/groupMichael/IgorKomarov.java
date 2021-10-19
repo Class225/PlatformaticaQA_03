@@ -1,6 +1,7 @@
 package groupMichael;
 
 
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -23,8 +24,7 @@ public class IgorKomarov {
 
     @BeforeMethod
     public void setup() {
-        String driverPath = "/usr/local/bin/chromedriver";
-        System.setProperty("webdriver.chrome.driver", driverPath);
+        WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         String url = "https://demoqa.com/books";
