@@ -171,7 +171,7 @@ public class GroupJavaWestCoast {
     }
 
     @Test(description = "Is [I want To...] dropdown appears after selecting \"Consumer\" option in [I am a...] dropdown")
-    public void isIWantToDropdownAppearsTest() {
+    public void testSvetlanaGorbunova() {
 
         driver.get("https://www.dre.ca.gov/");
         WebElement iAmADropdown = driver.findElement(By.id("FilterMenu1"));
