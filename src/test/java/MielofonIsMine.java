@@ -7,6 +7,7 @@ import org.testng.annotations.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class MielofonIsMine extends BaseTest {
 
@@ -122,4 +123,15 @@ public class MielofonIsMine extends BaseTest {
         Assert.assertEquals(actualNumber, expectedNumber);
 
     }
+
+    @Test
+    public void testJuliaVorobej(){
+        getDriver().get("https://ru.wikipedia.org/wiki/%D0%97%D0%B0%D0%B3%D0%BB%D0%B0%D0%B2%D0%BD%D0%B0%D1%8F_%D1%81%D1%82%D1%80%D0%B0%D0%BD%D0%B8%D1%86%D0%B0");
+        WebElement search = getDriver().findElement(By.id("searchInput"));
+        WebElement button = getDriver().findElement(By.id("searchButton"));
+        search.sendKeys("миелофон");
+        button.click();
+        WebElement result = getDriver().findElement(By.id("firstHeading"));
+        Assert.assertEquals(result.getText().toLowerCase(Locale.ROOT), "миелофон");
+        }
 }
