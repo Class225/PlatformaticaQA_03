@@ -206,5 +206,17 @@ public class Test_QA_Group_Timur {
 
     }
 
+    @Test
+    public void borisSevastyanov() {
+        driver.get("http://nkmz.com/");
+
+        driver.findElement(By.xpath("//*[@id=\"side-list\"]/a[3]/li")).click();
+
+        WebElement title = driver.findElement(By.xpath("/html/body/div[2]/div[1]/div/h1"));
+        title.getText();
+        Assert.assertEquals(title.getText(),"Работа с молодежью");
+
+    }
+
 
 }
