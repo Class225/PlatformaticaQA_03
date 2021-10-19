@@ -2,6 +2,8 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -14,7 +16,17 @@ import java.util.concurrent.TimeUnit;
 import static java.lang.Thread.sleep;
 
 public class Test_QA_Group_Timur {
-    public WebDriver driver;
+    private WebDriver driver;
+    private static final String URL = "https://www.x-kom.pl/";
+
+    public WebDriverWait getWait() {
+        return new WebDriverWait(driver, 10);
+    }
+
+    public static void scroll(WebDriver driver, WebElement element) {
+        JavascriptExecutor executor = (JavascriptExecutor) driver;
+        executor.executeScript("arguments[0].scrollIntoView();", element);
+    }
 
     @BeforeMethod
     public void setUp() {
@@ -66,8 +78,8 @@ public class Test_QA_Group_Timur {
                 ("//div[@id = 'HOOK_PAYMENT']//a[@class='bankwire']")).click();
         driver.findElement(By.xpath("//p[@id = 'cart_navigation']/button[@type = 'submit']")).click();
         WebElement orderComplete = driver.findElement(By.xpath("//p[@class = 'cheque-indent']/strong[@class = 'dark']"));
-        
-        Assert.assertEquals(orderComplete.getText(),"Your order on My Store is complete.");
+
+        Assert.assertEquals(orderComplete.getText(), "Your order on My Store is complete.");
     }
 
     @Test
@@ -119,17 +131,18 @@ public class Test_QA_Group_Timur {
         driver.findElement(By.id("GlobalSearchField")).sendKeys(text + "\n");
         driver.findElement(By.xpath("//*[@id=\"actuality\"]/div/div/section[1]/div/ul/a")).click();
         sleep(500);
-        JavascriptExecutor jse = (JavascriptExecutor)driver;
+        JavascriptExecutor jse = (JavascriptExecutor) driver;
         jse.executeScript("scroll(0, 1430);");
 
         driver.findElement(By.xpath("//*[@id=\"infinitescroll\"]/div[5]/a")).click();
 
-        WebElement q  = driver.findElement(By.xpath("//*[@id=\"profile\"]/div[2]/span[2]"));
+        WebElement q = driver.findElement(By.xpath("//*[@id=\"profile\"]/div[2]/span[2]"));
 
         Assert.assertEquals(q.getText(), "Ordeal");
     }
+
     @Test
-    public void testAlexeyLugovoy(){
+    public void testAlexeyLugovoy() {
         driver.get("https://www.anekdot.ru/");
         WebElement anekdoty = driver.findElement(By.xpath("//ul/li/a[text()='Анекдоты']"));
         Actions navesti = new Actions(driver);
@@ -141,20 +154,22 @@ public class Test_QA_Group_Timur {
         WebElement h1 = driver.findElement(By.cssSelector("body h1"));
         Assert.assertEquals(h1.getText().toUpperCase(), "САМЫЕ СМЕШНЫЕ АНЕКДОТЫ ЗА МЕСЯЦ!");
     }
+
     @Test
-    public void evgenyRogoznev(){
+    public void evgenyRogoznev() {
         driver.get("https://hh.ru/");
         WebElement signIn = driver.findElement(By.xpath("//*[@data-qa='login']"));
-        JavascriptExecutor jse = (JavascriptExecutor)driver;
+        JavascriptExecutor jse = (JavascriptExecutor) driver;
         jse.executeScript("arguments[0].click();", signIn);
         driver.findElement(By.xpath("//*[@data-qa='account-signup-email']")).sendKeys("falseLogin");
         WebElement submitBtn = driver.findElement(By.xpath("//*[@data-qa='account-signup-submit']"));
         submitBtn.click();
-        List<WebElement> errors= driver.findElements(By.xpath("//*[text()='Пожалуйста, укажите email или телефон']"));
-        Assert.assertEquals(errors.size(),1,
+        List<WebElement> errors = driver.findElements(By.xpath("//*[text()='Пожалуйста, укажите email или телефон']"));
+        Assert.assertEquals(errors.size(), 1,
                 "Сообщение с ошибкой \"Пожалуйста, укажите email или телефон\" отсутствует или их несколько.");
 
     }
+
     @Test
     public void Hlopuska() throws InterruptedException {
 
@@ -190,7 +205,7 @@ public class Test_QA_Group_Timur {
 
 
     @Test
-    public void malikTimur(){
+    public void malikTimur() {
 
         driver.get("https://demoqa.com");
 
@@ -206,6 +221,74 @@ public class Test_QA_Group_Timur {
 
     }
 
+
+    public void testLoginZA() {
+
+        driver.get("https://thehostbest.ru/my-custom-development/");
+
+        WebElement username = driver.findElement(By.id("form-field-name"));
+        WebElement mobile = driver.findElement(By.id("form-field-field_1"));
+        WebElement email = driver.findElement(By.id("form-field-email"));
+        WebElement money = driver.findElement(By.id("form-field-field_504ba40"));
+        WebElement timeForCreate = driver.findElement(By.id("form-field-field_b8a2f4b"));
+        WebElement login = driver.findElement(By.className("elementor-button"));
+        WebElement l = driver.findElement(By.xpath(""));
+
+        username.sendKeys("1111");
+        mobile.sendKeys("11111");
+        email.sendKeys("abc@gmail.com");
+        money.sendKeys("1111");
+        timeForCreate.sendKeys("11111");
+        login.click();
+
+
+        Assert.assertEquals(driver.getCurrentUrl(), "https://thehostbest.ru/my-custom-development/");
+    }
+
+    @Test
+    public void findWatchesZA() {
+        driver.get(URL);
+        driver.findElement(By.xpath("//input[contains(@class,'suk8z4-0')]")).sendKeys("Apple Watch \n");
+        driver.findElement(By.xpath("//a/span[text() = 'Inteligentne zegarki']")).click();
+        driver.findElement(By.xpath("//span[text() = 'Smartwatche']")).click();
+
+        List<WebElement> listOfPage1 = (driver.findElements(
+                By.xpath("//div[@class = 'sc-1yu46qn-4 zZmhy sc-2ride2-0 eYsBmG']")));
+        List<WebElement> listOfPage2 = new ArrayList<>();
+        List<WebElement> listOfPage3 = new ArrayList<>();
+        WebElement btn = driver.findElement(By.xpath("//div[@class = 'sc-1xy3kzh-1 LdmOz']"));
+        String el = listOfPage1.get(0).findElement(By.xpath
+                ("//div[@class = 'sc-1yu46qn-4 zZmhy sc-2ride2-0 eYsBmG']")).getText();
+
+        if (btn.getText().equals("1")) {
+            getWait().until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[@class = 'sc-1h16fat-0 sc-1xy3kzh-0 eqFjDt'][text() = '2']")));
+            driver.findElement(By.xpath("//a[@class = 'sc-1h16fat-0 sc-1xy3kzh-0 eqFjDt'][text() = '2']")).click();
+            if (btn.getText().equals("2")) {
+                getWait().until(ExpectedConditions.not(ExpectedConditions.textToBe(By.xpath
+                        ("//div[@class = 'sc-1yu46qn-4 zZmhy sc-2ride2-0 eYsBmG']"), el)));
+                listOfPage2 = (driver.findElements(
+                        By.xpath("//div[@class = 'sc-1yu46qn-4 zZmhy sc-2ride2-0 eYsBmG']")));
+                el = listOfPage2.get(0).findElement(By.xpath
+                        ("//div[@class = 'sc-1yu46qn-4 zZmhy sc-2ride2-0 eYsBmG']")).getText();
+            }
+        }
+        if (btn.getText().equals("2")) {
+            getWait().until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[@class = 'sc-1h16fat-0 sc-1xy3kzh-0 eqFjDt'][text() = '3']")));
+            driver.findElement(By.xpath("//a[@class = 'sc-1h16fat-0 sc-1xy3kzh-0 eqFjDt'][text() = '3']")).click();
+            if (btn.getText().equals("3")) {
+                getWait().until(ExpectedConditions.not(ExpectedConditions.textToBe(By.xpath
+                        ("//div[@class = 'sc-1yu46qn-4 zZmhy sc-2ride2-0 eYsBmG']"), el)));
+                listOfPage3 = (driver.findElements(
+                        By.xpath("//div[@class = 'sc-1yu46qn-4 zZmhy sc-2ride2-0 eYsBmG']")));
+            }
+        }
+        List<WebElement> listWatches = new ArrayList<>();
+        listWatches.addAll(listOfPage1);
+        listWatches.addAll(listOfPage2);
+        listWatches.addAll(listOfPage3);
+        System.out.println(listWatches.size());
+    }
+
     @Test
     public void borisSevastyanov() {
         driver.get("http://nkmz.com/");
@@ -217,6 +300,4 @@ public class Test_QA_Group_Timur {
         Assert.assertEquals(title.getText(),"Работа с молодежью");
 
     }
-
-
 }
