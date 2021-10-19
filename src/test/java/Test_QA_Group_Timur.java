@@ -221,7 +221,7 @@ public class Test_QA_Group_Timur {
 
     }
 
-
+    @Test
     public void testLoginZA() {
 
         driver.get("https://thehostbest.ru/my-custom-development/");
@@ -290,46 +290,16 @@ public class Test_QA_Group_Timur {
     }
 
     @Test
-    public void findWatchesZA() {
-        driver.get(URL);
-        driver.findElement(By.xpath("//input[contains(@class,'suk8z4-0')]")).sendKeys("Apple Watch \n");
-        driver.findElement(By.xpath("//a/span[text() = 'Inteligentne zegarki']")).click();
-        driver.findElement(By.xpath("//span[text() = 'Smartwatche']")).click();
+    public void borisSevastyanov() {
+        driver.get("http://nkmz.com/");
 
-        List<WebElement> listOfPage1 = (driver.findElements(
-                By.xpath("//div[@class = 'sc-1yu46qn-4 zZmhy sc-2ride2-0 eYsBmG']")));
-        List<WebElement> listOfPage2 = new ArrayList<>();
-        List<WebElement> listOfPage3 = new ArrayList<>();
-        WebElement btn = driver.findElement(By.xpath("//div[@class = 'sc-1xy3kzh-1 LdmOz']"));
-        String el = listOfPage1.get(0).findElement(By.xpath
-                ("//div[@class = 'sc-1yu46qn-4 zZmhy sc-2ride2-0 eYsBmG']")).getText();
+        driver.findElement(By.xpath("//*[@id=\"side-list\"]/a[3]/li")).click();
 
-        if (btn.getText().equals("1")) {
-            getWait().until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[@class = 'sc-1h16fat-0 sc-1xy3kzh-0 eqFjDt'][text() = '2']")));
-            driver.findElement(By.xpath("//a[@class = 'sc-1h16fat-0 sc-1xy3kzh-0 eqFjDt'][text() = '2']")).click();
-            if (btn.getText().equals("2")) {
-                getWait().until(ExpectedConditions.not(ExpectedConditions.textToBe(By.xpath
-                        ("//div[@class = 'sc-1yu46qn-4 zZmhy sc-2ride2-0 eYsBmG']"), el)));
-                listOfPage2 = (driver.findElements(
-                        By.xpath("//div[@class = 'sc-1yu46qn-4 zZmhy sc-2ride2-0 eYsBmG']")));
-                el = listOfPage2.get(0).findElement(By.xpath
-                        ("//div[@class = 'sc-1yu46qn-4 zZmhy sc-2ride2-0 eYsBmG']")).getText();
-            }
-        }
-        if (btn.getText().equals("2")) {
-            getWait().until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[@class = 'sc-1h16fat-0 sc-1xy3kzh-0 eqFjDt'][text() = '3']")));
-            driver.findElement(By.xpath("//a[@class = 'sc-1h16fat-0 sc-1xy3kzh-0 eqFjDt'][text() = '3']")).click();
-            if (btn.getText().equals("3")) {
-                getWait().until(ExpectedConditions.not(ExpectedConditions.textToBe(By.xpath
-                        ("//div[@class = 'sc-1yu46qn-4 zZmhy sc-2ride2-0 eYsBmG']"), el)));
-                listOfPage3 = (driver.findElements(
-                        By.xpath("//div[@class = 'sc-1yu46qn-4 zZmhy sc-2ride2-0 eYsBmG']")));
-            }
-        }
-        List<WebElement> listWatches = new ArrayList<>();
-        listWatches.addAll(listOfPage1);
-        listWatches.addAll(listOfPage2);
-        listWatches.addAll(listOfPage3);
-        System.out.println(listWatches.size());
+        WebElement title = driver.findElement(By.xpath("/html/body/div[2]/div[1]/div/h1"));
+        title.getText();
+
+        Assert.assertEquals(title.getText(),"Работа с молодежью");
+
     }
+
 }
