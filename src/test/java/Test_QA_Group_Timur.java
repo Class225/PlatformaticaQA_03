@@ -221,25 +221,6 @@ public class Test_QA_Group_Timur {
 
     }
 
-    @Test
-    public void testLoginZA() {
-
-        driver.get("https://thehostbest.ru/my-custom-development/");
-
-        WebElement username = driver.findElement(By.id("form-field-name"));
-        WebElement mobile = driver.findElement(By.id("form-field-field_1"));
-        WebElement email = driver.findElement(By.id("form-field-email"));
-        WebElement money = driver.findElement(By.id("form-field-field_504ba40"));
-        WebElement timeForCreate = driver.findElement(By.id("form-field-field_b8a2f4b"));
-        WebElement login = driver.findElement(By.className("elementor-button"));
-        WebElement l = driver.findElement(By.xpath(""));
-
-        username.sendKeys("1111");
-        mobile.sendKeys("11111");
-        email.sendKeys("abc@gmail.com");
-        money.sendKeys("1111");
-        timeForCreate.sendKeys("11111");
-        login.click();
 
 
         Assert.assertEquals(driver.getCurrentUrl(), "https://thehostbest.ru/my-custom-development/");
