@@ -27,7 +27,6 @@ public class Group_eat_and_drink_Java {
 
     private static final String URL = "https://www.godaddy.com/";
 
-
     private static final By EXERCISE1 = By.xpath("//*[@id=\"w3-exerciseform\"]/div/div/pre/input[1]");
     private static final By EXERCISE2 = By.name("ex2");
     private static final By EXERCISE3 = By.name("ex3");
@@ -312,7 +311,7 @@ public class Group_eat_and_drink_Java {
             String name = l.getText();
             System.out.println(name);
         }
-        driver.findElement(NEXTEX).click(); ;
+        driver.findElement(NEXTEX).click();
 
         WebElement description = driver.findElement(By.xpath("//*[@id=\"assignmenttext\"]/p"));
 
