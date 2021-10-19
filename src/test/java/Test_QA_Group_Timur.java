@@ -221,6 +221,11 @@ public class Test_QA_Group_Timur {
 
     }
 
+    @Test
+    public void testLoginZA() {
+
+        driver.get("https://thehostbest.ru/my-custom-development/");
+
 
     public void testLoginZA() {
 
@@ -300,4 +305,5 @@ public class Test_QA_Group_Timur {
         Assert.assertEquals(title.getText(),"Работа с молодежью");
 
     }
+
 }
