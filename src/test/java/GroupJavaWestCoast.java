@@ -129,6 +129,7 @@ public class GroupJavaWestCoast {
         String expectedUrl = driver.getCurrentUrl();
 
         Assert.assertEquals(expectedUrl, actualUrl);
+
     }
 }
 
