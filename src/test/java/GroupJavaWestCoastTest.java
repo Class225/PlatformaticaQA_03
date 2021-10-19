@@ -185,8 +185,10 @@ public class GroupJavaWestCoastTest {
 
     @Test
     public void testMaxFindText() throws InterruptedException{
+        String baseUrl = "http://the-internet.herokapp.com/";
+
         driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
-        driver.get("http://the-internet.herokuapp.com/");
+        driver.get(baseUrl);
         driver.findElement(By.xpath("//a[@href='/abtest']")).click();
         Assert.assertEquals(driver.findElement(By.xpath("//*[(text()='A/B Test Control')]")).getText(), "A/B Test Control");
     }
