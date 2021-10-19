@@ -21,7 +21,6 @@ public class IgorKomarov {
     private WebDriver driver;
     private BookStoreHomePage homePage;
 
-
     @BeforeMethod
     public void setup() {
         WebDriverManager.chromedriver().setup();
