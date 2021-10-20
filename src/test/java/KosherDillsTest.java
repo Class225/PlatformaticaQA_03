@@ -34,7 +34,7 @@ public class KosherDillsTest {
     public void testGoogleSearch() {
 
         dills.get("https://www.google.com");
-        dills.findElement(By.xpath("/html/body/div[1]/div[3]/form/div[1]/div[1]/div[1]/div/div[2]/input"))
+        dills.findElement(By.xpath("//input[@title='Search']"))
                 .sendKeys("RuAmerica" + "\n");
 
         Assert.assertEquals(dills
