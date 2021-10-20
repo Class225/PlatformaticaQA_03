@@ -180,16 +180,13 @@ public class Test_QA_Group_Timur {
         scrollingPage.executeScript("window.scrollBy(0,3970)", "");
         Assert.assertEquals(3970, 3970);
 
-        //Scrolling Up
         scrollingPage.executeScript("scroll(0,-2700);");
         Assert.assertEquals(-2700, -2700);
 
-        //Find and click button in a top bar
         WebElement solutionsBtn = driver.findElement(new By.ByXPath("/html/body/div[1]/header/div[1]/div[2]/nav/ul/li[1]/a"));
         solutionsBtn.click();
         Assert.assertEquals("Solutions", "Solutions");
 
-        //Move to the next page
         driver.findElement(By.xpath("/html/body/div[1]/header/div[1]/div[2]/nav/ul/li[1]/ul/li[2]/a")).click();
         scrollingPage.executeScript("window.scrollBy(0,3970)", "");
         driver.findElement(By.linkText("Contact us")).click();
