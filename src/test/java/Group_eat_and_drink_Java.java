@@ -364,6 +364,31 @@ public class Group_eat_and_drink_Java {
 
     }
 
+    @Test
+    public void SergeyBrigSearchTest() {
+
+        driver.get("https://www.webstaurantstore.com");
+
+        final String searchText = "fork";
+        driver.findElement(By.id("searchval")).sendKeys(searchText + "\n");
+        List<WebElement> itemList = driver.findElements(By.xpath("//div/a[@data-testid='itemDescription']"));
+        for (int i = 0; i < itemList.size(); i++) {
+            Assert.assertTrue(itemList.get(i).getText().toLowerCase().contains(searchText));
+        }
+    }
+
+    @Test
+    public void SergeyBrigBrandMenuTest() {
+        driver.get("https://www.webstaurantstore.com");
+
+        driver.findElement(By.xpath("//a[@title='Amana Commercial Microwaves']")).click();
+
+        List<WebElement> brandList = driver.findElements(By.xpath("//p[@class = 'description category_name']"));
+        for (int i = 0; i < brandList.size(); i++) {
+            Assert.assertTrue(brandList.get(i).getText().toLowerCase().contains("amana"));
+        }
+    }
+
 
 
 }
