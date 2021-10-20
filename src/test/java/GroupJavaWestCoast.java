@@ -183,6 +183,28 @@ public class GroupJavaWestCoast {
     }
 
 
+
+
+    @Test
+    public void testMaxFindText() throws InterruptedException{
+        String baseUrl = "http://the-internet.herokapp.com/";
+
+        driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
+        driver.get(baseUrl);
+        driver.findElement(By.xpath("//a[@href='/abtest']")).click();
+        Assert.assertEquals(driver.findElement(By.xpath("//*[(text()='A/B Test Control')]")).getText(), "A/B Test Control");
+    }
+
+    @Test
+    public void testMaxCheckElementIsDisplayed() throws InterruptedException{
+        String baseUrl = "http://the-internet.herokapp.com/";
+
+        driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
+        driver.get(baseUrl);
+        driver.findElement(By.xpath("//a[@href='/add_remove_elements/']")).click();
+        driver.findElement(By.xpath("//button[@onclick='addElement()']")).click();
+        Assert.assertTrue(driver.findElement(By.xpath("//button[@class='added-manually']")).isDisplayed());
+    }
 }
 
 

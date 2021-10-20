@@ -27,7 +27,6 @@ public class Group_eat_and_drink_Java {
 
     private static final String URL = "https://www.godaddy.com/";
 
-
     private static final By EXERCISE1 = By.xpath("//*[@id=\"w3-exerciseform\"]/div/div/pre/input[1]");
     private static final By EXERCISE2 = By.name("ex2");
     private static final By EXERCISE3 = By.name("ex3");
@@ -312,11 +311,60 @@ public class Group_eat_and_drink_Java {
             String name = l.getText();
             System.out.println(name);
         }
-        driver.findElement(NEXTEX).click(); ;
+        driver.findElement(NEXTEX).click();
 
         WebElement description = driver.findElement(By.xpath("//*[@id=\"assignmenttext\"]/p"));
 
         Assert.assertEquals(description.getText(),"Comments in Java are written with special characters. Insert the missing parts:");
     }
+
+    @Test
+    public void SergeyBrigMenuTest() {
+
+        String expectedResult = "http://automationpractice.com/index.php?id_product=1&controller=product";
+
+        driver.get("http://automationpractice.com/index.php?controller=authentication&back=my-account");
+
+        WebElement shirtLink = driver.findElement(By.xpath("//div[@id = 'block_top_menu']/ul/li[3]/a"));
+        shirtLink.click();
+        WebElement productLink = driver.findElement(By.xpath("//a[@class = 'product_img_link']"));
+        productLink.click();
+        String actualResult = driver.getCurrentUrl();
+
+        Assert.assertEquals(actualResult, expectedResult);
+
+    }
+
+    @Test
+    public void OlenaMSearchTheItemTest() {
+
+        driver.get("https://www.homedepot.com/");
+        driver.findElement(By.id("headerSearch")).sendKeys("refrigerator\n");
+        driver.findElement(By.id("headerSearchButton")).click();
+
+        driver.findElement(By.linkText("Shop All French Door Refrigerators")).click();
+
+        Assert.assertEquals(driver.getCurrentUrl(), "https://www.homedepot.com/b/Appliances-Refrigerators-French-Door-Refrigerators/N-5yc1vZc3oo");
+    }
+
+    @Test
+    public void OlenaMSignInTest() {
+
+        driver.get("https://www.homedepot.com/");
+
+        driver.findElement(By.id("headerMyAccount")).click();
+        driver.findElement(By.id("SPSOSignIn")).click();
+
+        driver.findElement(By.id("email")).sendKeys("abc@gmail.com");
+        driver.findElement(By.id("password-input-field")).sendKeys("ZXCasd123");
+        driver.findElement(By.xpath("//span[normalize-space()='Sign In']")).click();
+
+        WebElement error = driver.findElement(By.xpath("//span[@class='alert-inline__message']"));
+        Assert.assertEquals(error.getText(), "For your protection, we've locked your account for a short period of time. You may try logging in again in 15 minutes. If you've forgotten your password, you may change it using the link below.");
+
+    }
+
+
+
 }
 
