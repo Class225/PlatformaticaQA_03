@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit;
 
 import static org.testng.Assert.assertEquals;
 
-public class JavaHamsters {
+public class JavaHamstersTest {
 
     private final String URL_IK = "https://www.vprok.ru/";
     private static final String MAIN_PAGE_URL = "http://automationpractice.com/index.php";
