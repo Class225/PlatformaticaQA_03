@@ -182,9 +182,6 @@ public class GroupJavaWestCoast {
         Assert.assertTrue(iWantToDropdown.isDisplayed());
     }
 
-
-
-
     @Test
     public void testMaxFindText() throws InterruptedException{
         String baseUrl = "http://the-internet.herokapp.com/";
