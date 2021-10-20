@@ -1,6 +1,7 @@
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -12,7 +13,7 @@ import org.testng.annotations.Test;
 
 import java.util.concurrent.TimeUnit;
 
-public class GroupJavaWestCoast {
+public class GroupJavaWestCoastTest {
 
     private WebDriver driver;
 
@@ -202,6 +203,22 @@ public class GroupJavaWestCoast {
         driver.findElement(By.xpath("//button[@onclick='addElement()']")).click();
         Assert.assertTrue(driver.findElement(By.xpath("//button[@class='added-manually']")).isDisplayed());
     }
+
+    @Test
+    public void testYelenaBay() throws InterruptedException{
+        driver.get("https://www.att.com/");
+
+        WebElement search = driver.findElement(By.id("z1-searchfield"));
+        search.sendKeys("iPhone 13 Pro Max");
+        search.sendKeys(Keys.ENTER);
+
+        driver.findElement(By.xpath("//button[contains(text(),'Shop now')]")).click();
+        String title = driver.findElement(By.xpath("//h1[contains(text(),'iPhone 13 Pro Max')]")).getText();
+        Assert.assertEquals(title, "iPhone 13 Pro Max");
+
+
+    }
+
 }
 
 
