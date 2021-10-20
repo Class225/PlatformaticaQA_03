@@ -10,6 +10,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.BookStoreHomePage;
 
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 public class OyunaM {
@@ -20,7 +21,6 @@ public class OyunaM {
     String expectedResult = "https://www.instagram.com/alehina_ekaterina/";
 
     private WebDriver driver;
-    private BookStoreHomePage homePage;
 
     @BeforeMethod
     public void setUp() {
@@ -28,9 +28,8 @@ public class OyunaM {
 
         driver = new ChromeDriver();
 
-        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.manage().window().maximize();
-        homePage = new BookStoreHomePage(driver);
     }
 
     @AfterMethod
@@ -39,28 +38,21 @@ public class OyunaM {
     }
 
     @Test
-    public void testOpenInstagram() throws InterruptedException {
+    public void testOyunaM_openInstagramTest() {
 
         driver.get(URL);
 
-        Thread.sleep(10000);
-
         WebElement element = driver.findElement(By.xpath("//div[@data-elem-id='1474624869390']"));
-
         element.click();
+
+        Set<String> newWindowsSet = driver.getWindowHandles();
+        for (String winHandle : driver.getWindowHandles()) {
+            driver.switchTo().window(winHandle);
+        }
 
         Assert.assertEquals(driver.getCurrentUrl(), expectedResult);
     }
 
-//    @Test
-//    public void testNewPassword() {
-//        driver.get(URL);
-//
-//        WebElement link = driver.findElement(By.linkText("Forgot password?"));
-//        link.click();
-//
-//        Assert.assertEquals(driver.getCurrentUrl(), "https://www.");
-//    }
 }
 
 
