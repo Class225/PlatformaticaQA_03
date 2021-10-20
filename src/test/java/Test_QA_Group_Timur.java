@@ -3,6 +3,7 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -11,6 +12,7 @@ import org.testng.annotations.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import static java.lang.Thread.sleep;
@@ -301,5 +303,130 @@ public class Test_QA_Group_Timur {
         Assert.assertEquals(title.getText(),"Работа с молодежью");
 
     }
+    @Test
+    public void IrynaKuEnterExistingEmailTest() {
+        driver.get("http://automationpractice.com/");
+        WebElement signInButton = driver.findElement(By.className("login"));
+        signInButton.click();
 
+        WebElement emailField = driver.findElement(By.id("email_create"));
+        emailField.sendKeys("test@test.com");
+
+        WebElement createAccountButton = driver.findElement(By.id("SubmitCreate"));
+        createAccountButton.click();
+        boolean errorMessage = driver.findElement(By.xpath("//li[contains(text(), 'An account using this email address has')]")).isDisplayed();
+        Assert.assertTrue(errorMessage, "Asserting error message here");
+    }
+
+    @Test
+    public void IrynaKuRegisterNewUserTest() {
+        driver.get("http://automationpractice.com/");
+        WebElement signInButton = driver.findElement(By.className("login"));
+        signInButton.click();
+        StringBuilder email;
+        StringBuilder randomString = new StringBuilder();
+        Random rand = new Random();
+
+        for (int i = 0; i < 8; i++) {
+            randomString.append((char) (97 + rand.nextInt(25)));
+        }
+
+        email = randomString.append("@mail.com");
+
+        WebElement emailField = driver.findElement(By.id("email_create"));
+        emailField.sendKeys(email);
+
+        WebElement createAccountButton = driver.findElement(By.id("SubmitCreate"));
+        createAccountButton.click();
+
+        WebElement gender = driver.findElement(By.id("id_gender1"));
+        gender.click();
+
+        WebElement firstName = driver.findElement(By.xpath("//input[@id='customer_firstname']"));
+        firstName.sendKeys("FirstName");
+
+        WebElement lastName = driver.findElement(By.id("customer_lastname"));
+        lastName.sendKeys("LastName");
+
+        WebElement password = driver.findElement(By.id("passwd"));
+        password.sendKeys("newUserpassword");
+
+        Select day = new Select(driver.findElement(By.id("days")));
+        day.selectByValue(String.valueOf(rand.nextInt(31 - 1) + 1));
+
+        Select month = new Select(driver.findElement(By.id("months")));
+        month.selectByIndex(rand.nextInt(12 - 1) + 1);
+
+        Select year = new Select(driver.findElement(By.id("years")));
+        year.selectByIndex(rand.nextInt(121 - 1) + 1);
+
+        WebElement newsletter = driver.findElement(By.id("newsletter"));
+        newsletter.click();
+
+        WebElement address = driver.findElement(By.id("address1"));
+        address.sendKeys("Test street " /*+ rand.nextInt(100)*/);
+
+        WebElement city = driver.findElement(By.id("city"));
+        city.sendKeys("Test City");
+
+        Select state = new Select(driver.findElement(By.id("id_state")));
+        state.selectByIndex(rand.nextInt(54 - 1) + 1);
+
+        WebElement postcode = driver.findElement(By.id("postcode"));
+        postcode.sendKeys(String.valueOf(rand.nextInt(99999 - 10000) + 10000));
+
+        Select country = new Select(driver.findElement(By.id("id_country")));
+        country.selectByValue("21");
+
+        WebElement mobile = driver.findElement(By.id("phone_mobile"));
+        mobile.sendKeys("+126754378921");
+
+        WebElement alias = driver.findElement(By.id("alias"));
+        alias.sendKeys("My address alias");
+
+        WebElement registerButton = driver.findElement(By.id("submitAccount"));
+        registerButton.click();
+
+        Assert.assertEquals(driver.getCurrentUrl(), "http://automationpractice.com/index.php?controller=my-account");
+
+    }
+
+    @Test
+    public void IrynaKuAddToCartTest() {
+
+        driver.get("http://automationpractice.com/");
+        WebElement womenCategory = driver.findElement(By.xpath("//li/a[@title='Women']"));
+        womenCategory.click();
+
+        WebElement topsCategory = driver.findElement(By.xpath("//div/a[@title='Tops']"));
+        topsCategory.click();
+
+        WebElement productCard = driver.findElement(By.xpath("//div[@class='left-block']/div/a[@title='Faded Short Sleeve T-shirts']"));
+        Actions action = new Actions(driver);
+        action.moveToElement(productCard);
+        action.perform();
+
+        WebElement moreButton = driver.findElement(By.xpath("//span[text()='More']"));
+        moreButton.click();
+
+        Select size = new Select(driver.findElement(By.id("group_1")));
+        size.selectByValue("2");
+
+        WebElement color = driver.findElement(By.id("color_14"));
+        color.click();
+
+        WebElement addToCart = driver.findElement(By.id("add_to_cart"));
+        addToCart.click();
+
+        WebElement message = driver.findElement(By.xpath("//i[@class='icon-ok']/.."));
+
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        wait.until(ExpectedConditions.visibilityOf(message));
+
+        String actualResult = message.getText();
+        String expectedResult = "Product successfully added to your shopping cart";
+        Assert.assertEquals(actualResult, expectedResult);
+
+        //test comment
+    }
 }
