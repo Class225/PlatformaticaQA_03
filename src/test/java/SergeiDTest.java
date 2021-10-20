@@ -13,6 +13,8 @@ import java.util.concurrent.TimeUnit;
 
 public class SergeiDTest {
 
+    private static final String URL = "https://www.webstaurantstore.com/";
+
     private WebDriver driver;
 
     @BeforeMethod
@@ -32,9 +34,9 @@ public class SergeiDTest {
 
     @Test
     public void testSearches() {
-        driver.get("https://www.webstaurantstore.com/");
+        driver.get(URL + "\\");
 
-        String text = "table";
+        final String text = "table";
         driver.findElement(By.id("searchval")).sendKeys(text + "\n");
 
         List<WebElement> itemList = driver.findElements(By.xpath("//a[@data-testid = 'itemDescription']"));
