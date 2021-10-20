@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -167,6 +168,18 @@ public class GroupJavaWestCoast {
 
         Assert.assertEquals(driver.findElement(By.xpath("//span[contains(text(),'Guadalupe St and Ann and Roy Butler Hike and Bike Trail')]")).getText(),
                 "Guadalupe St and Ann and Roy Butler Hike and Bike Trail");
+    }
+
+    @Test(description = "Is [I want To...] dropdown appears after selecting \"Consumer\" option in [I am a...] dropdown")
+    public void testSvetlanaGorbunova() {
+
+        driver.get("https://www.dre.ca.gov/");
+        WebElement iAmADropdown = driver.findElement(By.id("FilterMenu1"));
+        WebElement iWantToDropdown = driver.findElement(By.id("FilterMenu2"));
+
+        Select s = new Select(iAmADropdown);
+        s.selectByVisibleText("Consumer");
+        Assert.assertTrue(iWantToDropdown.isDisplayed());
     }
 
     @Test
