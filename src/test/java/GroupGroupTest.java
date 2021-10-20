@@ -15,7 +15,7 @@ import java.util.Locale;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
-public class GroupGroup {
+public class GroupGroupTest {
 
     private WebDriver driver;private static String URL1_GG = "https://www.edx.org/";
     private static String URL2_GG = "https://www.edx.org/search?q=python&tab=course";
