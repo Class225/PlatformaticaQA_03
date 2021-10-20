@@ -1,21 +1,13 @@
 import base.BaseTest;
-import com.google.common.io.ByteArrayDataInput;
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.Locale;
 
 public class MielofonIsMine extends BaseTest {
 
@@ -132,5 +124,14 @@ public class MielofonIsMine extends BaseTest {
 
     }
 
-
+    @Test
+    public void testJuliaVorobej(){
+        getDriver().get("https://ru.wikipedia.org/wiki/%D0%97%D0%B0%D0%B3%D0%BB%D0%B0%D0%B2%D0%BD%D0%B0%D1%8F_%D1%81%D1%82%D1%80%D0%B0%D0%BD%D0%B8%D1%86%D0%B0");
+        WebElement search = getDriver().findElement(By.id("searchInput"));
+        WebElement button = getDriver().findElement(By.id("searchButton"));
+        search.sendKeys("миелофон");
+        button.click();
+        WebElement result = getDriver().findElement(By.id("firstHeading"));
+        Assert.assertEquals(result.getText().toLowerCase(Locale.ROOT), "миелофон");
+        }
 }

@@ -6,6 +6,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+
+import java.awt.*;
 import java.util.List;
 import org.testng.Assert;
 
@@ -210,4 +212,59 @@ public class GroupGroup {
 
         Assert.assertEquals(output.getAttribute("value"), expectedValue);
     }
+
+    @Test
+    public void testAnnaZasimova_01(){
+
+        driver.get("https://www.brainpop.com/");
+
+        WebElement getStartedButton = driver.findElement(By.id("get-started-button"));
+        getStartedButton.click();
+
+        Assert.assertEquals(driver.getCurrentUrl(), "https://www.brainpop.com/get-started/");
+    }
+
+    @Test
+    public  void testAnnaZasimova_02(){
+
+        driver.get("https://www.brainpop.com/get-started/");
+
+        WebElement title = driver.findElement(
+                By.xpath("//h1[contains(text(),'Discover the power of BrainPOP! Start by selecting')]")
+        );
+
+        Assert.assertTrue(title.isDisplayed());
+    }
+
+    @Test
+    public void testAnnaZasimova_03(){
+        driver.get("https://www.brainpop.com/");
+
+        WebElement getStartedButton = driver.findElement(By.id("get-started-button"));
+        getStartedButton.click();
+
+        Assert.assertEquals(driver.getCurrentUrl(), "https://www.brainpop.com/get-started/");
+        driver.navigate().back();
+        Assert.assertEquals(driver.getCurrentUrl(), "https://www.brainpop.com/");
+    }
+
+    @Test
+    public void testSearchField() throws AWTException {
+        driver.get("https://www.dre.ca.gov/");
+        WebElement searchField = driver.findElement(By.id("search_local_textfield"));
+        WebElement searchBtn = driver.findElement(By.name("submit"));
+
+        searchField.sendKeys("townhouse" + "\n");
+
+
+        WebElement targetPageHeader = driver.findElement(By.id("serp_title"));
+        WebElement targetPageSearchField = driver.findElement(By.id("gsc-i-id1"));
+
+        Assert.assertEquals(driver.getCurrentUrl(), "https://www.dre.ca.gov/serp.html?q=townhouse&cx=001779225245372747843%3A11sknaw8obu&cof=FORID%3A10&ie=UTF-8&submit.x=0&submit.y=0");
+        Assert.assertEquals(targetPageHeader.getText(), "Search Results");
+        Assert.assertEquals(targetPageSearchField.getAttribute("value"), "townhouse");
+
+    }
+
+
 }
