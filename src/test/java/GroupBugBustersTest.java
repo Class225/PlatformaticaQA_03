@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 
-public class Group_Bug_BustersTest {
+public class GroupBugBustersTest {
     public final String URL = "https://breadtopia.com/";
 
     WebDriver driver;
