@@ -21,12 +21,6 @@ public class BookStoreHomePage {
     @FindBy(xpath = "//div[@role='rowgroup']")
     List<WebElement> books;
 
-    @FindBy(xpath = "//option[@value='5']")
-    WebElement rows5;
-
-    @FindBy(xpath = "//option[@value='100']")
-    WebElement rows100;
-
 
     public BookStoreHomePage(WebDriver driver) {
         this.driver = driver;
