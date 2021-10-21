@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
-public class Group_eat_and_drink_Java {
+public class Group_eat_and_drink_JavaTest {
     // ----  ARANGE  ----
     private WebDriver driver;
     String MainUrl = "https://askent.ru/";
@@ -387,6 +387,23 @@ public class Group_eat_and_drink_Java {
         for (int i = 0; i < brandList.size(); i++) {
             Assert.assertTrue(brandList.get(i).getText().toLowerCase().contains("amana"));
         }
+    }
+    @Test
+    public void testSearchFieldFindJobTatianaT() {
+        driver.get("https://humans.net/");
+
+        WebElement searchField = driver.findElement(By.xpath("//input[@role='combobox']"));
+        searchField.sendKeys("Engineering");
+        WebElement fieldLocation = driver.findElement(By.xpath("//button[@type='button']/div"));
+        fieldLocation.click();
+        WebElement fieldCity = driver.findElement(By.xpath("//input[@placeholder='City']"));
+        fieldCity.sendKeys("Seattle");
+        WebElement city = driver.findElement(By.xpath("//span[text()='Seattle']"));
+        city.click();
+        WebElement find = driver.findElement(By.xpath("//button[text()='Find']"));
+        find.click();
+
+        Assert.assertEquals(driver.getCurrentUrl(), "https://humans.net/findwork/all/any/Seattle%20WA/?q=Engineering");
     }
 
 
