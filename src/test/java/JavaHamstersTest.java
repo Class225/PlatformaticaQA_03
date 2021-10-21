@@ -21,6 +21,7 @@ public class JavaHamstersTest {
 
     private final String URL_IK = "https://www.vprok.ru/";
     private static final String MAIN_PAGE_URL = "http://automationpractice.com/index.php";
+    private static final String SAUSEDEMO_URL = "https://www.saucedemo.com/";
 
     WebDriver driver;
 
@@ -59,13 +60,14 @@ public class JavaHamstersTest {
 
     }
 
-    //Verification of successful logging in
+/*    Tests for SauceDemo url: Pavel and Maxim
+           Verification of successful logging in*/
     @Test
     public void testPavelSipatyLogInSuccess() {
 
         String expectedUrl = "https://www.saucedemo.com/inventory.html";
 
-        driver.get("https://www.saucedemo.com/");
+        driver.get(SAUSEDEMO_URL);
         WebElement username = driver.findElement(By.xpath("//input[@id='user-name']"));
         WebElement password = driver.findElement(By.xpath("//input[@id='password']"));
 
@@ -75,6 +77,66 @@ public class JavaHamstersTest {
         driver.findElement(By.xpath("//input[@id='login-button']")).click();
 
         Assert.assertEquals(driver.getCurrentUrl(), expectedUrl);
+    }
+    //add to cart all element
+    @Test
+    public void testAddToCartAllElementsMaximGolubtsov() {
+        driver.get(SAUSEDEMO_URL);
+        WebElement login = driver.findElement(By.xpath("//input[@id='user-name']"));
+        WebElement password = driver.findElement(By.xpath("//input[@id='password']"));
+        WebElement button = driver.findElement(By.xpath("//input[@id='login-button']"));
+
+        login.sendKeys("standard_user");
+        password.sendKeys("secret_sauce");
+        button.click();
+
+        List<WebElement> addToCart = driver.findElements(By.xpath("//button[text()='Add to cart']"));
+        for (int i = 0; i<addToCart.size(); i++) {
+            addToCart.get(i).click();
+        }
+        WebElement cartCount = driver.findElement(By.xpath("//span[text()='6']"));
+        Assert.assertTrue(cartCount.getText().contains("6"));
+    }
+    //E2E user flow test
+    @Test
+    public void testUserFlowMaximGolubtsov() {
+        driver.get(SAUSEDEMO_URL);
+        WebElement login = driver.findElement(By.xpath("//input[@id='user-name']"));
+        WebElement password = driver.findElement(By.xpath("//input[@id='password']"));
+        WebElement button = driver.findElement(By.xpath("//input[@id='login-button']"));
+
+        login.sendKeys("standard_user");
+        password.sendKeys("secret_sauce");
+        button.click();
+
+        WebElement addToCart = driver.findElement(By.id("add-to-cart-sauce-labs-backpack"));
+        WebElement cart = driver.findElement(By.xpath("//div[@id='shopping_cart_container']"));
+
+        addToCart.click();
+        cart.click();
+
+        WebElement checkoutButton = driver.findElement(By.xpath("//button[text()='Checkout']"));
+        checkoutButton.click();
+
+        WebElement firstName = driver.findElement(By.id("first-name"));
+        WebElement lastName = driver.findElement(By.id("last-name"));
+        WebElement postalCode = driver.findElement(By.id("postal-code"));
+
+        firstName.sendKeys("Anton");
+        lastName.sendKeys("Petrov");
+        postalCode.sendKeys("425430");
+
+        WebElement continueButton = driver.findElement(By.id("continue"));
+
+        continueButton.click();
+
+        WebElement finishButton = driver.findElement(By.xpath("//button[text()='Finish']"));
+
+        finishButton.click();
+
+        WebElement actualResult = driver.findElement(By.xpath("//h2[text()='THANK YOU FOR YOUR ORDER']"));
+
+        Assert.assertTrue(actualResult.getText().contains("THANK YOU FOR YOUR ORDER"));
     }
 
 
