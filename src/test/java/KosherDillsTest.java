@@ -1,6 +1,7 @@
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -11,32 +12,32 @@ import java.util.concurrent.TimeUnit;
 
 public class KosherDillsTest {
 
-    private WebDriver driver;
+    private WebDriver dills;
 
     @BeforeMethod
     public void setUp() {
         WebDriverManager.chromedriver().setup();
 
-        driver = new ChromeDriver();
+        dills = new ChromeDriver();
 
-        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-        driver.manage().window().maximize();
+        dills.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        dills.manage().window().maximize();
     }
 
     @AfterMethod
 
     public void shutDown() throws InterruptedException {
-        driver.quit();
+        dills.quit();
     }
 
     @Test
     public void testGoogleSearch() {
 
-        driver.get("https://www.google.com");
-        driver.findElement(By.xpath("//input[@title='Search']"))
+        dills.get("https://www.google.com");
+        dills.findElement(By.xpath("//input[@title='Search']"))
                 .sendKeys("RuAmerica" + "\n");
 
-        Assert.assertEquals(driver
+        Assert.assertEquals(dills
                 .findElement(By.xpath("//cite[text()='https://ruamerica.com']"))
                 .getText(), "https://ruamerica.com");
 
