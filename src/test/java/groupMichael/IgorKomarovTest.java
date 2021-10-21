@@ -36,12 +36,12 @@ public class IgorKomarovTest {
     }
 
     @Test
-    public void verifyHeader() {
+    public void testVerifyHeader() {
         Assert.assertEquals(homePage.getHeaderText(), "Book Store");
     }
 
     @Test
-    public void verifyBooks() {
+    public void testVerifyBooks() {
         List<String> booksNameList = new ArrayList<>();
         List<String> booksAuthorList = new ArrayList<>();
         List<String> booksPublisherList = new ArrayList<>();
@@ -78,7 +78,7 @@ public class IgorKomarovTest {
     }
 
     @Test
-    public void verifySearchPositive() {
+    public void testVerifySearchPositive() {
         homePage.setSearchField("Git");
 
         List<WebElement> resultList = homePage.getBooks();
@@ -92,7 +92,7 @@ public class IgorKomarovTest {
     }
 
     @Test
-    public void verifySearchNegative() {
+    public void testVerifySearchNegative() {
         homePage.setSearchField("nothing");
         List<WebElement> resultList = homePage.getBooks();
 
@@ -104,7 +104,7 @@ public class IgorKomarovTest {
     }
 
     @Test
-    public void verifyPagination() {
+    public void testVerifyPagination() {
 
         final int[] SIZES = {5, 10, 20, 25, 50, 100};
 
