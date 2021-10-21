@@ -1,12 +1,15 @@
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import javax.swing.*;
 import java.util.concurrent.TimeUnit;
 
 public class KosherDillsTest {
@@ -40,5 +43,20 @@ public class KosherDillsTest {
                 .findElement(By.xpath("//cite[text()='https://ruamerica.com']"))
                 .getText(), "https://ruamerica.com");
 
+    }
+
+    @Test
+    public void testDropDownSelect() {
+
+        Actions action = new Actions(driver);
+        driver.get("https://www.amazon.com");
+
+        WebElement select = driver.findElement(By.xpath("//*[@id='nav-link-accountList']"));
+        action.moveToElement(select).perform();
+        driver.findElement(By.xpath("//*[@id='nav-al-wishlist']/a[3]")).click();
+
+        Assert.assertEquals(driver
+                .findElement(By.xpath("//*[@id='ge-stories']/div[1]/h2"))
+                .getText(), "Over 1 million charities. See their stories.");
     }
 }
