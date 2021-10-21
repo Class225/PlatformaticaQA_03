@@ -25,7 +25,7 @@ public class KosherDillsTest {
 
     @AfterMethod
 
-    public void shutDown() throws InterruptedException {
+    public void shutDown() {
         driver.quit();
     }
 
