@@ -7,26 +7,23 @@ import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class NoGrValeriyKanTest {
+    private static final String URL_NBA_STORE = "https://store.nba.com/";
+    private static final By TOP_NAV_MEN = By.id("1");
+    private static final By TOP_NAV_WOMEN_XPATH = By.xpath("//a[@aria-label='women']");
+    private static final By LIST_ITEM_HEADER_CLASSNAME = By.className("breadcrumb-text");
+    private static final By SEARCH_FIELD = By.id("typeahead-input-desktop");
+    private static final By SEARCH_RESULT_ITEMS = By.xpath("//a[@data-talos = 'linkSearchResult']");
+
+    private static final String MEN = "MEN";
+    private static final String WOMEN = "WOMEN";
+    private static final String SEARCH_PRODUCT_NAME = "shorts\n";
+
     private WebDriver driver;
-    private final String URL_NBA_STORE = "https://store.nba.com/";
-    private final By TOP_NAV_MEN = By.id("1");//men
-    private final By TOP_NAV_WOMEN = By.id("2");//women
-    private final By TOP_NAV_KIDS = By.id("4");//kids
-    private final By TOP_NAV_MEN_XPATH = By.xpath("//a[@aria-label='men']");
-    private final By TOP_NAV_WOMEN_XPATH = By.xpath("//a[@aria-label='women']");
-    private final By TOP_NAV_KIDS_XPATH = By.xpath("//a[@aria-label='kids']");
-    private final By LIST_ITEM_HEADER_CLASSNAME = By.className("breadcrumb-text");
-    private final By SEARCH_FIELD = By.id("typeahead-input-desktop");
-    private final By SEARCH_RESULT_ITEMS = By.xpath("//a[@data-talos = 'linkSearchResult']");
-    private final String MEN = "MEN";
-    private final String WOMEN = "WOMEN";
-    private final String KIDS = "KIDS";
-    private final String SEARCH_PRODUCT_NAME = "shorts\n";
-    private String expectedResult;
 
     @BeforeMethod
     public void setUp() {
@@ -44,7 +41,6 @@ public class NoGrValeriyKanTest {
     @Test
     public void testValeriyKanMenuMen() throws InterruptedException {
         driver.get(URL_NBA_STORE);
-        expectedResult = MEN;
 
         WebElement menMenu = driver.findElement(TOP_NAV_MEN);
         Thread.sleep(3000);
@@ -55,13 +51,12 @@ public class NoGrValeriyKanTest {
         WebElement men = driver.findElement(LIST_ITEM_HEADER_CLASSNAME);
         String actualResult = men.getText();
 
-        Assert.assertEquals(actualResult, expectedResult);
+        Assert.assertEquals(actualResult, MEN);
     }
 
     @Test
     public void testValeriyKanMenuWomen() throws InterruptedException {
         driver.get(URL_NBA_STORE);
-        expectedResult = WOMEN;
 
         WebElement womenMenu = driver.findElement(TOP_NAV_WOMEN_XPATH);
         Thread.sleep(3000);
@@ -73,7 +68,7 @@ public class NoGrValeriyKanTest {
 
         String actualResult = women.getText();
 
-        Assert.assertEquals(actualResult, expectedResult);
+        Assert.assertEquals(actualResult, WOMEN);
     }
 
     @Test

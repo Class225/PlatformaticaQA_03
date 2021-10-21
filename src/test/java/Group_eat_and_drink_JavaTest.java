@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
-public class Group_eat_and_drink_Java {
+public class Group_eat_and_drink_JavaTest {
     // ----  ARANGE  ----
     private WebDriver driver;
     String MainUrl = "https://askent.ru/";
@@ -362,6 +362,48 @@ public class Group_eat_and_drink_Java {
         WebElement error = driver.findElement(By.xpath("//span[@class='alert-inline__message']"));
         Assert.assertEquals(error.getText(), "For your protection, we've locked your account for a short period of time. You may try logging in again in 15 minutes. If you've forgotten your password, you may change it using the link below.");
 
+    }
+
+    @Test
+    public void SergeyBrigSearchTest() {
+
+        driver.get("https://www.webstaurantstore.com");
+
+        final String searchText = "fork";
+        driver.findElement(By.id("searchval")).sendKeys(searchText + "\n");
+        List<WebElement> itemList = driver.findElements(By.xpath("//div/a[@data-testid='itemDescription']"));
+        for (int i = 0; i < itemList.size(); i++) {
+            Assert.assertTrue(itemList.get(i).getText().toLowerCase().contains(searchText));
+        }
+    }
+
+    @Test
+    public void SergeyBrigBrandMenuTest() {
+        driver.get("https://www.webstaurantstore.com");
+
+        driver.findElement(By.xpath("//a[@title='Amana Commercial Microwaves']")).click();
+
+        List<WebElement> brandList = driver.findElements(By.xpath("//p[@class = 'description category_name']"));
+        for (int i = 0; i < brandList.size(); i++) {
+            Assert.assertTrue(brandList.get(i).getText().toLowerCase().contains("amana"));
+        }
+    }
+    @Test
+    public void testSearchFieldFindJobTatianaT() {
+        driver.get("https://humans.net/");
+
+        WebElement searchField = driver.findElement(By.xpath("//input[@role='combobox']"));
+        searchField.sendKeys("Engineering");
+        WebElement fieldLocation = driver.findElement(By.xpath("//button[@type='button']/div"));
+        fieldLocation.click();
+        WebElement fieldCity = driver.findElement(By.xpath("//input[@placeholder='City']"));
+        fieldCity.sendKeys("Seattle");
+        WebElement city = driver.findElement(By.xpath("//span[text()='Seattle']"));
+        city.click();
+        WebElement find = driver.findElement(By.xpath("//button[text()='Find']"));
+        find.click();
+
+        Assert.assertEquals(driver.getCurrentUrl(), "https://humans.net/findwork/all/any/Seattle%20WA/?q=Engineering");
     }
 
 
