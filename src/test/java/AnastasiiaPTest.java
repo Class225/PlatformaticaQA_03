@@ -62,7 +62,6 @@ public class AnastasiiaPTest {
 
         Assert.assertEquals(actualResult.getText(), expectedResult);
     }
-}
 
     @Test
     public void testAvailabilityMenuButtons() {

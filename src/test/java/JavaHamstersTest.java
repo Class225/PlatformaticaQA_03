@@ -61,7 +61,9 @@ public class JavaHamstersTest {
     }
 
 /*    Tests for SauceDemo url: Pavel and Maxim
-           Verification of successful logging in*/
+*/
+
+    //Verification of successful logging in
     @Test
     public void testPavelSipatyLogInSuccess() {
 
@@ -137,6 +139,23 @@ public class JavaHamstersTest {
         WebElement actualResult = driver.findElement(By.xpath("//h2[text()='THANK YOU FOR YOUR ORDER']"));
 
         Assert.assertTrue(actualResult.getText().contains("THANK YOU FOR YOUR ORDER"));
+    }
+    //login locked out user
+    @Test
+    public void testLoginLockedUserMaximGolubtsov() {
+        driver.get(SAUSEDEMO_URL);
+        WebElement login = driver.findElement(By.xpath("//input[@id='user-name']"));
+        WebElement password = driver.findElement(By.xpath("//input[@id='password']"));
+        WebElement button = driver.findElement(By.xpath("//input[@id='login-button']"));
+
+        login.sendKeys("locked_out_user");
+        password.sendKeys("secret_sauce");
+        button.click();
+
+        WebElement error = driver.findElement(By.xpath("//h3[text()='Epic sadface: Sorry, this user has been locked out.']"));
+        Assert.assertTrue(error.getText().contains("Epic sadface: Sorry, this user has been locked out"));
+
+
     }
 
 
