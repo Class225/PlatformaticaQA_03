@@ -8,8 +8,6 @@ import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-
-import javax.swing.*;
 import java.util.concurrent.TimeUnit;
 
 public class KosherDillsTest {
@@ -36,8 +34,8 @@ public class KosherDillsTest {
     public void testGoogleSearch() {
 
         driver.get("https://www.google.com");
-        driver.findElement(By.xpath("//input[@title='Search']"))
-                .sendKeys("RuAmerica" + "\n");
+        driver.findElement(By.xpath("//input[@class='gLFyf gsfi']"))
+                .sendKeys("RuAmerica\n");
 
         Assert.assertEquals(driver
                 .findElement(By.xpath("//cite[text()='https://ruamerica.com']"))
