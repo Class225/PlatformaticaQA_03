@@ -7,12 +7,14 @@ import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-public class BugBustersTest {
 
-    private WebDriver driver;
+public class GroupBugBustersTest {
+    public final String URL = "https://breadtopia.com/";
+
+    WebDriver driver;
     WebDriverWait wait;
     JavascriptExecutor js;
 
@@ -23,9 +25,9 @@ public class BugBustersTest {
     }
 
     @BeforeMethod
-    public void setUp() {
-        WebDriverManager.chromedriver().setup();
+    void start() {
 
+        WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         js = (JavascriptExecutor) driver;
 
@@ -35,8 +37,51 @@ public class BugBustersTest {
     }
 
     @AfterMethod
-    public void setDown() {
+    void close() {
         driver.quit();
+    }
+
+    @Test
+    public void testNatalliaMarkhotka_ValidateMainPage() {
+        driver.get(URL);
+
+        List<WebElement> images = driver.findElements(By.xpath("//div[@id='post-53473']/div[1]/ div"));
+        int numberOfImages = images.size();
+        Assert.assertEquals(numberOfImages, 4);
+
+    }
+
+    @Test
+    public void testNatalliaMarkhotka_CreateAccount() {
+        driver.get(URL);
+
+        WebElement myAccount = driver.findElement(By.id("menu-item-261238"));
+
+        myAccount.click();
+        driver.navigate().to("https://breadtopia.com/my-account/");
+
+        WebElement username_F = driver.findElement(By.id("username"));
+        WebElement password_F = driver.findElement(By.id("password"));
+        WebElement login_B = driver.findElement(By.name("login"));
+
+        username_F.sendKeys("snezhnaja10@gmail.com");
+        password_F.sendKeys("QweAsd123!@#");
+        login_B.click();
+        WebElement greetings = driver.findElement(By.xpath("//span[@class='nm-username']"));
+
+        Assert.assertEquals(greetings.getText(), "Hello Katerina");
+
+    }
+
+    @Test
+    public void testSearchNelyaLuchynets(){ //Nelya Luchynets
+        driver.get("https://www.walgreens.com/");
+
+        WebElement input = driver.findElement(By.xpath("//input[@id='ntt-placeholder']"));
+        input.sendKeys("vitamin\n");
+
+        WebElement result = driver.findElement(By.xpath("//h1[@class='h1__page-title']"));
+        Assert.assertEquals(result.getText(),"Vitamins and Supplements");
     }
 
     @Test
