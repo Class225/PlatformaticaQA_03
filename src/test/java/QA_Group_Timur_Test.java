@@ -156,7 +156,7 @@ public class QA_Group_Timur_Test {
     }
 
     @Test
-    public void Hlopuska() throws InterruptedException {
+    public void Hlopushka() throws InterruptedException {
 
         driver.get("https://naverisk.com/");
         JavascriptExecutor scrollingPage = (JavascriptExecutor) driver;
@@ -175,12 +175,10 @@ public class QA_Group_Timur_Test {
         driver.findElement(By.linkText("Contact us")).click();
         scrollingPage.executeScript("window.scrollBy(0,500)", "");
 
-        //To get && compare title
         String actualTitle = driver.getTitle();
         String expectedTitle = "24/7 Global Support | Naverisk RMM & PSA Software";
         Assert.assertEquals(actualTitle, expectedTitle);
 
-        //To accept cookies
         WebElement acceptCookie = driver.findElement(By.id("cn-accept-cookie"));
         acceptCookie.click();
     }
