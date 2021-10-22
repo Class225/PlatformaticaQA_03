@@ -5,6 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -77,5 +78,16 @@ public class GroupMichaelTest {
         lastname.sendKeys("5678");
         WebElement genderF = driver.findElement(By.xpath("//input[@name='gender'][@value='Female']"));
         driver.findElement(By.xpath("//label[contains(text(),'Female')]")).click();
+    }
+
+    @Test
+    public void testEvgeniyaPiskunovaCartEmpty() {
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        driver.get("https://sunduchokknig.com/cart");
+        String expetedResult = "Ваша корзина пуста";
+        String actual = driver
+                .findElement(By.xpath("//*[@class='cart--empty-message']"))
+                .getText();
+        Assert.assertEquals(actual, expetedResult);
     }
 }
