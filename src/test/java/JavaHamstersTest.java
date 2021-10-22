@@ -158,6 +158,7 @@ public class JavaHamstersTest {
 
 
     }
+    //test Z to A dropdown list
     @Test
     public void testZTADropDownListMaximGolubtsov() {
         driver.get(SAUSEDEMO_URL);
@@ -175,6 +176,7 @@ public class JavaHamstersTest {
         WebElement zElement = driver.findElement(By.xpath("//div[text()='Test.allTheThings() T-Shirt (Red)']"));
         Assert.assertTrue(zElement.getText().contains("Test"));
     }
+    //test low to high dropdown list
     @Test
     public void testLowToHighDropDownListMaximGolubtsov() {
         driver.get(SAUSEDEMO_URL);
@@ -189,7 +191,50 @@ public class JavaHamstersTest {
         WebElement dropDownList = driver.findElement(By.xpath("//select[@class='product_sort_container']"));
         Select selectDropDown = new Select(dropDownList);
         selectDropDown.selectByValue("lohi");
-        WebElement firstElement = driver.findElement(By.xpath("//div[@class='inventory_item_price']"));
+        List<WebElement> productPrice = driver.findElements(By.xpath("//div[@class='inventory_item_price']"));
+
+        String prise1 = productPrice.get(0).getText();
+        String prise2 = productPrice.get(productPrice.size()-1).getText();
+
+        double priceDouble1 = Double.parseDouble(prise1.replaceAll("[^.0-9]", ""));
+        double priceDouble2 = Double.parseDouble(prise2.replaceAll("[^.0-9]", ""));
+
+        System.out.println(priceDouble1 + " < " + priceDouble2);
+
+        Assert.assertTrue(priceDouble1 < priceDouble2);
+
+
+
+
+    }
+    // test high to low dropdown list
+    @Test
+    public void testHighToLowDropDownListMaximGolubtsov() {
+        driver.get(SAUSEDEMO_URL);
+        WebElement login = driver.findElement(By.xpath("//input[@id='user-name']"));
+        WebElement password = driver.findElement(By.xpath("//input[@id='password']"));
+        WebElement button = driver.findElement(By.xpath("//input[@id='login-button']"));
+
+        login.sendKeys("standard_user");
+        password.sendKeys("secret_sauce");
+        button.click();
+
+        WebElement dropDownList = driver.findElement(By.xpath("//select[@class='product_sort_container']"));
+        Select selectDropDown = new Select(dropDownList);
+        selectDropDown.selectByValue("hilo");
+        List<WebElement> productPrice = driver.findElements(By.xpath("//div[@class='inventory_item_price']"));
+
+        String prise1 = productPrice.get(0).getText();
+        String prise2 = productPrice.get(productPrice.size()-1).getText();
+
+        double priceDouble1 = Double.parseDouble(prise1.replaceAll("[^.0-9]", ""));
+        double priceDouble2 = Double.parseDouble(prise2.replaceAll("[^.0-9]", ""));
+
+        System.out.println(priceDouble1 + " > " + priceDouble2);
+
+        Assert.assertTrue(priceDouble1 > priceDouble2);
+
+
 
 
     }
