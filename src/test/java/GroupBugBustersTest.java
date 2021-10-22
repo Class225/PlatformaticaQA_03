@@ -2,6 +2,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -50,15 +51,12 @@ public class GroupBugBustersTest {
         Assert.assertEquals(numberOfImages, 4);
 
     }
-
-    @Test
-    public void testNatalliaMarkhotka_CreateAccount() {
+    public void UtilMethod_NatalliaMarkhotka_Login() {
         driver.get(URL);
 
         WebElement myAccount = driver.findElement(By.id("menu-item-261238"));
 
         myAccount.click();
-        driver.navigate().to("https://breadtopia.com/my-account/");
 
         WebElement username_F = driver.findElement(By.id("username"));
         WebElement password_F = driver.findElement(By.id("password"));
@@ -67,6 +65,13 @@ public class GroupBugBustersTest {
         username_F.sendKeys("snezhnaja10@gmail.com");
         password_F.sendKeys("QweAsd123!@#");
         login_B.click();
+        }
+
+    @Test
+    public void testNatalliaMarkhotka_Login() {
+
+        UtilMethod_NatalliaMarkhotka_Login();
+
         WebElement greetings = driver.findElement(By.xpath("//span[@class='nm-username']"));
 
         Assert.assertEquals(greetings.getText(), "Hello Katerina");
@@ -154,5 +159,61 @@ public class GroupBugBustersTest {
         Assert.assertEquals(error.getText(), "Invalid login name / email or password.\n" +
                 "\n" +
                 "Sorry, there have too many attempts from this IP lately and the cows are tired. Please try again a minute later");
+    }
+
+    @Test
+    public void NatalliaMarkhotka_Logout() {
+        UtilMethod_NatalliaMarkhotka_Login();
+
+        WebElement logout_F = driver.findElement(By.xpath("//li/a[text() ='Logout']"));
+
+        logout_F.click();
+        WebElement title = driver.findElement(By.cssSelector("#nm-login-wrap h2"));
+        Assert.assertEquals(title.getText(), "Log in");
+
+    }
+
+    public void explicitWait(int millisec) {
+        try {
+            Thread.sleep(millisec);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    @Test
+    public void NatalliaMarkhotka_AddingToWishList() {
+        driver.get(URL);
+
+        WebElement shop_L = driver.findElement(By.id("menu-item-261990"));
+
+        shop_L.click();
+
+        WebElement bakingSupplies_L = driver.findElement(By.xpath("//img[@alt='Baking Tools & Supplies']"));
+
+        bakingSupplies_L.click();
+
+        WebElement proofingBaskets_L = driver.findElement(By.xpath("//img[@alt='Proofing Baskets']"));
+
+        wait.until(ExpectedConditions.elementToBeClickable(proofingBaskets_L));
+        explicitWait(1000);
+
+        proofingBaskets_L.click();
+
+        WebElement addToWishListSecondElement = driver.findElement(By.id("nm-wishlist-item-96536-button"));
+        WebElement wishListCount = driver.findElement(By.xpath("//nav//span[@class = 'nm-menu-wishlist-count']"));
+
+        Assert.assertEquals(wishListCount.getText(), "0");
+
+        wait.until(ExpectedConditions.elementToBeClickable(addToWishListSecondElement));
+        explicitWait(1000);
+
+        addToWishListSecondElement.click();
+
+        boolean isPresent = driver.findElements(By.xpath("//a[@class ='nm-wishlist-button nm-wishlist-item-96536-button added']")).size() > 0;
+        WebElement addedToWithList = driver.findElement(By.xpath("//a[@class ='nm-wishlist-button nm-wishlist-item-96536-button added']"));
+
+        Assert.assertTrue(isPresent);
+        Assert.assertEquals(wishListCount.getText(), "1");
     }
 }
