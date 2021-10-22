@@ -6,6 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -152,11 +153,47 @@ public class JavaHamstersTest {
         password.sendKeys("secret_sauce");
         button.click();
 
-        WebElement error = driver.findElement(By.xpath("//h3[text()='Epic sadface: Sorry, this user has been locked out.']"));
+        WebElement error = driver.findElement(By.xpath("//h3[@data-test='error']"));
         Assert.assertTrue(error.getText().contains("Epic sadface: Sorry, this user has been locked out"));
 
 
     }
+    @Test
+    public void testZTADropDownListMaximGolubtsov() {
+        driver.get(SAUSEDEMO_URL);
+        WebElement login = driver.findElement(By.xpath("//input[@id='user-name']"));
+        WebElement password = driver.findElement(By.xpath("//input[@id='password']"));
+        WebElement button = driver.findElement(By.xpath("//input[@id='login-button']"));
+
+        login.sendKeys("standard_user");
+        password.sendKeys("secret_sauce");
+        button.click();
+
+        WebElement dropDownList = driver.findElement(By.xpath("//select[@class='product_sort_container']"));
+        Select selectDropDown = new Select(dropDownList);
+        selectDropDown.selectByValue("za");
+        WebElement zElement = driver.findElement(By.xpath("//div[text()='Test.allTheThings() T-Shirt (Red)']"));
+        Assert.assertTrue(zElement.getText().contains("Test"));
+    }
+    @Test
+    public void testLowToHighDropDownListMaximGolubtsov() {
+        driver.get(SAUSEDEMO_URL);
+        WebElement login = driver.findElement(By.xpath("//input[@id='user-name']"));
+        WebElement password = driver.findElement(By.xpath("//input[@id='password']"));
+        WebElement button = driver.findElement(By.xpath("//input[@id='login-button']"));
+
+        login.sendKeys("standard_user");
+        password.sendKeys("secret_sauce");
+        button.click();
+
+        WebElement dropDownList = driver.findElement(By.xpath("//select[@class='product_sort_container']"));
+        Select selectDropDown = new Select(dropDownList);
+        selectDropDown.selectByValue("lohi");
+        WebElement firstElement = driver.findElement(By.xpath("//div[@class='inventory_item_price']"));
+
+
+    }
+
 
 
     @Test
