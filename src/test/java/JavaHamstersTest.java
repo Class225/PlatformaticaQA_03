@@ -41,7 +41,6 @@ public class JavaHamstersTest {
         driver.quit();
     }
 
-    //Verification of search result
     @Test
     public void testPavelSipatySearchResult() {
 
@@ -60,9 +59,7 @@ public class JavaHamstersTest {
         }
 
     }
-/*    Tests for SauceDemo url: Pavel and Maxim
-*/
-    //Verification of successful logging in
+
     @Test
     public void testPavelSipatyLogInSuccess() {
 
@@ -79,7 +76,7 @@ public class JavaHamstersTest {
 
         Assert.assertEquals(driver.getCurrentUrl(), expectedUrl);
     }
-    //add to cart all element
+
     @Test
     public void testAddToCartAllElementsMaximGolubtsov() {
         driver.get(SAUSEDEMO_URL);
@@ -98,7 +95,7 @@ public class JavaHamstersTest {
         WebElement cartCount = driver.findElement(By.xpath("//span[text()='6']"));
         Assert.assertTrue(cartCount.getText().contains("6"));
     }
-    //E2E user flow test
+
     @Test
     public void testUserFlowMaximGolubtsov() {
         driver.get(SAUSEDEMO_URL);
@@ -139,7 +136,7 @@ public class JavaHamstersTest {
 
         Assert.assertTrue(actualResult.getText().contains("THANK YOU FOR YOUR ORDER"));
     }
-    //login locked out user
+
     @Test
     public void testLoginLockedUserMaximGolubtsov() {
         driver.get(SAUSEDEMO_URL);
@@ -154,7 +151,7 @@ public class JavaHamstersTest {
         WebElement error = driver.findElement(By.xpath("//h3[@data-test='error']"));
         Assert.assertTrue(error.getText().contains("Epic sadface: Sorry, this user has been locked out"));
     }
-    //test Z to A dropdown list
+
     @Test
     public void testZTADropDownListMaximGolubtsov() {
         driver.get(SAUSEDEMO_URL);
@@ -173,7 +170,7 @@ public class JavaHamstersTest {
 
         Assert.assertTrue(zElement.getText().contains("Test"));
     }
-    //test low to high dropdown list
+
     @Test
     public void testLowToHighDropDownListMaximGolubtsov() {
         driver.get(SAUSEDEMO_URL);
@@ -200,7 +197,7 @@ public class JavaHamstersTest {
 
         Assert.assertTrue(priceDouble1 < priceDouble2);
     }
-    // test high to low dropdown list
+
     @Test
     public void testHighToLowDropDownListMaximGolubtsov() {
         driver.get(SAUSEDEMO_URL);
