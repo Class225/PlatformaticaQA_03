@@ -13,14 +13,13 @@ import java.util.concurrent.TimeUnit;
 public class LarisaM_Test {
 
     private WebDriver driver;
-    private final String URL_PLAYGROUND = "http://uitestingplayground.com/";
-    private final String URL_MDN = "https://developer.mozilla.org/en-US/";
-    private final By RESOURCES_LINK_XPATH = By.xpath("//a[@href='/resources']");
-    private final By LINK_ON_SITE_3SCL_XPATH = By.xpath("//a[@href='https://www.w3schools.com']");
-    private final By NAV_BUTTON = By.xpath("//a[@id='navbtn_references']");
-    private final By LINK_ON_SITE_MDN_XPATH = By.xpath("//a[contains(text(),'MDN')]");
-    private final String REFERENCES = "References";
-    private String expectedResult;
+    private static final String URL_PLAYGROUND = "http://uitestingplayground.com/";
+    private static final String URL_MDN = "https://developer.mozilla.org/en-US/";
+    private static final By RESOURCES_LINK_XPATH = By.xpath("//a[@href='/resources']");
+    private static final By LINK_ON_SITE_3SCL_XPATH = By.xpath("//a[@href='https://www.w3schools.com']");
+    private static final By NAV_BUTTON = By.xpath("//a[@id='navbtn_references']");
+    private static final By LINK_ON_SITE_MDN_XPATH = By.xpath("//a[contains(text(),'MDN')]");
+    private static final String REFERENCES = "References";
 
     @BeforeMethod
     public void setUp(){
@@ -42,7 +41,6 @@ public class LarisaM_Test {
     public void testLarisaMalushkinaGetElementCheckBox() {
 
         driver.get(URL_PLAYGROUND);
-        expectedResult = REFERENCES;
 
         WebElement goResources = driver.findElement(RESOURCES_LINK_XPATH);
         goResources.click();
@@ -50,21 +48,20 @@ public class LarisaM_Test {
         openSite3Scl.click();
         WebElement actualResult = driver.findElement(NAV_BUTTON);
 
-        Assert.assertEquals(actualResult.getText(),expectedResult);
+        Assert.assertEquals(actualResult.getText(),REFERENCES);
     }
 
     @Test
     public void testLarisaMalushkinaGetDynamicTable() {
 
         driver.get(URL_PLAYGROUND);
-        expectedResult = URL_MDN;
 
         WebElement goResources = driver.findElement(RESOURCES_LINK_XPATH);
         goResources.click();
         WebElement openSiteMDN = driver.findElement(LINK_ON_SITE_MDN_XPATH);
         openSiteMDN.click();
 
-        Assert.assertEquals(driver.getCurrentUrl(), expectedResult);
+        Assert.assertEquals(driver.getCurrentUrl(), URL_MDN);
     }
 }
 
