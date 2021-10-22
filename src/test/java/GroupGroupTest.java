@@ -266,5 +266,21 @@ public class GroupGroupTest {
 
     }
 
+        @Test
+        public void OlenaYermakova() {
+            driver.get("https://www.webstaurantstore.com/");
+            driver.findElement(By.cssSelector("#searchval")).sendKeys("oven\n");
 
-}
+            List<WebElement> itemList = driver.findElements(By.xpath("//a[@data-testid = 'itemDescription']"));
+            for(int i = 0;i < itemList.size(); i++) {
+                Assert.assertTrue(itemList.get(i).getText().toLowerCase().contains("oven"));
+            }
+
+
+
+        }
+
+    }
+
+
+
