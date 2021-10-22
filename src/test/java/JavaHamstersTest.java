@@ -60,10 +60,8 @@ public class JavaHamstersTest {
         }
 
     }
-
 /*    Tests for SauceDemo url: Pavel and Maxim
 */
-
     //Verification of successful logging in
     @Test
     public void testPavelSipatyLogInSuccess() {
@@ -233,13 +231,7 @@ public class JavaHamstersTest {
         System.out.println(priceDouble1 + " > " + priceDouble2);
 
         Assert.assertTrue(priceDouble1 > priceDouble2);
-
-
-
-
     }
-
-
 
     @Test
     public void IlyaKorolkovPopUpExistsTest() {
@@ -486,6 +478,7 @@ public class JavaHamstersTest {
         Assert.assertEquals(error.getText(), "Please select a subject from the list provided.");
 
     }
+
     @Test
     public void testLogInWrongCredentialsAlexKapran () {
 
@@ -506,6 +499,7 @@ public class JavaHamstersTest {
         WebElement error = driver.findElement(By.xpath("//div[@class='error_explanation']/p"));
         Assert.assertEquals(error.getText(), "Wrong email or password.");
     }
+
     @Test
     public void testSearchAlexKapran(){
         driver.get("https://www.theperfectloaf.com/");
