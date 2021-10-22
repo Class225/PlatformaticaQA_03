@@ -31,7 +31,7 @@ public class GalinaKTest {
     }
 
     @Test
-    public void testBaloonFiestaSite() throws InterruptedException {
+    public void testBaloonFiestaGalinaK() {
         driver.get(URL);
 
         WebElement menuNews = driver.findElement(By.xpath("//a[@href='News-Updates']"));
@@ -53,7 +53,7 @@ public class GalinaKTest {
     }
 
     @Test
-    public void testSearch() throws InterruptedException {
+    public void testSearchGalinaK() {
         driver.get(URL);
 
         WebElement searchButton = driver.findElement(By.xpath("//div[contains(text(),'Search')]"));
