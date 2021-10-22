@@ -135,7 +135,7 @@ public class JavaHamstersTest {
         changeRegionButton.click();
 
         List<WebElement> regionsCount = driver.findElements(By.xpath(
-                "//div/a[@class=\"xf-popup-polygons__region xf-popup-polygons__region-online\"]"));
+                "//div/a[contains(@class, 'change-region__region') and contains(@class, 'change-region__region-online')]"));
         int actualRegionsCount = regionsCount.size();
         int expectedRegionsCount = 55; //ожидаемое на момент реализации теста
 
