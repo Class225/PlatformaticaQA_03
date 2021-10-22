@@ -153,8 +153,6 @@ public class JavaHamstersTest {
 
         WebElement error = driver.findElement(By.xpath("//h3[@data-test='error']"));
         Assert.assertTrue(error.getText().contains("Epic sadface: Sorry, this user has been locked out"));
-
-
     }
     //test Z to A dropdown list
     @Test
@@ -172,6 +170,7 @@ public class JavaHamstersTest {
         Select selectDropDown = new Select(dropDownList);
         selectDropDown.selectByValue("za");
         WebElement zElement = driver.findElement(By.xpath("//div[text()='Test.allTheThings() T-Shirt (Red)']"));
+
         Assert.assertTrue(zElement.getText().contains("Test"));
     }
     //test low to high dropdown list
@@ -200,10 +199,6 @@ public class JavaHamstersTest {
         System.out.println(priceDouble1 + " < " + priceDouble2);
 
         Assert.assertTrue(priceDouble1 < priceDouble2);
-
-
-
-
     }
     // test high to low dropdown list
     @Test
