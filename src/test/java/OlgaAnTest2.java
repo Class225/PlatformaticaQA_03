@@ -1,3 +1,4 @@
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -15,8 +16,8 @@ public class OlgaAnTest2 {
 
     @BeforeMethod
     public void setUp () {
+        WebDriverManager.chromedriver().setup();
         driverChr = new ChromeDriver();
-
         driverChr.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
         driverChr.manage().window().maximize();
     }
