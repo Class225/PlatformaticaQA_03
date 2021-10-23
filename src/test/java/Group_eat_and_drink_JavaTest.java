@@ -11,11 +11,12 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
+
+import static org.testng.Assert.assertEquals;
 
 public class Group_eat_and_drink_JavaTest {
     // ----  ARANGE  ----
@@ -237,7 +238,7 @@ public class Group_eat_and_drink_JavaTest {
         String URL = "https://www.w3schools.com/";
         driver.get(URL);
     }
-  
+
     public void completeExerciseCorrect() {
 
         WebElement learnJava = driver.findElement(By.xpath("//*[@id=\"main\"]/div[6]/div/div[3]/div/a"));
@@ -247,7 +248,7 @@ public class Group_eat_and_drink_JavaTest {
         driver.findElement(EXERCISE3).sendKeys("println");
     }
 
-    public void completeExerciseIncorrect(){
+    public void completeExerciseIncorrect() {
 
         WebElement learnJava = driver.findElement(By.xpath("//*[@id=\"main\"]/div[6]/div/div[3]/div/a"));
         learnJava.click();
@@ -257,7 +258,7 @@ public class Group_eat_and_drink_JavaTest {
         driver.findElement(EXERCISE3).sendKeys("phrase");
     }
 
-    public void proceedToResultPage(){
+    public void proceedToResultPage() {
 
         WebElement submit = driver.findElement(By.xpath("//*[@id=\"w3-exerciseform\"]/div/button"));
         submit.click();
@@ -276,16 +277,16 @@ public class Group_eat_and_drink_JavaTest {
         WebElement answerButton = driver.findElement(By.xpath("//*[@id=\"answerbutton\"]"));
         answerButton.click();
     }
-  
+
     @Test
-    public void testElenauSIncorrectResultCheck(){
+    public void testElenauSIncorrectResultCheck() {
         navigateToPage();
         completeExerciseIncorrect();
         proceedToResultPage();
 
         WebElement warning = driver.findElement(By.xpath("//*[@id=\"assignmentNotCorrect\"]/h2"));
 
-        Assert.assertEquals(warning.getText(),"Not Correct");
+        Assert.assertEquals(warning.getText(), "Not Correct");
     }
 
     @Test
@@ -308,7 +309,7 @@ public class Group_eat_and_drink_JavaTest {
         proceedToResultPage();
 
         List<WebElement> links = driver.findElements(By.tagName("a"));
-        for (WebElement  l:links) {
+        for (WebElement l : links) {
             String name = l.getText();
             System.out.println(name);
         }
@@ -316,7 +317,7 @@ public class Group_eat_and_drink_JavaTest {
 
         WebElement description = driver.findElement(By.xpath("//*[@id=\"assignmenttext\"]/p"));
 
-        Assert.assertEquals(description.getText(),"Comments in Java are written with special characters. Insert the missing parts:");
+        Assert.assertEquals(description.getText(), "Comments in Java are written with special characters. Insert the missing parts:");
     }
 
     @Test
@@ -389,6 +390,7 @@ public class Group_eat_and_drink_JavaTest {
             Assert.assertTrue(brandList.get(i).getText().toLowerCase().contains("amana"));
         }
     }
+
     @Test
     public void testSearchFieldFindJobTatianaT() {
         driver.get("https://humans.net/");
@@ -406,17 +408,27 @@ public class Group_eat_and_drink_JavaTest {
 
         Assert.assertEquals(driver.getCurrentUrl(), "https://humans.net/findwork/all/any/Seattle%20WA/?q=Engineering");
     }
+
     @Test
-    public void testDiamondPageLisaJ() {
+    public void testDiamondPage() {
         driver.get(URLWEB);
-        WebElement title = driver.findElement(By.xpath("/html/body/div/nav/a[1]"));
-        title.getText();
-        WebElement snowReport = driver.findElement(By.xpath("//a[@class='bar-item bar-forecast']"));
+        WebElement title = driver.findElement(By.xpath("//a[@class='logo']"));
+
+        String actualResult = title.getText();
+        assertEquals(actualResult, "DIAMOND PEAK");
+        WebElement mountin = driver.findElement(By.xpath("//ul[@class='nav-links align-left']//a[normalize-space()='The Mountain']"));
+        mountin.click();
+        List<WebElement> sideBar = driver.findElements(By.xpath("//li[@class='sidebar-list']"));
+        for (WebElement sideBars : sideBar) {
+            if (sideBars.getText().contains("Season Passes & Perks")) {
+                sideBars.click();
+                break;
+            }
+        }
+        driver.findElement(By.xpath("//a[@class='bar-item bar-forecast']"));
         WebElement direction = driver.findElement(By.xpath("//a[@class='bar-item bar-directions']"));
         WebElement tickets = driver.findElement(By.xpath("//a[@class='bar-item bar-tickets']"));
     }
-
-
 
 }
 
