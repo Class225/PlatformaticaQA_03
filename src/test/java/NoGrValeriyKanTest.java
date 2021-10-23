@@ -3,11 +3,14 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import java.time.Duration;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -29,7 +32,7 @@ public class NoGrValeriyKanTest {
     public void setUp() {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.manage().window().maximize();
     }
 
@@ -39,50 +42,35 @@ public class NoGrValeriyKanTest {
     }
 
     @Test
-    public void testValeriyKanMenuMen() throws InterruptedException {
+    public void clickTopMenuMenValeriyKan() {
         driver.get(URL_NBA_STORE);
+        driver.findElement(TOP_NAV_MEN).sendKeys("\n");
 
-        WebElement menMenu = driver.findElement(TOP_NAV_MEN);
-        Thread.sleep(3000);
+        WebElement itemsTitleMen = new WebDriverWait(driver, Duration.ofSeconds(0).getSeconds()).until(ExpectedConditions.presenceOfElementLocated(LIST_ITEM_HEADER_CLASSNAME));
 
-        menMenu.click();
-        Thread.sleep(2000);
-
-        WebElement men = driver.findElement(LIST_ITEM_HEADER_CLASSNAME);
-        String actualResult = men.getText();
-
-        Assert.assertEquals(actualResult, MEN);
+        Assert.assertEquals(itemsTitleMen.getText(), MEN);
     }
 
     @Test
-    public void testValeriyKanMenuWomen() throws InterruptedException {
+    public void clickTopMenuWomenValeriyKan() {
         driver.get(URL_NBA_STORE);
+        driver.findElement(TOP_NAV_WOMEN_XPATH).sendKeys("\n");
 
-        WebElement womenMenu = driver.findElement(TOP_NAV_WOMEN_XPATH);
-        Thread.sleep(3000);
+        WebElement itemsTitleWomen = new WebDriverWait(driver, Duration.ofSeconds(0,10).getNano()).until(ExpectedConditions.presenceOfElementLocated(LIST_ITEM_HEADER_CLASSNAME));
 
-        womenMenu.click();
-        Thread.sleep(2000);
-
-        WebElement women = driver.findElement(LIST_ITEM_HEADER_CLASSNAME);
-
-        String actualResult = women.getText();
-
-        Assert.assertEquals(actualResult, WOMEN);
+        Assert.assertEquals(itemsTitleWomen.getText(), WOMEN);
     }
 
     @Test
-    public void testValeriyKanSearch() throws InterruptedException {
+    public void productSearchValeriyKan() {
         driver.get(URL_NBA_STORE);
 
         WebElement search = driver.findElement(SEARCH_FIELD);
-        Thread.sleep(3000);
 
         search.sendKeys(SEARCH_PRODUCT_NAME);
-        Thread.sleep(3000);
 
         List<WebElement> searchResult = driver.findElements(SEARCH_RESULT_ITEMS);
 
-        Assert.assertTrue(searchResult.size() >= 1);
+        Assert.assertTrue(searchResult.size() >= 1, "\nSearch result items less than 1! \nNote: if no matches for a product, search results should return other types of products.");
     }
 }
