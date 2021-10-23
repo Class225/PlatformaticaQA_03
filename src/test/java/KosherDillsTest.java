@@ -10,6 +10,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 public class KosherDillsTest {
@@ -88,4 +89,21 @@ public class KosherDillsTest {
         if (trueCount == var1.size()){return true;}
         return false;
     }
+
+    @Test
+    public void testBatterySelect () {
+        driver.get("https://rbc.sm.ua/");
+        driver.findElement(By.xpath("//input[@id='input_search']")).sendKeys("apc 500\n");
+
+        List<WebElement> upsList = driver.findElements(By.xpath("//div[@class='us-module-title']/a"));
+        for (int i = 0; i < upsList.size(); i++) {
+
+            Assert.assertTrue(upsList.get(i).getText().toLowerCase().contains("500"));
+        }
+    }
+
+
+
+
+
 }
