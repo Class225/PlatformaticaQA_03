@@ -34,12 +34,13 @@ public class SergeiDTest {
 
     @Test
     public void testSearches() {
-        driver.get(URL + "\\");
+        driver.get(URL);
 
         final String text = "table";
         driver.findElement(By.id("searchval")).sendKeys(text + "\n");
 
         List<WebElement> itemList = driver.findElements(By.xpath("//a[@data-testid = 'itemDescription']"));
+        Assert.assertTrue(itemList.size() != 0);
         for (int i = 0; i < itemList.size(); i++) {
             Assert.assertTrue(itemList.get(i).getText().toLowerCase().contains(text));
         }
