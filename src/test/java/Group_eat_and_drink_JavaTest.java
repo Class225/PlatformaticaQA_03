@@ -31,6 +31,7 @@ public class Group_eat_and_drink_JavaTest {
     private static final By EXERCISE2 = By.name("ex2");
     private static final By EXERCISE3 = By.name("ex3");
     private static final By NEXTEX = By.id("correctnextbtn");
+    private static final String URLWEB = "http://www.diamondpeak.com/";
 
     @BeforeMethod
     public void setUp() {
@@ -404,6 +405,15 @@ public class Group_eat_and_drink_JavaTest {
         find.click();
 
         Assert.assertEquals(driver.getCurrentUrl(), "https://humans.net/findwork/all/any/Seattle%20WA/?q=Engineering");
+    }
+    @Test
+    public void testDiamondPageLisaJ() {
+        driver.get(URLWEB);
+        WebElement title = driver.findElement(By.xpath("/html/body/div/nav/a[1]"));
+        title.getText();
+        WebElement snowReport = driver.findElement(By.xpath("//a[@class='bar-item bar-forecast']"));
+        WebElement direction = driver.findElement(By.xpath("//a[@class='bar-item bar-directions']"));
+        WebElement tickets = driver.findElement(By.xpath("//a[@class='bar-item bar-tickets']"));
     }
 
 
