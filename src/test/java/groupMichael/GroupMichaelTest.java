@@ -11,6 +11,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class GroupMichaelTest {
@@ -35,7 +36,6 @@ public class GroupMichaelTest {
         driver.findElement(By.xpath("//button[@id='alertButton']")).click();
         Assert.assertEquals(driver.switchTo().alert().getText(), "You clicked a button");
     }
-
     @Test
 
     public void testMainPage1 () {
@@ -89,5 +89,20 @@ public class GroupMichaelTest {
                 .findElement(By.xpath("//*[@class='cart--empty-message']"))
                 .getText();
         Assert.assertEquals(actual, expetedResult);
+    }
+    private final String URL = "https://www.flowerchimp.co.id/";
+
+    @Test
+    public void testCountTextBox(){
+        driver.get(URL);
+        final String text = "box";
+
+        WebElement Cakes = driver.findElement(By.xpath("//a[@href='/collections/trinity-collection-flower-shop-flower-chimp'][@class='hidden-product-link']"));
+        Cakes.click();
+        List<WebElement> itemList = driver.findElements(By.xpath("//span[text()='Trinity Box Deluxe Collection - Dainty Dreams']"));
+
+        for (int i=0; i< itemList.size(); i++){
+            Assert.assertTrue(itemList.get(i).getText().toLowerCase().contains(text));
+        }
     }
 }
