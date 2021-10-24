@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class MielofonIsMine extends BaseTest {
+public class GroupMielofonIsMineTest extends BaseTest {
 
     private final static String URL_VW = "https://www.vw.com/";
 
