@@ -134,8 +134,6 @@ public class QA_Group_Timur_Test {
         navesti.moveToElement(anekdoty).build().perform();
         WebElement bestMonth = driver.findElement(By.xpath("//ul/li/a[@title='Самые смешные анекдоты за месяц']"));
         bestMonth.click();
-        WebElement first = driver.findElement(By.xpath("//div[@data-id='1251367']/div[@class='text']"));
-        System.out.println(first.getText());
         WebElement h1 = driver.findElement(By.cssSelector("body h1"));
         Assert.assertEquals(h1.getText().toUpperCase(), "САМЫЕ СМЕШНЫЕ АНЕКДОТЫ ЗА МЕСЯЦ!");
     }
