@@ -134,4 +134,14 @@ public class GroupMielofonIsMineTest extends BaseTest {
         WebElement result = getDriver().findElement(By.id("firstHeading"));
         Assert.assertEquals(result.getText().toLowerCase(Locale.ROOT), "миелофон");
         }
+
+    @Test
+    public void testIlyaZozuliaFirst(){
+        getDriver().get("https://www.stratege.ru");
+
+        WebElement buttonGames = getDriver().findElement(By.id("menu-games"));
+        buttonGames.click();
+
+        Assert.assertEquals(getDriver().getCurrentUrl(), "https://www.stratege.ru/games");
+    }
 }
