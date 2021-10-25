@@ -17,7 +17,8 @@ import java.util.concurrent.TimeUnit;
 
 public class GroupGroupTest {
 
-    private WebDriver driver;private static String URL1_GG = "https://www.edx.org/";
+    private WebDriver driver;
+    private static String URL1_GG = "https://www.edx.org/";
     private static String URL2_GG = "https://www.edx.org/search?q=python&tab=course";
     String url3_DS = "https://www.saucedemo.com/";
 
@@ -87,8 +88,8 @@ public class GroupGroupTest {
 
         WebElement email = driver.findElement(By.id("emailAddress"));
         Random randomGenerator = new Random();
-        int randomInt = randomGenerator. nextInt(1000);
-        email. sendKeys("username"+ randomInt +"@gmail.com");
+        int randomInt = randomGenerator.nextInt(1000);
+        email.sendKeys("username" + randomInt + "@gmail.com");
 
         driver.findElement(By.id("password")).sendKeys("123456Abc!");
         driver.findElement(By.xpath("//input[@id ='termsAndConditions']/..//span[@class='block option__labelMarker']")).click();
@@ -172,6 +173,7 @@ public class GroupGroupTest {
         String currentUrl = driver.getCurrentUrl();
         Assert.assertEquals(currentUrl, url3_DS); //does it the same urls?
     }
+
     @Test //Dasha Sandler
     public void sandlerPreconditionsPlaceholdersNames() {
         String placeholderUsernameTextExpected = "Username";
@@ -186,6 +188,7 @@ public class GroupGroupTest {
         Assert.assertEquals(placeholderNameUsername, placeholderUsernameTextExpected); //does it have correct placeholder name for username?
         Assert.assertEquals(passwordTextExpected, placeholderPasswordActual);  //does it have correct placeholder name for password?
     }
+
     @Test //Dasha Sandler
     public void sandlerLoginCheck() {
         String expectedPageAfterLogin = "https://www.saucedemo.com/inventory.html";
@@ -214,7 +217,7 @@ public class GroupGroupTest {
     }
 
     @Test
-    public void testAnnaZasimova_01(){
+    public void testAnnaZasimova_01() {
 
         driver.get("https://www.brainpop.com/");
 
@@ -225,7 +228,7 @@ public class GroupGroupTest {
     }
 
     @Test
-    public  void testAnnaZasimova_02(){
+    public void testAnnaZasimova_02() {
 
         driver.get("https://www.brainpop.com/get-started/");
 
@@ -237,7 +240,7 @@ public class GroupGroupTest {
     }
 
     @Test
-    public void testAnnaZasimova_03(){
+    public void testAnnaZasimova_03() {
         driver.get("https://www.brainpop.com/");
 
         WebElement getStartedButton = driver.findElement(By.id("get-started-button"));
@@ -266,21 +269,21 @@ public class GroupGroupTest {
 
     }
 
-        @Test
-        public void OlenaYermakova() {
-            driver.get("https://www.webstaurantstore.com/");
-            driver.findElement(By.cssSelector("#searchval")).sendKeys("oven\n");
-
-            List<WebElement> itemList = driver.findElements(By.xpath("//a[@data-testid = 'itemDescription']"));
-            for(int i = 0;i < itemList.size(); i++) {
-                Assert.assertTrue(itemList.get(i).getText().toLowerCase().contains("oven"));
-            }
-
-
-
-        }
     @Test
-    public void testOlesyaKolenchenko(){
+    public void OlenaYermakova() {
+        driver.get("https://www.webstaurantstore.com/");
+        driver.findElement(By.cssSelector("#searchval")).sendKeys("oven\n");
+
+        List<WebElement> itemList = driver.findElements(By.xpath("//a[@data-testid = 'itemDescription']"));
+        for (int i = 0; i < itemList.size(); i++) {
+            Assert.assertTrue(itemList.get(i).getText().toLowerCase().contains("oven"));
+        }
+
+
+    }
+
+    @Test
+    public void testOlesyaKolenchenko() {
         driver.get("https://www.ivi.ru/");
 
         WebElement search = driver.findElement(By.className("headerTop__headerSearch"));
@@ -290,10 +293,23 @@ public class GroupGroupTest {
         searchString.sendKeys("платье\n");
 
         List<WebElement> itemList = driver.findElements(By.className("searchBlock__content"));
-        for (int i = 0; i < itemList.size(); i ++){
+        for (int i = 0; i < itemList.size(); i++) {
             Assert.assertTrue(itemList.get(i).getText().toLowerCase().contains("платье"));
         }
     }
+
+    @Test
+    public void testTaniaLutsenko() {
+
+        driver.get("https://postel-market.com.ua/");
+
+        WebElement search = driver.findElement(By.name("query"));
+        search.sendKeys("одеяло\n");
+
+        WebElement result = driver.findElement(By.className("page-name"));
+        Assert.assertEquals(result.getText(), "ОДЕЯЛО");
+    }
+}
 
 
 
