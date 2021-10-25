@@ -416,18 +416,12 @@ public class Group_eat_and_drink_JavaTest {
 
         String actualResult = title.getText();
         assertEquals(actualResult, "DIAMOND PEAK");
-        WebElement mountin = driver.findElement(By.xpath("//ul[@class='nav-links align-left']//a[normalize-space()='The Mountain']"));
-        mountin.click();
-        List<WebElement> sideBar = driver.findElements(By.xpath("//li[@class='sidebar-list']"));
-        for (WebElement sideBars : sideBar) {
-            if (sideBars.getText().contains("Season Passes & Perks")) {
-                sideBars.click();
-                break;
-            }
+        List<WebElement> navBar = driver.findElements(By.xpath("//ul[@class ='navbar row']"));
+        for (int i = 0; i < navBar.size(); i++) {
+            assertEquals(navBar.get(i).getText(), "DIAMOND PEAK\n" +
+                    "THE MOUNTAINTICKETS & PASSES\n" +
+                    "LESSONS & RENTALSPLAN A VISIT");
         }
-        driver.findElement(By.xpath("//a[@class='bar-item bar-forecast']"));
-        WebElement direction = driver.findElement(By.xpath("//a[@class='bar-item bar-directions']"));
-        WebElement tickets = driver.findElement(By.xpath("//a[@class='bar-item bar-tickets']"));
     }
 
 }
