@@ -10,8 +10,9 @@ import org.testng.annotations.Test;
 
 public class YuliiaKTest {
 
+    private static final String URL = "https://www.predskazanie.ru/";
+
     private WebDriver driver;
-    String url = "https://www.predskazanie.ru/";
 
     @BeforeMethod
     public void setUp() {
@@ -28,40 +29,34 @@ public class YuliiaKTest {
     @Test
     public void predskazTest() throws InterruptedException {
 
-        String expectedResult = "https://www.predskazanie.ru/goldfish/";
+        final String expectedResult = "https://www.predskazanie.ru/goldfish/";
 
-        driver.get(url);
+        driver.get(URL);
         Thread.sleep(3000);
 
-        WebElement divinationOfaWish = driver.findElement
-                (By.xpath("//div[@id='menu']//a[@title='Гадание на желание']"));
+        WebElement divinationOfaWish = driver.findElement(By.xpath("//div[@id='menu']//a[@title='Гадание на желание']"));
         divinationOfaWish.click();
-        WebElement divinationGoldFish = driver.findElement
-                (By.xpath("//p[@class='intro-image']//img[@alt='Гадание Золотая Рыбка']"));
+        WebElement divinationGoldFish = driver.findElement(By.xpath("//p[@class='intro-image']//img[@alt='Гадание Золотая Рыбка']"));
         divinationGoldFish.click();
 
-        String actualResult = driver.getCurrentUrl();
-        Assert.assertEquals(actualResult, expectedResult);
+        Assert.assertEquals(driver.getCurrentUrl(), expectedResult);
 
     }
 
     @Test
     public void predskazTest2() throws InterruptedException {
 
-        String expectedResult = "https://www.predskazanie.ru/ekat.shtml";
+        final String expectedResult = "https://www.predskazanie.ru/ekat.shtml";
 
-        driver.get(url);
+        driver.get(URL);
         Thread.sleep(3000);
 
-        WebElement divinationOfaLove = driver.findElement
-                (By.xpath("//div[@id='menu']//a[@title='Гадание на любовь и отношения']"));
+        WebElement divinationOfaLove = driver.findElement(By.xpath("//div[@id='menu']//a[@title='Гадание на любовь и отношения']"));
         divinationOfaLove.click();
-        WebElement queenKatya = driver.findElement
-                (By.xpath("//div[@class='content-layer']//img[@alt='Гадание императрицы Екатерины']"));
+        WebElement queenKatya = driver.findElement(By.xpath("//div[@class='content-layer']//img[@alt='Гадание императрицы Екатерины']"));
         queenKatya.click();
 
-        String actualResult = driver.getCurrentUrl();
-        Assert.assertEquals(actualResult, expectedResult);
+        Assert.assertEquals(driver.getCurrentUrl(), expectedResult);
 
     }
 }

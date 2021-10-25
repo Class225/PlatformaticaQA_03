@@ -6,31 +6,25 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-
-
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
-public class Group_eat_and_drink_Java {
-    // ----  ARANGE  ----
+import static org.testng.Assert.assertEquals;
+
+public class Group_eat_and_drink_JavaTest {
+
     private WebDriver driver;
-    String MainUrl = "https://askent.ru/";
-    String expectedResultURLCorrectItem = "https://askent.ru/cat/sumki/ryukzak_63/";
-    String expectedResultURLCabinet = "https://askent.ru/order/";
-    String expectedResultSingIn = "Не верный логин или пароль";
 
     private static final String URL = "https://www.godaddy.com/";
-
     private static final By EXERCISE1 = By.xpath("//*[@id=\"w3-exerciseform\"]/div/div/pre/input[1]");
     private static final By EXERCISE2 = By.name("ex2");
     private static final By EXERCISE3 = By.name("ex3");
     private static final By NEXTEX = By.id("correctnextbtn");
+    private static final String URLWEB = "http://www.diamondpeak.com/";
 
     @BeforeMethod
     public void setUp() {
@@ -45,47 +39,37 @@ public class Group_eat_and_drink_Java {
         driver.quit();
     }
 
-    @Test(description = "Some description @Test-annotation for practice", priority = 1)
-    // Для практики в аннотацию добавлены атрибуты
+    @Test(priority = 1)
     public void testFindCorrectItem() {
 
-        driver.get(MainUrl);
+        driver.get("https://askent.ru/");
         WebElement bags = driver.findElement(By.xpath("//a[@href=\"https://askent.ru/cat/zhenskoe/filter/kollektsiya-is-9b65b8c3-fe04-11e8-80be-18a905775a6f/apply/\"]"));
         bags.click();
 
-        driver.findElement(By.cssSelector("body")).sendKeys(Keys.CONTROL, Keys.END); // scrollDown page
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS); // выставляю паузу, т.к. кнопка 'Показать ещё' появляется не сразу.
+        driver.findElement(By.cssSelector("body")).sendKeys(Keys.CONTROL, Keys.END);
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
-        WebElement buttonMoreItems = driver.findElement(By.xpath("//a[contains(text(),'Показать ещё')]"));
-        buttonMoreItems.click();
-        WebElement backPack = driver.findElement(By.xpath("//div[@class=\"productItem__link\"]/a[@href=\"/cat/sumki/ryukzak_63/\"]"));
-        backPack.click();
+        driver.findElement(By.xpath("//a[contains(text(),'Показать ещё')]")).click();
+        driver.findElement(By.xpath("//div[@class=\"productItem__link\"]/a[@href=\"/cat/sumki/ryukzak_63/\"]")).click();
 
-        // ---- ASSERT ----
-        Assert.assertEquals(driver.getCurrentUrl(), expectedResultURLCorrectItem);
+        Assert.assertEquals(driver.getCurrentUrl(), "https://askent.ru/cat/sumki/ryukzak_63/");
     }
 
-    @Test(priority = 2) // приоритетность для практики, позволяет выставить очередность тестов.
+    @Test(priority = 2)
     public void testItemToBasket() {
 
         driver.get("https://askent.ru/cat/sumki/ryukzak_63/");
 
-        WebElement blackColor = driver.findElement(By.xpath("//div[@class='productCols']//div[@class='product__colorBlock']//div[3]//div[1]"));
-        blackColor.click(); // выбираю товар другого цвета
-        WebElement buttonToBasket = driver.findElement(By.xpath("//div[@id='fixed_block']//span[contains(text(),'Добавить в корзину')]"));
-        buttonToBasket.click(); // добавляю товар в корзину
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS); // выставляю паузу т.к. кнопка 'Добавить в корзину'
-        // меняется на кнопку 'Перейти в корзину' не сразу
-        WebElement buttonGoToBasket = driver.findElement(By.xpath("//div[contains(text(),'Перейти в корзину')]"));
-        buttonGoToBasket.click();
+        driver.findElement(By.xpath("//div[@class='productCols']//div[@class='product__colorBlock']//div[3]//div[1]")).click();
+        driver.findElement(By.xpath("//div[@id='fixed_block']//span[contains(text(),'Добавить в корзину')]")).click();
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.findElement(By.xpath("//div[contains(text(),'Перейти в корзину')]")).click();
         WebElement addOneItem = driver.findElement(By.xpath("//div[@class='basketItem__add']"));
-        addOneItem.click(); // в корзине увеличиваю кол-во товаров на 1 больше.
-        driver.navigate().refresh(); // на странице баг, чтобы его обойти обновляю страницу.
-        WebElement goToOrder = driver.findElement(By.xpath("//button[contains(text(),'Продолжить оформление заказа')]"));
-        goToOrder.click();
+        addOneItem.click();
+        driver.navigate().refresh();
+        driver.findElement(By.xpath("//button[contains(text(),'Продолжить оформление заказа')]")).click();
 
-        // ---- ASSERT ----
-        Assert.assertEquals(driver.getCurrentUrl(), expectedResultURLCabinet);
+        Assert.assertEquals(driver.getCurrentUrl(), "https://askent.ru/order/");
     }
 
     @Test(priority = 3)
@@ -103,8 +87,7 @@ public class Group_eat_and_drink_Java {
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         WebElement message = driver.findElement(By.xpath("//*[contains(text(),'Не верный логин или пароль')]"));
 
-        // ---- ASSERT ----
-        Assert.assertEquals(message.getText(), expectedResultSingIn);
+        Assert.assertEquals(message.getText(), "Не верный логин или пароль");
     }
 
     @Test
@@ -221,22 +204,12 @@ public class Group_eat_and_drink_Java {
         Assert.assertEquals(expectedResult, actualResult);
     }
 
-/*
-    private static final By EXERCISE1 = By.xpath("//*[@id=\"w3-exerciseform\"]/div/div/pre/input[1]");
-
-    private static final By EXERCISE2 = By.name("ex2");
-
-    private static final By EXERCISE3 = By.name("ex3");
-
-    private static final By NEXTEX = By.id("correctnextbtn");
- */
-
     public void navigateToPage() {
 
         String URL = "https://www.w3schools.com/";
         driver.get(URL);
     }
-  
+
     public void completeExerciseCorrect() {
 
         WebElement learnJava = driver.findElement(By.xpath("//*[@id=\"main\"]/div[6]/div/div[3]/div/a"));
@@ -246,7 +219,7 @@ public class Group_eat_and_drink_Java {
         driver.findElement(EXERCISE3).sendKeys("println");
     }
 
-    public void completeExerciseIncorrect(){
+    public void completeExerciseIncorrect() {
 
         WebElement learnJava = driver.findElement(By.xpath("//*[@id=\"main\"]/div[6]/div/div[3]/div/a"));
         learnJava.click();
@@ -256,7 +229,7 @@ public class Group_eat_and_drink_Java {
         driver.findElement(EXERCISE3).sendKeys("phrase");
     }
 
-    public void proceedToResultPage(){
+    public void proceedToResultPage() {
 
         WebElement submit = driver.findElement(By.xpath("//*[@id=\"w3-exerciseform\"]/div/button"));
         submit.click();
@@ -275,16 +248,16 @@ public class Group_eat_and_drink_Java {
         WebElement answerButton = driver.findElement(By.xpath("//*[@id=\"answerbutton\"]"));
         answerButton.click();
     }
-  
+
     @Test
-    public void testElenauSIncorrectResultCheck(){
+    public void testElenauSIncorrectResultCheck() {
         navigateToPage();
         completeExerciseIncorrect();
         proceedToResultPage();
 
         WebElement warning = driver.findElement(By.xpath("//*[@id=\"assignmentNotCorrect\"]/h2"));
 
-        Assert.assertEquals(warning.getText(),"Not Correct");
+        Assert.assertEquals(warning.getText(), "Not Correct");
     }
 
     @Test
@@ -307,7 +280,7 @@ public class Group_eat_and_drink_Java {
         proceedToResultPage();
 
         List<WebElement> links = driver.findElements(By.tagName("a"));
-        for (WebElement  l:links) {
+        for (WebElement l : links) {
             String name = l.getText();
             System.out.println(name);
         }
@@ -315,7 +288,7 @@ public class Group_eat_and_drink_Java {
 
         WebElement description = driver.findElement(By.xpath("//*[@id=\"assignmenttext\"]/p"));
 
-        Assert.assertEquals(description.getText(),"Comments in Java are written with special characters. Insert the missing parts:");
+        Assert.assertEquals(description.getText(), "Comments in Java are written with special characters. Insert the missing parts:");
     }
 
     @Test
@@ -364,7 +337,95 @@ public class Group_eat_and_drink_Java {
 
     }
 
+    @Test
+    public void SergeyBrigSearchTest() {
 
+        driver.get("https://www.webstaurantstore.com");
+
+        final String searchText = "fork";
+        driver.findElement(By.id("searchval")).sendKeys(searchText + "\n");
+        List<WebElement> itemList = driver.findElements(By.xpath("//div/a[@data-testid='itemDescription']"));
+        for (int i = 0; i < itemList.size(); i++) {
+            Assert.assertTrue(itemList.get(i).getText().toLowerCase().contains(searchText));
+        }
+    }
+
+    @Test
+    public void SergeyBrigBrandMenuTest() {
+        driver.get("https://www.webstaurantstore.com");
+
+        driver.findElement(By.xpath("//a[@title='Amana Commercial Microwaves']")).click();
+
+        List<WebElement> brandList = driver.findElements(By.xpath("//p[@class = 'description category_name']"));
+        for (int i = 0; i < brandList.size(); i++) {
+            Assert.assertTrue(brandList.get(i).getText().toLowerCase().contains("amana"));
+        }
+    }
+
+    @Test
+    public void testSearchFieldFindJobTatianaT() {
+        driver.get("https://humans.net/");
+
+        WebElement searchField = driver.findElement(By.xpath("//input[@role='combobox']"));
+        searchField.sendKeys("Engineering");
+        WebElement fieldLocation = driver.findElement(By.xpath("//button[@type='button']/div"));
+        fieldLocation.click();
+        WebElement fieldCity = driver.findElement(By.xpath("//input[@placeholder='City']"));
+        fieldCity.sendKeys("Seattle");
+        WebElement city = driver.findElement(By.xpath("//span[text()='Seattle']"));
+        city.click();
+        WebElement find = driver.findElement(By.xpath("//button[text()='Find']"));
+        find.click();
+
+        Assert.assertEquals(driver.getCurrentUrl(), "https://humans.net/findwork/all/any/Seattle%20WA/?q=Engineering");
+    }
+    @Test
+    public void SergeyBrigBrandSearch() {
+
+        driver.get("https://www.webstaurantstore.com");
+
+        driver.findElement(By.xpath("//input[@id = 'searchval']")).sendKeys("cup \n");
+
+        List<WebElement> brandList = driver.findElements(By.xpath("//a[@ data-testid='itemDescription']"));
+        for (int i = 0; i < brandList.size(); i++) {
+            Assert.assertTrue(brandList.get(i).getText().toLowerCase().contains("cup"));
+        }
+    }
+    @Test
+    public void SergeyBrigMenu2Test() {
+        driver.get("https://www.webstaurantstore.com");
+
+        List<WebElement> menuList = driver.findElements(By.xpath("//div[@class = 'm-0 lt:flex']/a"));
+        for (int i = 0; i < menuList.size(); i++) {
+            if(menuList.get(i).getText().toLowerCase().contains("furniture")) {
+                menuList.get(i).click();
+                break;
+            }
+        }
+        List<WebElement> categoryList = driver.findElements(By.xpath("//div/a/h2"));
+        for(int i = 0; i < categoryList.size(); i++) {
+            if(categoryList.get(i).getText().contains("Hotel Furniture")) {
+                categoryList.get(i).click();
+                break;
+            }
+        }
+        Assert.assertEquals(driver.getCurrentUrl(), "https://www.webstaurantstore.com/64111/hotel-furniture.html");
+    }
+
+    @Test
+    public void testDiamondPage() {
+        driver.get(URLWEB);
+        WebElement title = driver.findElement(By.xpath("//a[@class='logo']"));
+
+        String actualResult = title.getText();
+        assertEquals(actualResult, "DIAMOND PEAK");
+        List<WebElement> navBar = driver.findElements(By.xpath("//ul[@class ='navbar row']"));
+        for (int i = 0; i < navBar.size(); i++) {
+            assertEquals(navBar.get(i).getText(), "DIAMOND PEAK\n" +
+                    "THE MOUNTAINTICKETS & PASSES\n" +
+                    "LESSONS & RENTALSPLAN A VISIT");
+        }
+    }
 
 }
 

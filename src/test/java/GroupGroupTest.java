@@ -15,7 +15,7 @@ import java.util.Locale;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
-public class GroupGroup {
+public class GroupGroupTest {
 
     private WebDriver driver;private static String URL1_GG = "https://www.edx.org/";
     private static String URL2_GG = "https://www.edx.org/search?q=python&tab=course";
@@ -266,5 +266,34 @@ public class GroupGroup {
 
     }
 
+        @Test
+        public void OlenaYermakova() {
+            driver.get("https://www.webstaurantstore.com/");
+            driver.findElement(By.cssSelector("#searchval")).sendKeys("oven\n");
 
-}
+            List<WebElement> itemList = driver.findElements(By.xpath("//a[@data-testid = 'itemDescription']"));
+            for(int i = 0;i < itemList.size(); i++) {
+                Assert.assertTrue(itemList.get(i).getText().toLowerCase().contains("oven"));
+            }
+
+
+
+        }
+    @Test
+    public void testOlesyaKolenchenko(){
+        driver.get("https://www.ivi.ru/");
+
+        WebElement search = driver.findElement(By.className("headerTop__headerSearch"));
+        search.click();
+        String searchPage = driver.getCurrentUrl();
+        WebElement searchString = driver.findElement(By.className("nbl-input__editbox"));
+        searchString.sendKeys("платье\n");
+
+        List<WebElement> itemList = driver.findElements(By.className("searchBlock__content"));
+        for (int i = 0; i < itemList.size(); i ++){
+            Assert.assertTrue(itemList.get(i).getText().toLowerCase().contains("платье"));
+        }
+    }
+
+
+

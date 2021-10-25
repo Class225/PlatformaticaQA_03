@@ -16,7 +16,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-public class IgorKomarov {
+public class IgorKomarovTest {
 
     private WebDriver driver;
     private BookStoreHomePage homePage;
@@ -26,8 +26,7 @@ public class IgorKomarov {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        String url = "https://demoqa.com/books";
-        driver.get(url);
+        driver.get("https://demoqa.com/books");
         homePage = new BookStoreHomePage(driver);
     }
 
@@ -37,27 +36,26 @@ public class IgorKomarov {
     }
 
     @Test
-    public void verifyHeader() {
-        String expected = "Book Store";
-        Assert.assertEquals(homePage.getHeaderText(), expected);
+    public void testVerifyHeader() {
+        Assert.assertEquals(homePage.getHeaderText(), "Book Store");
     }
 
     @Test
-    public void verifyBooks() {
+    public void testVerifyBooks() {
         List<String> booksNameList = new ArrayList<>();
         List<String> booksAuthorList = new ArrayList<>();
         List<String> booksPublisherList = new ArrayList<>();
         int count = 0;
 
-        List<String> expectedNames = Arrays.asList("Git Pocket Guide", "Learning JavaScript Design Patterns",
+        final List<String> EXPECTED_NAMES = Arrays.asList("Git Pocket Guide", "Learning JavaScript Design Patterns",
                 "Designing Evolvable Web APIs with ASP.NET", "Speaking JavaScript", "You Don't Know JS",
                 "Programming JavaScript Applications", "Eloquent JavaScript, Second Edition",
                 "Understanding ECMAScript 6");
 
-        List<String> expectedAuthors = Arrays.asList("Richard E. Silverman", "Addy Osmani", "Glenn Block et al.",
+        final List<String> EXPECTED_AUTHORS = Arrays.asList("Richard E. Silverman", "Addy Osmani", "Glenn Block et al.",
                 "Axel Rauschmayer", "Kyle Simpson", "Eric Elliott", "Marijn Haverbeke", "Nicholas C. Zakas");
 
-        List<String> expectedPublishers = Arrays.asList("O'Reilly Media", "O'Reilly Media", "O'Reilly Media", "O'Reilly Media", "O'Reilly Media",
+        final List<String> EXPECTED_PUBLISHERS = Arrays.asList("O'Reilly Media", "O'Reilly Media", "O'Reilly Media", "O'Reilly Media", "O'Reilly Media",
                 "O'Reilly Media", "No Starch Press", "No Starch Press");
 
         List<WebElement> resultList = homePage.getBooks();
@@ -73,17 +71,17 @@ public class IgorKomarov {
                 count += 1;
             }
         }
-        Assert.assertEquals(booksNameList, expectedNames);
-        Assert.assertEquals(booksAuthorList, expectedAuthors);
-        Assert.assertEquals(booksPublisherList, expectedPublishers);
+        Assert.assertEquals(booksNameList, EXPECTED_NAMES);
+        Assert.assertEquals(booksAuthorList, EXPECTED_AUTHORS);
+        Assert.assertEquals(booksPublisherList, EXPECTED_PUBLISHERS);
         Assert.assertEquals(count, 10);
     }
 
     @Test
-    public void verifySearchPositive() {
+    public void testVerifySearchPositive() {
         homePage.setSearchField("Git");
-        List<WebElement> resultList = homePage.getBooks();
 
+        List<WebElement> resultList = homePage.getBooks();
         resultList.forEach(item -> {
                     String itemInfo = item.getText().trim();
                     if (!itemInfo.equals("")) {
@@ -94,7 +92,7 @@ public class IgorKomarov {
     }
 
     @Test
-    public void verifySearchNegative() {
+    public void testVerifySearchNegative() {
         homePage.setSearchField("nothing");
         List<WebElement> resultList = homePage.getBooks();
 
@@ -106,11 +104,11 @@ public class IgorKomarov {
     }
 
     @Test
-    public void verifyPagination() {
+    public void testVerifyPagination() {
 
-        int[] sizes = {5, 10, 20, 25, 50, 100};
+        final int[] SIZES = {5, 10, 20, 25, 50, 100};
 
-        for (int size : sizes) {
+        for (int size : SIZES) {
             homePage.setRowsPerPage(size);
             List<WebElement> resultList = homePage.getBooks();
             Assert.assertEquals(resultList.size(), size);
