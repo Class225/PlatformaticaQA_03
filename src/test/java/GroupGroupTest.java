@@ -279,7 +279,20 @@ public class GroupGroupTest {
 
 
         }
+    @Test
+    public void testOlesyaKolenchenko(){
+        driver.get("https://www.ivi.ru/");
 
+        WebElement search = driver.findElement(By.className("headerTop__headerSearch"));
+        search.click();
+        String searchPage = driver.getCurrentUrl();
+        WebElement searchString = driver.findElement(By.className("nbl-input__editbox"));
+        searchString.sendKeys("платье\n");
+
+        List<WebElement> itemList = driver.findElements(By.className("searchBlock__content"));
+        for (int i = 0; i < itemList.size(); i ++){
+            Assert.assertTrue(itemList.get(i).getText().toLowerCase().contains("платье"));
+        }
     }
 
 

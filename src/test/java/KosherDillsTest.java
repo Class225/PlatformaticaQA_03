@@ -8,11 +8,14 @@ import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class KosherDillsTest {
 
     private WebDriver driver;
+    private final By ERROR = By.xpath("//div[@class='alert alert-info']/b");
 
     @BeforeMethod
     public void setUp() {
@@ -26,7 +29,7 @@ public class KosherDillsTest {
 
     @AfterMethod
 
-    public void shutDown() throws InterruptedException {
+    public void shutDown() {
         driver.quit();
     }
 
@@ -57,4 +60,49 @@ public class KosherDillsTest {
                 .findElement(By.xpath("//*[@id='ge-stories']/div[1]/h2"))
                 .getText(), "Over 1 million charities. See their stories.");
     }
+
+    @Test
+    public void testDoubleDropDownSelect () {
+
+        driver.get("https://bidfax.info/");
+
+        driver.findElement(By.xpath("(//span[@class='drop-down'])[1]")).click();
+        driver.findElement(By.xpath("//a[normalize-space()='Aston martin']")).click();
+        driver.findElement(By.xpath("(//span[@class='drop-down'])[2]")).click();
+        driver.findElement(By.xpath("//a[normalize-space()='Db9']")).click();
+
+            for (int i = 0; i < Integer.MAX_VALUE; i++) {
+            List<WebElement> cars = driver.findElements(By.xpath("//div[@class='caption']/a/h2"));
+            Assert.assertTrue(carsCheck(cars));
+            driver.findElement(By.xpath("//a[normalize-space()='»']")).click();
+                if (driver.findElements(ERROR).size() > 0) break;
+        }
+    }
+
+    public boolean carsCheck (List<WebElement> var1){
+        int trueCount = 0;
+        for (int i = 0; i < var1.size(); i++) {
+            if (var1.get(i).getText().toLowerCase().contains("db9"))
+                trueCount++;
+        }
+        if (trueCount == var1.size()){return true;}
+        return false;
+    }
+
+    @Test
+    public void testBatterySelect () {
+        driver.get("https://rbc.sm.ua/");
+        driver.findElement(By.xpath("//input[@id='input_search']")).sendKeys("apc 500\n");
+
+        List<WebElement> upsList = driver.findElements(By.xpath("//div[@class='us-module-title']/a"));
+        for (int i = 0; i < upsList.size(); i++) {
+
+            Assert.assertTrue(upsList.get(i).getText().toLowerCase().contains("500"));
+        }
+    }
+
+
+
+
+
 }
