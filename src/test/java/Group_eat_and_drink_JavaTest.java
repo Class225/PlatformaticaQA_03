@@ -379,6 +379,38 @@ public class Group_eat_and_drink_JavaTest {
 
         Assert.assertEquals(driver.getCurrentUrl(), "https://humans.net/findwork/all/any/Seattle%20WA/?q=Engineering");
     }
+    @Test
+    public void SergeyBrigBrandSearch() {
+
+        driver.get("https://www.webstaurantstore.com");
+
+        driver.findElement(By.xpath("//input[@id = 'searchval']")).sendKeys("cup \n");
+
+        List<WebElement> brandList = driver.findElements(By.xpath("//a[@ data-testid='itemDescription']"));
+        for (int i = 0; i < brandList.size(); i++) {
+            Assert.assertTrue(brandList.get(i).getText().toLowerCase().contains("cup"));
+        }
+    }
+    @Test
+    public void SergeyBrigMenu2Test() {
+        driver.get("https://www.webstaurantstore.com");
+
+        List<WebElement> menuList = driver.findElements(By.xpath("//div[@class = 'm-0 lt:flex']/a"));
+        for (int i = 0; i < menuList.size(); i++) {
+            if(menuList.get(i).getText().toLowerCase().contains("furniture")) {
+                menuList.get(i).click();
+                break;
+            }
+        }
+        List<WebElement> categoryList = driver.findElements(By.xpath("//div/a/h2"));
+        for(int i = 0; i < categoryList.size(); i++) {
+            if(categoryList.get(i).getText().contains("Hotel Furniture")) {
+                categoryList.get(i).click();
+                break;
+            }
+        }
+        Assert.assertEquals(driver.getCurrentUrl(), "https://www.webstaurantstore.com/64111/hotel-furniture.html");
+    }
 
     @Test
     public void testDiamondPage() {
