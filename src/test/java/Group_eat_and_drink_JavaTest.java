@@ -13,6 +13,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
+import static org.testng.Assert.assertEquals;
+
 public class Group_eat_and_drink_JavaTest {
 
     private WebDriver driver;
@@ -22,6 +24,7 @@ public class Group_eat_and_drink_JavaTest {
     private static final By EXERCISE2 = By.name("ex2");
     private static final By EXERCISE3 = By.name("ex3");
     private static final By NEXTEX = By.id("correctnextbtn");
+    private static final String URLWEB = "http://www.diamondpeak.com/";
 
     @BeforeMethod
     public void setUp() {
@@ -206,7 +209,7 @@ public class Group_eat_and_drink_JavaTest {
         String URL = "https://www.w3schools.com/";
         driver.get(URL);
     }
-  
+
     public void completeExerciseCorrect() {
 
         WebElement learnJava = driver.findElement(By.xpath("//*[@id=\"main\"]/div[6]/div/div[3]/div/a"));
@@ -216,7 +219,7 @@ public class Group_eat_and_drink_JavaTest {
         driver.findElement(EXERCISE3).sendKeys("println");
     }
 
-    public void completeExerciseIncorrect(){
+    public void completeExerciseIncorrect() {
 
         WebElement learnJava = driver.findElement(By.xpath("//*[@id=\"main\"]/div[6]/div/div[3]/div/a"));
         learnJava.click();
@@ -226,7 +229,7 @@ public class Group_eat_and_drink_JavaTest {
         driver.findElement(EXERCISE3).sendKeys("phrase");
     }
 
-    public void proceedToResultPage(){
+    public void proceedToResultPage() {
 
         WebElement submit = driver.findElement(By.xpath("//*[@id=\"w3-exerciseform\"]/div/button"));
         submit.click();
@@ -245,16 +248,16 @@ public class Group_eat_and_drink_JavaTest {
         WebElement answerButton = driver.findElement(By.xpath("//*[@id=\"answerbutton\"]"));
         answerButton.click();
     }
-  
+
     @Test
-    public void testElenauSIncorrectResultCheck(){
+    public void testElenauSIncorrectResultCheck() {
         navigateToPage();
         completeExerciseIncorrect();
         proceedToResultPage();
 
         WebElement warning = driver.findElement(By.xpath("//*[@id=\"assignmentNotCorrect\"]/h2"));
 
-        Assert.assertEquals(warning.getText(),"Not Correct");
+        Assert.assertEquals(warning.getText(), "Not Correct");
     }
 
     @Test
@@ -277,7 +280,7 @@ public class Group_eat_and_drink_JavaTest {
         proceedToResultPage();
 
         List<WebElement> links = driver.findElements(By.tagName("a"));
-        for (WebElement  l:links) {
+        for (WebElement l : links) {
             String name = l.getText();
             System.out.println(name);
         }
@@ -285,7 +288,7 @@ public class Group_eat_and_drink_JavaTest {
 
         WebElement description = driver.findElement(By.xpath("//*[@id=\"assignmenttext\"]/p"));
 
-        Assert.assertEquals(description.getText(),"Comments in Java are written with special characters. Insert the missing parts:");
+        Assert.assertEquals(description.getText(), "Comments in Java are written with special characters. Insert the missing parts:");
     }
 
     @Test
@@ -358,6 +361,7 @@ public class Group_eat_and_drink_JavaTest {
             Assert.assertTrue(brandList.get(i).getText().toLowerCase().contains("amana"));
         }
     }
+
     @Test
     public void testSearchFieldFindJobTatianaT() {
         driver.get("https://humans.net/");
@@ -375,5 +379,53 @@ public class Group_eat_and_drink_JavaTest {
 
         Assert.assertEquals(driver.getCurrentUrl(), "https://humans.net/findwork/all/any/Seattle%20WA/?q=Engineering");
     }
+    @Test
+    public void SergeyBrigBrandSearch() {
+
+        driver.get("https://www.webstaurantstore.com");
+
+        driver.findElement(By.xpath("//input[@id = 'searchval']")).sendKeys("cup \n");
+
+        List<WebElement> brandList = driver.findElements(By.xpath("//a[@ data-testid='itemDescription']"));
+        for (int i = 0; i < brandList.size(); i++) {
+            Assert.assertTrue(brandList.get(i).getText().toLowerCase().contains("cup"));
+        }
+    }
+    @Test
+    public void SergeyBrigMenu2Test() {
+        driver.get("https://www.webstaurantstore.com");
+
+        List<WebElement> menuList = driver.findElements(By.xpath("//div[@class = 'm-0 lt:flex']/a"));
+        for (int i = 0; i < menuList.size(); i++) {
+            if(menuList.get(i).getText().toLowerCase().contains("furniture")) {
+                menuList.get(i).click();
+                break;
+            }
+        }
+        List<WebElement> categoryList = driver.findElements(By.xpath("//div/a/h2"));
+        for(int i = 0; i < categoryList.size(); i++) {
+            if(categoryList.get(i).getText().contains("Hotel Furniture")) {
+                categoryList.get(i).click();
+                break;
+            }
+        }
+        Assert.assertEquals(driver.getCurrentUrl(), "https://www.webstaurantstore.com/64111/hotel-furniture.html");
+    }
+
+    @Test
+    public void testDiamondPage() {
+        driver.get(URLWEB);
+        WebElement title = driver.findElement(By.xpath("//a[@class='logo']"));
+
+        String actualResult = title.getText();
+        assertEquals(actualResult, "DIAMOND PEAK");
+        List<WebElement> navBar = driver.findElements(By.xpath("//ul[@class ='navbar row']"));
+        for (int i = 0; i < navBar.size(); i++) {
+            assertEquals(navBar.get(i).getText(), "DIAMOND PEAK\n" +
+                    "THE MOUNTAINTICKETS & PASSES\n" +
+                    "LESSONS & RENTALSPLAN A VISIT");
+        }
+    }
+
 }
 
