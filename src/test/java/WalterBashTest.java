@@ -29,12 +29,12 @@ public class WalterBashTest {
         WebDriverWait wait = new WebDriverWait(driver, 10);
 
         NavigateToCreateAccountPage();
-        CreateAcccount(wait);
+        CreateAccount(wait);
         InputData(wait);
         Assert();
     }
 
-    private void CreateAcccount(WebDriverWait wait) {
+    private void CreateAccount(WebDriverWait wait) {
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id='email_create']")));
         driver.findElement(By.xpath("//*[@id='email_create']")).sendKeys("bash34@aol.com");
         driver.findElement(By.xpath("//*[@id='SubmitCreate']")).click();
