@@ -99,6 +99,7 @@ public class Group_eat_and_drink_JavaTest {
         searchField.sendKeys(bookName + "\n");
 
         List<WebElement> itemList = driver.findElements(By.xpath("//h2[@class='title product-field']/child::a"));
+        Assert.assertTrue(itemList.size() != 0);
         for (WebElement item : itemList) {
             Assert.assertTrue(item.getText().toLowerCase(Locale.ROOT).
                     contains(bookName.toLowerCase(Locale.ROOT)));
