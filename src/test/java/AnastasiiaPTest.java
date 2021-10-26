@@ -15,8 +15,10 @@ import java.util.concurrent.TimeUnit;
 
 public class AnastasiiaPTest {
 
+    private static final String URL = "https://shop.mango.com/us/women";
+    private static final String SEARCH_ICON = "search_icon_button";
+
     private WebDriver driver;
-    WebDriverWait wait;
 
     @BeforeMethod
     public void setUp() {
@@ -54,13 +56,25 @@ public class AnastasiiaPTest {
     private void testSearchSubjectTextField() {
         String expectedResult = "SEARCH RESULTS FOR NY DRESS";
 
-        driver.get("https://shop.mango.com/us/women");
-        driver.findElement(By.id("search_icon_button")).click();
+        driver.get(URL);
+        driver.findElement(By.id(SEARCH_ICON)).click();
         driver.findElement(By.xpath("//div//input[@class='search-input']")).sendKeys("NY dress\n");
 
         WebElement actualResult = driver.findElement(By.xpath("//div[@id = 'title']"));
 
         Assert.assertEquals(actualResult.getText(), expectedResult);
+    }
+
+    @Test
+    public void testVerificationText() {
+        driver.get(URL);
+        driver.findElement(By.id(SEARCH_ICON)).click();
+        driver.findElement(By.xpath("//div//input[@class='search-input']")).sendKeys("dress\n");
+
+        List<WebElement> itemList = driver.findElements(By.xpath("//span[contains(@class, 'product-name')]"));
+        for (int i = 0; i < itemList.size(); i++) {
+            Assert.assertTrue(itemList.get(i).getText().toLowerCase().contains("dress"));
+        }
     }
 
 
