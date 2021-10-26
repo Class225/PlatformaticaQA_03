@@ -66,6 +66,32 @@ public class GroupGroupTest {
     }
 
     @Test
+    public void testNarimanMirzakhanov3() {
+        driver.get("https://sidelineswap.com/");
+        driver.findElement(By.xpath("//input[@name = 'q']")).sendKeys("ball");
+        driver.findElement(By.xpath("//form/button[@type = 'submit']")).click();
+        driver.findElement(By.xpath("//a/button/div[contains(text(), 'Soccer')]")).click();
+        driver.findElement(By.xpath("//div/a[contains(text(), 'Soccer Ball Classico')]")).click();
+        driver.findElement(By.xpath("//button[@id = 'add-to-cart']")).click();
+
+        WebElement productName = driver.findElement(By.xpath("//a[contains(text(), 'Soccer Ball Classico')]"));
+        Assert.assertEquals(productName.getText(), "Soccer Ball Classico");
+    }
+
+    @Test
+    public void testNarimanMirzakhanov4() {
+        driver.get("https://sidelineswap.com/");
+        driver.findElement(By.xpath("//input[@name = 'q']")).sendKeys("ball");
+        driver.findElement(By.xpath("//form/button[@type = 'submit']")).click();
+        driver.findElement(By.xpath("//a/button/div[contains(text(), 'Soccer')]")).click();
+        driver.findElement(By.xpath("//div/a[contains(text(), 'Soccer Ball Classico')]")).click();
+        driver.findElement(By.xpath("//button[@id = 'add-to-cart']")).click();
+        driver.findElement(By.xpath("//button[contains(text(), 'Remove')]")).click();
+        WebElement resultAfterRemoving = driver.findElement(By.xpath("//h1[contains(text(), 'No items in your cart')]"));
+        Assert.assertEquals(resultAfterRemoving.getText(), "No items in your cart");
+    }
+
+    @Test
     public void PolinaTceretian1() {
         //testCreateAccountPageOpen()
 
