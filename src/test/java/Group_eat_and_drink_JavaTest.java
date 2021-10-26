@@ -380,6 +380,7 @@ public class Group_eat_and_drink_JavaTest {
 
         Assert.assertEquals(driver.getCurrentUrl(), "https://humans.net/findwork/all/any/Seattle%20WA/?q=Engineering");
     }
+
     @Test
     public void SergeyBrigBrandSearch() {
 
@@ -392,20 +393,21 @@ public class Group_eat_and_drink_JavaTest {
             Assert.assertTrue(brandList.get(i).getText().toLowerCase().contains("cup"));
         }
     }
+
     @Test
     public void SergeyBrigMenu2Test() {
         driver.get("https://www.webstaurantstore.com");
 
         List<WebElement> menuList = driver.findElements(By.xpath("//div[@class = 'm-0 lt:flex']/a"));
         for (int i = 0; i < menuList.size(); i++) {
-            if(menuList.get(i).getText().toLowerCase().contains("furniture")) {
+            if (menuList.get(i).getText().toLowerCase().contains("furniture")) {
                 menuList.get(i).click();
                 break;
             }
         }
         List<WebElement> categoryList = driver.findElements(By.xpath("//div/a/h2"));
-        for(int i = 0; i < categoryList.size(); i++) {
-            if(categoryList.get(i).getText().contains("Hotel Furniture")) {
+        for (int i = 0; i < categoryList.size(); i++) {
+            if (categoryList.get(i).getText().contains("Hotel Furniture")) {
                 categoryList.get(i).click();
                 break;
             }
@@ -414,7 +416,7 @@ public class Group_eat_and_drink_JavaTest {
     }
 
     @Test
-    public void testDiamondPage() {
+    public void testDiamondPage() throws InterruptedException {
         driver.get(URLWEB);
         WebElement title = driver.findElement(By.xpath("//a[@class='logo']"));
 
@@ -426,7 +428,25 @@ public class Group_eat_and_drink_JavaTest {
                     "THE MOUNTAINTICKETS & PASSES\n" +
                     "LESSONS & RENTALSPLAN A VISIT");
         }
+
     }
 
+    @Test
+    public void OlgaNTest() throws InterruptedException {
+
+        driver.get("https://www.vacasa.com/");
+
+        WebElement searchField = driver.findElement(By.xpath("//input[@class = 'form-control hero-search-field col input-with-icon ui-autocomplete-input']"));
+        searchField.sendKeys("Charlotte");
+
+
+        WebElement searchButton = driver.findElement(By.xpath("//button[@class='btn btn-v-primary px-6 search-button hero-search-button']"));
+
+        searchButton.click();
+        Thread.sleep(3000);
+
+        Assert.assertEquals(driver.getCurrentUrl(), "https://www.vacasa.com/search?place=/usa/Vermont/Charlotte/");
+        driver.quit();
+    }
 }
 
