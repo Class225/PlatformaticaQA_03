@@ -29,6 +29,7 @@ public class SergeiDTest {
 
     @AfterMethod
     public void setDown() {
+
         driver.quit();
     }
 
@@ -43,6 +44,7 @@ public class SergeiDTest {
         Assert.assertTrue(itemList.size() != 0);
         for (int i = 0; i < itemList.size(); i++) {
             Assert.assertTrue(itemList.get(i).getText().toLowerCase().contains(text));
+         //   System.out.println(itemList.get(i));
         }
     }
 
