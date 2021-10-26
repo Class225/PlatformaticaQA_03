@@ -428,5 +428,37 @@ public class Group_eat_and_drink_JavaTest {
         }
     }
 
+    @Test
+    public void testElena_uSChewyCartButton() {
+
+        String URL = "https://www.chewy.com/";
+
+        driver.get(URL);
+
+        WebElement halloweenShop = driver.findElement(By.xpath("//*[@id='sfw-header__main']/header/div[2]/div/ul/li[7]/a"));
+        halloweenShop.click();
+
+        WebElement shopFunny = driver.findElement(By.xpath("//*[@id='tns3-item3']/a"));
+        shopFunny.click();
+
+        WebElement forDog = driver.findElement(By.xpath("//*[@id='tns1-item0']"));
+        forDog.click();
+
+        WebElement pigCostume = driver.findElement(By.xpath("//*[@id='page-content']/div[2]/div[2]/div[2]/div[1]/div/section[2]/article[2]/a"));
+        pigCostume.click();
+
+        WebElement smallSize = driver.findElement(By.xpath("//*[@id='variation-Size']/div[2]/div[2]/div/label"));
+        smallSize.click();
+
+        WebElement addToCartButton = driver.findElement(By.xpath("//*[@id='buybox']/div[1]/div/form/div[2]/div[1]/a"));
+        addToCartButton.click();
+
+
+        WebElement checkCart = driver.findElement(By.xpath("//*[@id='smartshelf-minicart']/div[5]/div[1]/a"));
+        Assert.assertTrue(checkCart.isDisplayed());
+
+
+    }
+
 }
 
