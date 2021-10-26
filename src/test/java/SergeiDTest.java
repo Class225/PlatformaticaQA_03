@@ -22,6 +22,7 @@ public class SergeiDTest {
         WebDriverManager.chromedriver().setup();
 
         driver = new ChromeDriver();
+        System.out.println("ppp");
 
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.manage().window().maximize();
