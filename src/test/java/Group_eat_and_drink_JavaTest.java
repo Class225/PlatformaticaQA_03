@@ -426,7 +426,28 @@ public class Group_eat_and_drink_JavaTest {
                     "THE MOUNTAINTICKETS & PASSES\n" +
                     "LESSONS & RENTALSPLAN A VISIT");
         }
+
     }
+
+    @Test
+    public void testElena_uSRegistrationPage() {
+
+        driver.get("https://www.homedepot.com");
+
+        WebElement myAccount = driver.findElement(By.id("headerMyAccount"));
+        myAccount.click();
+
+        WebElement register = driver.findElement(By.xpath("//*[@id='SPSORegister']/a"));
+        register.click();
+
+        WebElement personalAccount =driver.findElement(By.xpath("//*[@id='single-signin__body']/div/div[2]/div/div[2]/div[1]/div"));
+        personalAccount.click();
+
+        Assert.assertEquals(driver.getTitle(),"The Home Depot: sign in, create or secure your account");
+
+    }
+
+
 
     @Test
     public void testElena_uSChewyCartButton() {
