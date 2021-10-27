@@ -1,43 +1,44 @@
 package base;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
 import java.util.concurrent.TimeUnit;
 
-public class BaseTest {
+public abstract class BaseTest {
 
-    private static WebDriver driver;
+    private static final ChromeOptions CHROME_OPTIONS;
+    static {
+        CHROME_OPTIONS = new ChromeOptions();
+        String options = System.getenv("CHROME_OPTIONS");
+        if (options != null) {
+            for (String argument : options.split(";")) {
+                CHROME_OPTIONS.addArguments(argument);
+            }
+        }
+        CHROME_OPTIONS.addArguments("--window-size=1920,1080");
 
-    @BeforeMethod
-    public void before() {
         WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        driver.manage().window().maximize();
     }
 
-    @AfterMethod
-    public void after() {
-        driver.quit();
-    }
+    private WebDriver driver;
 
     protected WebDriver getDriver() {
         return driver;
     }
 
-    protected WebDriverWait getWait() {
-        return new WebDriverWait(getDriver(), 10);
+    @BeforeMethod
+    public void setUp() {
+        driver = new ChromeDriver(CHROME_OPTIONS);
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
 
-    public static void scroll(WebDriver driver, WebElement element) {
-        JavascriptExecutor executor = (JavascriptExecutor) driver;
-        executor.executeScript("arguments[0].scrollIntoView();", element);
+    @AfterMethod
+    public void setDown() {
+        driver.quit();
     }
 }
