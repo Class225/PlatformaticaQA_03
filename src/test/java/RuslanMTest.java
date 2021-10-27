@@ -34,45 +34,39 @@ public class RuslanMTest {
 
         driver.get("https://www.dmv.ca.gov/portal/");
 
-        WebElement close = driver.findElement(By.id("dmv-modal__close"));
-        close.click();
-        WebElement s = driver.findElement(By.id("site-header-search-input"));
-        WebElement button = driver.findElement(By.className("site-header__search-submit"));
-        s.sendKeys("sqrtef");
-        button.click();
+        WebElement closeButton = driver.findElement(By.id("dmv-modal__close"));
+        closeButton.click();
 
-        WebElement noresult = driver.findElement(By.className("search-term"));
-        Assert.assertEquals(noresult.getText(), "\"sqrtef\"");
+        WebElement searchInput = driver.findElement(By.id("site-header-search-input"));
+        WebElement submitButton = driver.findElement(By.className("site-header__search-submit"));
+        searchInput.sendKeys("sqrtef");
+        submitButton.click();
 
+        WebElement noResult = driver.findElement(By.className("search-term"));
+
+        Assert.assertEquals(noResult.getText(), "\"sqrtef\"");
     }
 
     @Test
-    public void testWeb2() throws InterruptedException {
+    public void testWeb2() {
 
         driver.get("https://www.dmv.ca.gov/portal/");
 
         String expectedResult = "SMOG INSPECTIONS";
 
-        WebElement close = driver.findElement(By.id("dmv-modal__close"));
-        close.click();
+        WebElement closeButton = driver.findElement(By.id("dmv-modal__close"));
+        closeButton.click();
 
-        WebElement vehicle = driver.findElement(By.id("1086"));
-        vehicle.click();
+        WebElement vehicleReg = driver.findElement(By.id("1086"));
+        vehicleReg.click();
 
-        Thread.sleep(3000);
+        WebElement smogInsp = driver.findElement(By.xpath("//li[@id='menu-item-7339']"));
+        smogInsp.click();
 
-        WebElement smog = driver.findElement(By.xpath("//li[@id='menu-item-7339']"));
-        smog.click();
-
-        Thread.sleep(3000);
-
-        WebElement inspections = driver.findElement(By.xpath("//h1[@class='hero__title']"));
-        String actualResult = inspections.getText();
-
-        Thread.sleep(3000);
+        WebElement inspectionsTitle = driver.findElement(By.xpath("//h1[@class='hero__title']"));
+        String actualResult = inspectionsTitle.getText();
 
         Assert.assertEquals(actualResult, expectedResult);
-
     }
 
     @Test
@@ -81,22 +75,18 @@ public class RuslanMTest {
         driver.get("https://www.dmv.ca.gov/portal/");
         String expectedResult = "次へ";
 
-        WebElement apply = driver.findElement(By.xpath("//a[@id='dmv-modal1__apply-real-id']"));
-        apply.click();
+        WebElement applyId = driver.findElement(By.xpath("//a[@id='dmv-modal1__apply-real-id']"));
+        applyId.click();
 
-        WebElement button = driver.findElement(By.xpath("//button[@class='dmv-modal__close']"));
-        button.click();
+        WebElement startApp = driver.findElement(By.xpath("//a[@class='wp-block-button__link']"));
+        startApp.click();
 
-        WebElement start = driver.findElement(By.xpath("//a[@class='wp-block-button__link']"));
-        start.click();
+        WebElement chooseLanguage = driver.findElement(By.xpath("//label[@for='language-ja']"));
+        chooseLanguage.click();
 
-        WebElement language = driver.findElement(By.xpath("//label[@for='language-ja']"));
-        language.click();
-
-        WebElement japanese = driver.findElement(By.xpath("//button[@class='arrow-button forward']"));
-        String actualResult = japanese.getText();
+        WebElement japaneseLanguage = driver.findElement(By.xpath("//button[@class='arrow-button forward']/span"));
+        String actualResult = japaneseLanguage.getText();
 
         Assert.assertEquals(actualResult, expectedResult);
     }
-
 }
