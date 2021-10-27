@@ -544,4 +544,34 @@ public class JavaHamstersTest {
             Assert.assertTrue(itemList.get(i).getText().toLowerCase(Locale.ROOT).contains("договор"));
         }
     }
+    @Test
+    void testLoginErrorChapaevAleksei(){
+
+        driver.get("https://www.yaplakal.com/act/Login/CODE/00/?return=");
+
+        WebElement userName = driver.findElement(By.name("UserName"));
+        userName.sendKeys("abc@gmail.com");
+
+        WebElement userPassword = driver.findElement(By.name("PassWord"));
+        userPassword.sendKeys("your_password");
+
+        WebElement login = driver.findElement(By.name("submit"));
+        login.click();
+
+        WebElement error = driver.findElement(By.className("postcolor"));
+        Assert.assertEquals(error.getText(), "Проверка на бота не пройдена (invalid-input-response)");
+
+    }
+
+    @Test
+    void testOnMainPageChapaevAleksei(){
+
+        driver.get("https://www.yaplakal.com/forum7/topic2342386.html");
+
+        WebElement mainPage = driver.findElement(By.xpath("//*[@id=\"top-logo\"]/a/img"));
+        mainPage.click();
+
+        WebElement toMainPage = driver.findElement(By.xpath("//*[@id=\"tabs\"]/a[1]"));
+        Assert.assertEquals(toMainPage.getText(), "Главная");
+    }
 }
