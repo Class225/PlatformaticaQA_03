@@ -481,5 +481,30 @@ public class Group_eat_and_drink_JavaTest {
 
     }
 
+    @Test
+    private void SergeyBrigEddToCartTest() {
+        driver.get("https://www.webstaurantstore.com");
+
+        driver.findElement(By.xpath("//input[@id = 'searchval']")).sendKeys("220SPRDWNEN3"+ "\n");
+
+        List<WebElement> sizeVariations = driver.findElements(By.xpath("//ul[@class = 'nav nav-pills nav-stacked']/li"));
+        for (int i = 0; i < sizeVariations.size(); i++) {
+            if(sizeVariations.get(i).getText().contains("5 1/2\"")) {
+                sizeVariations.get(i).click();
+                break;
+            }
+        }
+        driver.findElement(By.xpath("//input[@id ='qty']")).sendKeys("2");
+        driver.findElement(By.xpath("//input[@id ='buyButton']")).click();
+        driver.findElement(By.xpath("//a[@data-testid='cart-nav-link']")).click();
+        WebElement orderItem = driver.findElement(By.xpath("//span[@id= 'cartItemCountSpan']"));
+
+        Assert.assertEquals(orderItem.getText(), "21");
+
+
+
+
+    }
+
 }
 
