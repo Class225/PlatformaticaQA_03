@@ -489,9 +489,6 @@ public class Group_eat_and_drink_JavaTest extends BaseTest {
 
         Assert.assertEquals(orderItem.getText(), "21");
 
-
-
-
     }
 
 }
