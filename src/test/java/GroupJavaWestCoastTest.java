@@ -9,10 +9,12 @@ import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 
 import java.util.concurrent.TimeUnit;
 
+@Ignore
 public class GroupJavaWestCoastTest {
 
     private WebDriver driver;
@@ -123,17 +125,20 @@ public class GroupJavaWestCoastTest {
 
     @Test
     public void testGlebShkut() throws InterruptedException {
+        driver.get("https://generator.email/");
+        String randomEmail1 = driver.findElement(By.xpath("//input[@id='userName']")).getAttribute("value");
+        String randomEmail2 = driver.findElement(By.xpath("//input[@id='domainName2']")).getAttribute("value");
         driver.get("https://www.ck12.org/teacher/");
         driver.findElement(By.xpath("//a[@title=\"Create an Account with CK-12\"]")).click();
         driver.findElement(By.xpath("//a[@class=\"button turquoise large signup-email-button js-signup-email-button\"]")).click();
         driver.findElement(By.xpath("//input[@id='name']")).sendKeys("Dmitry Petrov");
-        driver.findElement(By.xpath("//input[@id='email']")).sendKeys("test123dima23@gmail.com"); // change this email
+        driver.findElement(By.xpath("//input[@id='email']")).sendKeys(randomEmail1 + "@" + randomEmail2);
         driver.findElement(By.xpath("//input[@id='password']")).sendKeys("dmitripetrov2312!sas");
         driver.findElement(By.xpath("//span[@id=\"password_check\"]")).click();
         Assert.assertEquals(driver.findElement(By.xpath("//input[@id='password']")).getAttribute("value"),"dmitripetrov2312!sas");
         driver.findElement(By.xpath("//input[@id='signup_form_submit']")).click();
         driver.findElement(By.xpath("//a[@id='continueButton']")).click();
-        Thread.sleep(5000);
+        Thread.sleep(3000);
         driver.navigate().refresh();
         driver.findElement(By.xpath("//button[contains(text(),\"Let's get started!\")]")).click();
         driver.findElement(By.xpath("//span[contains(text(),'No, thanks. Just take me to my dashboard.')]")).click();

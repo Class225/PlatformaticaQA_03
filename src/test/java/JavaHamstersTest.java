@@ -10,6 +10,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 
 import java.util.List;
@@ -18,6 +19,7 @@ import java.util.concurrent.TimeUnit;
 
 import static org.testng.Assert.assertEquals;
 
+@Ignore
 public class JavaHamstersTest {
 
     private final String URL_IK = "https://www.vprok.ru/";
@@ -543,5 +545,35 @@ public class JavaHamstersTest {
         for (int i = 0; i < itemList.size(); i++) {
             Assert.assertTrue(itemList.get(i).getText().toLowerCase(Locale.ROOT).contains("договор"));
         }
+    }
+    @Test
+    void testLoginErrorChapaevAleksei(){
+
+        driver.get("https://www.yaplakal.com/act/Login/CODE/00/?return=");
+
+        WebElement userName = driver.findElement(By.name("UserName"));
+        userName.sendKeys("abc@gmail.com");
+
+        WebElement userPassword = driver.findElement(By.name("PassWord"));
+        userPassword.sendKeys("your_password");
+
+        WebElement login = driver.findElement(By.name("submit"));
+        login.click();
+
+        WebElement error = driver.findElement(By.className("postcolor"));
+        Assert.assertEquals(error.getText(), "Проверка на бота не пройдена (invalid-input-response)");
+
+    }
+
+    @Test
+    void testOnMainPageChapaevAleksei(){
+
+        driver.get("https://www.yaplakal.com/forum7/topic2342386.html");
+
+        WebElement mainPage = driver.findElement(By.xpath("//*[@id=\"top-logo\"]/a/img"));
+        mainPage.click();
+
+        WebElement toMainPage = driver.findElement(By.xpath("//*[@id=\"tabs\"]/a[1]"));
+        Assert.assertEquals(toMainPage.getText(), "Главная");
     }
 }
