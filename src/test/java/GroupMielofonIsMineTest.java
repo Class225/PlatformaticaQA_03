@@ -1,15 +1,16 @@
-import base.BaseTest;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class GroupMielofonIsMineTest extends BaseTest {
+@Ignore
+public class GroupMielofonIsMineTest extends BaseTest_ {
 
     private final static String URL_VW = "https://www.vw.com/";
 
