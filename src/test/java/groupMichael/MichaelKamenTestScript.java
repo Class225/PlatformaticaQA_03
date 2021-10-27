@@ -7,6 +7,7 @@ import org.testng.Assert;
 
 import java.util.concurrent.TimeUnit;
 
+@Ignore
 public class MichaelKamenTestScript  {
 
     private WebDriver driver;
