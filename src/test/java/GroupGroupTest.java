@@ -18,9 +18,9 @@ import java.util.concurrent.TimeUnit;
 public class GroupGroupTest {
 
     private WebDriver driver;
-    private static String URL1_GG = "https://www.edx.org/";
-    private static String URL2_GG = "https://www.edx.org/search?q=python&tab=course";
-    String url3_DS = "https://www.saucedemo.com/";
+    private static final String URL1_GG = "https://www.edx.org/";
+    private static final String URL2_GG = "https://www.edx.org/search?q=python&tab=course";
+    private static final String URL3_DS = "https://www.saucedemo.com/";
 
     @BeforeMethod
     public void setUp() {
@@ -92,9 +92,7 @@ public class GroupGroupTest {
     }
 
     @Test
-    public void PolinaTceretian1() {
-        //testCreateAccountPageOpen()
-
+    public void testCreateAccountPageOpenPolinaTceretian1() {
         driver.get("https://www.starbucks.com");
 
         WebElement signIn = driver.findElement(By.xpath("//*[contains(text(), 'Join now')]"));
@@ -106,8 +104,7 @@ public class GroupGroupTest {
     }
 
     @Test
-    public void PolinaTceretian2() throws InterruptedException {
-        //testCreateAccountRegistration()
+    public void testCreateAccountRegistrationPolinaTceretian2() {
         driver.get("https://www.starbucks.com/account/create");
         driver.findElement(By.id("firstName")).sendKeys("T");
         driver.findElement(By.id("lastName")).sendKeys("E");
@@ -120,7 +117,7 @@ public class GroupGroupTest {
         driver.findElement(By.id("password")).sendKeys("123456Abc!");
         driver.findElement(By.xpath("//input[@id ='termsAndConditions']/..//span[@class='block option__labelMarker']")).click();
         driver.findElement(By.xpath("//*[contains(text(), 'Create account')]")).click();
-        Thread.sleep(3000);
+
         String actualUrl = "https://app.starbucks.com/";
         String expectedUrl = driver.getCurrentUrl();
         Assert.assertEquals(expectedUrl, actualUrl);
@@ -194,14 +191,14 @@ public class GroupGroupTest {
                 ("//div[@class='d-card-wrapper bg-primary-500']")).size(), 4);
     }
 
-    @Test //Dasha Sandler
-    public void sandlerGoToLoginPage() {
+    @Test
+    public void testDashaSandlerGoToLoginPage() {
         String currentUrl = driver.getCurrentUrl();
-        Assert.assertEquals(currentUrl, url3_DS); //does it the same urls?
+        Assert.assertEquals(currentUrl, URL3_DS); //does it the same urls?
     }
 
-    @Test //Dasha Sandler
-    public void sandlerPreconditionsPlaceholdersNames() {
+    @Test
+    public void testDashaSandlerPreconditionsPlaceholdersNames() {
         String placeholderUsernameTextExpected = "Username";
         String passwordTextExpected = "Password";
         WebElement placeholderUserName = driver.findElement(By.xpath("//input[@id='user-name']")); //placeholder for username
@@ -215,8 +212,8 @@ public class GroupGroupTest {
         Assert.assertEquals(passwordTextExpected, placeholderPasswordActual);  //does it have correct placeholder name for password?
     }
 
-    @Test //Dasha Sandler
-    public void sandlerLoginCheck() {
+    @Test
+    public void testDashaSandlerLoginCheck() {
         String expectedPageAfterLogin = "https://www.saucedemo.com/inventory.html";
         WebElement loginBtn = driver.findElement(By.id("login-button"));
         WebElement placeholderUserName = driver.findElement(By.xpath("//input[@id='user-name']")); //placeholder for username
@@ -278,13 +275,12 @@ public class GroupGroupTest {
     }
 
     @Test
-    public void testSearchField() throws AWTException {
+    public void testSearchField() {
         driver.get("https://www.dre.ca.gov/");
         WebElement searchField = driver.findElement(By.id("search_local_textfield"));
         WebElement searchBtn = driver.findElement(By.name("submit"));
 
         searchField.sendKeys("townhouse" + "\n");
-
 
         WebElement targetPageHeader = driver.findElement(By.id("serp_title"));
         WebElement targetPageSearchField = driver.findElement(By.id("gsc-i-id1"));
@@ -292,7 +288,6 @@ public class GroupGroupTest {
         Assert.assertEquals(driver.getCurrentUrl(), "https://www.dre.ca.gov/serp.html?q=townhouse&cx=001779225245372747843%3A11sknaw8obu&cof=FORID%3A10&ie=UTF-8&submit.x=0&submit.y=0");
         Assert.assertEquals(targetPageHeader.getText(), "Search Results");
         Assert.assertEquals(targetPageSearchField.getAttribute("value"), "townhouse");
-
     }
 
     @Test
@@ -301,11 +296,9 @@ public class GroupGroupTest {
         driver.findElement(By.cssSelector("#searchval")).sendKeys("oven\n");
 
         List<WebElement> itemList = driver.findElements(By.xpath("//a[@data-testid = 'itemDescription']"));
-        for (int i = 0; i < itemList.size(); i++) {
-            Assert.assertTrue(itemList.get(i).getText().toLowerCase().contains("oven"));
+        for (WebElement webElement : itemList) {
+            Assert.assertTrue(webElement.getText().toLowerCase().contains("oven"));
         }
-
-
     }
 
     @Test
@@ -319,8 +312,8 @@ public class GroupGroupTest {
         searchString.sendKeys("платье\n");
 
         List<WebElement> itemList = driver.findElements(By.className("searchBlock__content"));
-        for (int i = 0; i < itemList.size(); i++) {
-            Assert.assertTrue(itemList.get(i).getText().toLowerCase().contains("платье"));
+        for (WebElement webElement : itemList) {
+            Assert.assertTrue(webElement.getText().toLowerCase().contains("платье"));
         }
     }
 }
