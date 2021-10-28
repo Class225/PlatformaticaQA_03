@@ -14,7 +14,6 @@ public class AnastasiiaPTest extends BaseTest {
     private static final String URL = "https://shop.mango.com/us/women";
     private static final String SEARCH_ICON = "search_icon_button";
 
-    @Ignore
     @Test
     public void testCurrentAddressTextField() {
         String expectedResult = "Roses Delivery";
@@ -30,6 +29,7 @@ public class AnastasiiaPTest extends BaseTest {
 
         Assert.assertEquals(actualResult.getText(), expectedResult);
     }
+
     @Ignore
     @Test
     public void testSearchSubjectTextField() {
