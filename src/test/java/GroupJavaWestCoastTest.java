@@ -1,23 +1,16 @@
-import io.github.bonigarcia.wdm.WebDriverManager;
+import base.BaseTest;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 
 import java.util.concurrent.TimeUnit;
 
-@Ignore
-public class GroupJavaWestCoastTest {
-
-    private WebDriver driver;
+public class GroupJavaWestCoastTest extends BaseTest {
 
     private static final By SCOREBUTTON = By.xpath("//div[@class='ml-10px is-inline']");
     private static final By HONOR = By.xpath("//b[text()='Honor:']/..");
@@ -30,40 +23,24 @@ public class GroupJavaWestCoastTest {
     private static final String EMAILGENERATOR = RandomStringUtils.randomAlphabetic(5) + RandomStringUtils.randomAlphanumeric(2) + "!" + "@gmail.com";
 
     public void signInMethodIliaP(){
-        driver.findElement(LOGINBUTTON).click();
-        driver.findElement(EMAILFIELD).sendKeys("testing@testing.com");
-        driver.findElement(PASSWORDFIELD).sendKeys("Test88");
-        driver.findElement(SIGNINBUTTON).click();
+        getDriver().findElement(LOGINBUTTON).click();
+        getDriver().findElement(EMAILFIELD).sendKeys("testing@testing.com");
+        getDriver().findElement(PASSWORDFIELD).sendKeys("Test88");
+        getDriver().findElement(SIGNINBUTTON).click();
     }
-
-    @BeforeMethod
-    public void setUp(){
-        WebDriverManager.chromedriver().setup();
-
-        driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
-        driver.manage().window().maximize();
-
-    }
-
-    @AfterMethod
-    public void setDown(){
-        driver.quit();
-    }
-
 
     @Test
     public void testIliaP() {
 
-        driver.get("https://www.codewars.com/");
+        getDriver().get("https://www.codewars.com/");
 
         signInMethodIliaP();
 
-        WebElement scoreButton = driver.findElement(SCOREBUTTON);
+        WebElement scoreButton = getDriver().findElement(SCOREBUTTON);
         String actualValue = "Honor:" + scoreButton.getText();
         scoreButton.click();
 
-        WebElement honor = driver.findElement(HONOR);
+        WebElement honor = getDriver().findElement(HONOR);
         String expectedValue = honor.getText();
 
         Assert.assertEquals(actualValue, expectedValue);
@@ -72,13 +49,13 @@ public class GroupJavaWestCoastTest {
     @Test
     public void testIliaPTwo(){
 
-        driver.get("https://www.codewars.com/");
+        getDriver().get("https://www.codewars.com/");
 
         signInMethodIliaP();
 
-        driver.findElement(SCOREBUTTON).click();
+        getDriver().findElement(SCOREBUTTON).click();
 
-        WebElement rankField = driver.findElement(RANKFIELD);
+        WebElement rankField = getDriver().findElement(RANKFIELD);
         String expectedValue = rankField.getText();
         String resultExpected = "";
         for(int i = 0;i<expectedValue.length();i++){
@@ -86,7 +63,7 @@ public class GroupJavaWestCoastTest {
                 resultExpected += expectedValue.charAt(i+1);
             }
         }
-        WebElement overallField = driver.findElement(OVERALLFIELD);
+        WebElement overallField = getDriver().findElement(OVERALLFIELD);
         String actualValue = overallField.getText();
         String resultActual = "";
         for(int i = 0;i<actualValue.length();i++){
@@ -96,132 +73,134 @@ public class GroupJavaWestCoastTest {
         }
         Assert.assertEquals(resultActual,resultExpected);
     }
+
     @Test
     public void testYelenaAnderson() throws InterruptedException {
 
         String expectedResult = "https://www.asos.com/us/";
 
-        driver.get("https://www.asos.com/us/");
+        getDriver().get("https://www.asos.com/us/");
 
-        Thread.sleep(3000);
-
-        String actualResult = driver.getCurrentUrl();
+        String actualResult = getDriver().getCurrentUrl();
         Assert.assertEquals(actualResult, expectedResult);
     }
 
+    @Ignore
     @Test
     public void testYelenaAnderson1() {
 
-        driver.get("https://www.asos.com/us/");
+        getDriver().get("https://www.asos.com/us/");
 
-        WebElement searchBar = driver.findElement(By.xpath("//input[@type='search']"));
+        WebElement searchBar = getDriver().findElement(By.xpath("//input[@type='search']"));
 
         searchBar.sendKeys("skirt\n");
 
-        WebElement confirmText = driver.findElement(By.xpath("//p[contains(text(),'skirt')]"));
+        WebElement confirmText = getDriver().findElement(By.xpath("//p[contains(text(),'skirt')]"));
         String confirmTextText = confirmText.getText();
         Assert.assertEquals(confirmTextText, "\"Skirt\"");
     }
 
+    @Ignore
     @Test
     public void testGlebShkut() throws InterruptedException {
-        driver.get("https://generator.email/");
-        String randomEmail1 = driver.findElement(By.xpath("//input[@id='userName']")).getAttribute("value");
-        String randomEmail2 = driver.findElement(By.xpath("//input[@id='domainName2']")).getAttribute("value");
-        driver.get("https://www.ck12.org/teacher/");
-        driver.findElement(By.xpath("//a[@title=\"Create an Account with CK-12\"]")).click();
-        driver.findElement(By.xpath("//a[@class=\"button turquoise large signup-email-button js-signup-email-button\"]")).click();
-        driver.findElement(By.xpath("//input[@id='name']")).sendKeys("Dmitry Petrov");
-        driver.findElement(By.xpath("//input[@id='email']")).sendKeys(randomEmail1 + "@" + randomEmail2);
-        driver.findElement(By.xpath("//input[@id='password']")).sendKeys("dmitripetrov2312!sas");
-        driver.findElement(By.xpath("//span[@id=\"password_check\"]")).click();
-        Assert.assertEquals(driver.findElement(By.xpath("//input[@id='password']")).getAttribute("value"),"dmitripetrov2312!sas");
-        driver.findElement(By.xpath("//input[@id='signup_form_submit']")).click();
-        driver.findElement(By.xpath("//a[@id='continueButton']")).click();
+        getDriver().get("https://generator.email/");
+        String randomEmail1 = getDriver().findElement(By.xpath("//input[@id='userName']")).getAttribute("value");
+        String randomEmail2 = getDriver().findElement(By.xpath("//input[@id='domainName2']")).getAttribute("value");
+        getDriver().get("https://www.ck12.org/teacher/");
+        getDriver().findElement(By.xpath("//a[@class=\"button turquoise large signup-email-button js-signup-email-button\"]")).click();
+        getDriver().findElement(By.xpath("//input[@id='name']")).sendKeys("Dmitry Petrov");
+        getDriver().findElement(By.xpath("//a[@title=\"Create an Account with CK-12\"]")).click();
+        getDriver().findElement(By.xpath("//input[@id='email']")).sendKeys(randomEmail1 + "@" + randomEmail2);
+        getDriver().findElement(By.xpath("//input[@id='password']")).sendKeys("dmitripetrov2312!sas");
+        getDriver().findElement(By.xpath("//span[@id=\"password_check\"]")).click();
+        Assert.assertEquals(getDriver().findElement(By.xpath("//input[@id='password']")).getAttribute("value"),"dmitripetrov2312!sas");
+        getDriver().findElement(By.xpath("//input[@id='signup_form_submit']")).click();
+        getDriver().findElement(By.xpath("//a[@id='continueButton']")).click();
         Thread.sleep(3000);
-        driver.navigate().refresh();
-        driver.findElement(By.xpath("//button[contains(text(),\"Let's get started!\")]")).click();
-        driver.findElement(By.xpath("//span[contains(text(),'No, thanks. Just take me to my dashboard.')]")).click();
-        Assert.assertEquals(driver.getCurrentUrl(),"https://www.ck12.org/my/dashboard-new/content/");
+        getDriver().navigate().refresh();
+        getDriver().findElement(By.xpath("//button[contains(text(),\"Let's get started!\")]")).click();
+        getDriver().findElement(By.xpath("//span[contains(text(),'No, thanks. Just take me to my dashboard.')]")).click();
+        Assert.assertEquals(getDriver().getCurrentUrl(),"https://www.ck12.org/my/dashboard-new/content/");
     }
 
     @Test
     public void testAntonHromcenko() {
-        driver.get("https://www.webstaurantstore.com");
-        driver.findElement(By.xpath("//a[@data-testid='register-nav-link']")).click();
-        driver.findElement(By.id("email")).sendKeys(EMAILGENERATOR);
-        driver.findElement(By.id("billname")).sendKeys("test");
-        driver.findElement(By.id("billaddr")).sendKeys("100 Terminal Dr");
-        driver.findElement(By.id("billphone")).sendKeys("9549549544");
-        driver.findElement(By.id("billzip")).sendKeys("33315");
-        driver.findElement(By.id("password")).sendKeys("Test1!");
-        driver.findElement(By.id("complete_registration")).click();
+        getDriver().get("https://www.webstaurantstore.com");getDriver().findElement(By.xpath("//a[@data-testid='register-nav-link']")).click();
+        getDriver().findElement(By.id("email")).sendKeys(EMAILGENERATOR);
+        getDriver().findElement(By.id("billname")).sendKeys("test");
+        getDriver().findElement(By.id("billaddr")).sendKeys("100 Terminal Dr");
+        getDriver().findElement(By.id("billphone")).sendKeys("9549549544");
+        getDriver().findElement(By.id("billzip")).sendKeys("33315");
+        getDriver().findElement(By.id("password")).sendKeys("Test1!");
+        getDriver().findElement(By.id("complete_registration")).click();
 
-        Assert.assertEquals(driver.getCurrentUrl(),"https://www.webstaurantstore.com/myaccount.html?goto=register");
+        Assert.assertEquals(getDriver().getCurrentUrl(),"https://www.webstaurantstore.com/myaccount.html?goto=register");
     }
   
     @Test
     public void testMarianaLuchynets() {
 
-        driver.get("https://www.google.com/maps");
+        getDriver().get("https://www.google.com/maps");
 
-        driver.findElement(By.cssSelector("#searchboxinput")).sendKeys("Austin Downtown");
-        driver.findElement(By.id("searchbox-searchbutton")).click();
-        driver.findElement(By.xpath("//div[contains(text(),'Directions')]")).click();
-        driver.findElement(By.cssSelector(".Zvyb8e-T3iPGc-icon.reverse")).click();
-        driver.findElement(By.cssSelector("input[placeholder='Choose destination, or click on the map...']")).sendKeys("Zilker park Austin");
-        driver.findElement(By.cssSelector("img[aria-label='Walking']")).click();
+        getDriver().findElement(By.cssSelector("#searchboxinput")).sendKeys("Austin Downtown");
+        getDriver().findElement(By.id("searchbox-searchbutton")).click();
+        getDriver().findElement(By.xpath("//div[contains(text(),'Directions')]")).click();
+        getDriver().findElement(By.cssSelector(".Zvyb8e-T3iPGc-icon.reverse")).click();
+        getDriver().findElement(By.cssSelector("input[placeholder='Choose destination, or click on the map...']")).sendKeys("Zilker park Austin");
+        getDriver().findElement(By.cssSelector("img[aria-label='Walking']")).click();
 
-        Assert.assertEquals(driver.findElement(By.xpath("//span[contains(text(),'Guadalupe St and Ann and Roy Butler Hike and Bike Trail')]")).getText(),
+        Assert.assertEquals(getDriver().findElement(By.xpath("//span[contains(text(),'Guadalupe St and Ann and Roy Butler Hike and Bike Trail')]")).getText(),
                 "Guadalupe St and Ann and Roy Butler Hike and Bike Trail");
     }
 
     @Test(description = "Is [I want To...] dropdown appears after selecting \"Consumer\" option in [I am a...] dropdown")
     public void testSvetlanaGorbunova() {
 
-        driver.get("https://www.dre.ca.gov/");
-        WebElement iAmADropdown = driver.findElement(By.id("FilterMenu1"));
-        WebElement iWantToDropdown = driver.findElement(By.id("FilterMenu2"));
+        getDriver().get("https://www.dre.ca.gov/");
+        WebElement iAmADropdown = getDriver().findElement(By.id("FilterMenu1"));
+        WebElement iWantToDropdown = getDriver().findElement(By.id("FilterMenu2"));
 
         Select s = new Select(iAmADropdown);
         s.selectByVisibleText("Consumer");
         Assert.assertTrue(iWantToDropdown.isDisplayed());
     }
 
+    @Ignore
     @Test
     public void testMaxFindText() throws InterruptedException{
         String baseUrl = "http://the-internet.herokapp.com/";
 
-        driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
-        driver.get(baseUrl);
-        driver.findElement(By.xpath("//a[@href='/abtest']")).click();
-        Assert.assertEquals(driver.findElement(By.xpath("//*[(text()='A/B Test Control')]")).getText(), "A/B Test Control");
+        getDriver().manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
+        getDriver().get(baseUrl);
+        getDriver().findElement(By.xpath("//a[@href='/abtest']")).click();
+        Assert.assertEquals(getDriver().findElement(By.xpath("//*[(text()='A/B Test Control')]")).getText(), "A/B Test Control");
     }
 
+    @Ignore
     @Test
     public void testMaxCheckElementIsDisplayed() throws InterruptedException{
         String baseUrl = "http://the-internet.herokapp.com/";
 
-        driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
-        driver.get(baseUrl);
-        driver.findElement(By.xpath("//a[@href='/add_remove_elements/']")).click();
-        driver.findElement(By.xpath("//button[@onclick='addElement()']")).click();
-        Assert.assertTrue(driver.findElement(By.xpath("//button[@class='added-manually']")).isDisplayed());
+        getDriver().manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
+        getDriver().get(baseUrl);
+        getDriver().findElement(By.xpath("//a[@href='/add_remove_elements/']")).click();
+        getDriver().findElement(By.xpath("//button[@onclick='addElement()']")).click();
+        Assert.assertTrue(getDriver().findElement(By.xpath("//button[@class='added-manually']")).isDisplayed());
     }
 
+
+    @Ignore
     @Test
     public void testYelenaBay() throws InterruptedException{
-        driver.get("https://www.att.com/");
+        getDriver().get("https://www.att.com/");
 
-        WebElement search = driver.findElement(By.id("z1-searchfield"));
+        WebElement search = getDriver().findElement(By.id("z1-searchfield"));
         search.sendKeys("iPhone 13 Pro Max");
         search.sendKeys(Keys.ENTER);
 
-        driver.findElement(By.xpath("//button[contains(text(),'Shop now')]")).click();
-        String title = driver.findElement(By.xpath("//h1[contains(text(),'iPhone 13 Pro Max')]")).getText();
+        getDriver().findElement(By.xpath("//button[contains(text(),'Shop now')]")).click();
+        String title = getDriver().findElement(By.xpath("//h1[contains(text(),'iPhone 13 Pro Max')]")).getText();
         Assert.assertEquals(title, "iPhone 13 Pro Max");
-
-
     }
 
 }
