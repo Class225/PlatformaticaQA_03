@@ -1,48 +1,27 @@
-import io.github.bonigarcia.wdm.WebDriverManager;
+import base.BaseTest;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.util.concurrent.TimeUnit;
+public class RuslanMTest extends BaseTest {
 
-public class RuslanMTest {
-
-    WebDriver driver;
-
-    @BeforeMethod
-    public void setUp() {
-        WebDriverManager.chromedriver().setup();
-
-        driver = new ChromeDriver();
-
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        driver.manage().window().maximize();
-    }
-
-    @AfterMethod
-    public void setDown() {
-        driver.quit();
-    }
+    private static final String URL = "https://www.dmv.ca.gov/portal/";
 
     @Test
     public void testWeb() {
 
-        driver.get("https://www.dmv.ca.gov/portal/");
+        getDriver().get(URL);
 
-        WebElement closeButton = driver.findElement(By.id("dmv-modal__close"));
+        WebElement closeButton = getDriver().findElement(By.id("dmv-modal__close"));
         closeButton.click();
 
-        WebElement searchInput = driver.findElement(By.id("site-header-search-input"));
-        WebElement submitButton = driver.findElement(By.className("site-header__search-submit"));
+        WebElement searchInput = getDriver().findElement(By.id("site-header-search-input"));
+        WebElement submitButton = getDriver().findElement(By.className("site-header__search-submit"));
         searchInput.sendKeys("sqrtef");
         submitButton.click();
 
-        WebElement noResult = driver.findElement(By.className("search-term"));
+        WebElement noResult = getDriver().findElement(By.className("search-term"));
 
         Assert.assertEquals(noResult.getText(), "\"sqrtef\"");
     }
@@ -50,20 +29,20 @@ public class RuslanMTest {
     @Test
     public void testWeb2() {
 
-        driver.get("https://www.dmv.ca.gov/portal/");
+        getDriver().get(URL);
 
         String expectedResult = "SMOG INSPECTIONS";
 
-        WebElement closeButton = driver.findElement(By.id("dmv-modal__close"));
+        WebElement closeButton = getDriver().findElement(By.id("dmv-modal__close"));
         closeButton.click();
 
-        WebElement vehicleReg = driver.findElement(By.id("1086"));
+        WebElement vehicleReg = getDriver().findElement(By.id("1086"));
         vehicleReg.click();
 
-        WebElement smogInsp = driver.findElement(By.xpath("//li[@id='menu-item-7339']"));
+        WebElement smogInsp = getDriver().findElement(By.xpath("//li[@id='menu-item-7339']"));
         smogInsp.click();
 
-        WebElement inspectionsTitle = driver.findElement(By.xpath("//h1[@class='hero__title']"));
+        WebElement inspectionsTitle = getDriver().findElement(By.xpath("//h1[@class='hero__title']"));
         String actualResult = inspectionsTitle.getText();
 
         Assert.assertEquals(actualResult, expectedResult);
@@ -72,19 +51,20 @@ public class RuslanMTest {
     @Test
     public void testWeb3() {
 
-        driver.get("https://www.dmv.ca.gov/portal/");
+        getDriver().get(URL);
+
         String expectedResult = "次へ";
 
-        WebElement applyId = driver.findElement(By.xpath("//a[@id='dmv-modal1__apply-real-id']"));
+        WebElement applyId = getDriver().findElement(By.xpath("//a[@id='dmv-modal1__apply-real-id']"));
         applyId.click();
 
-        WebElement startApp = driver.findElement(By.xpath("//a[@class='wp-block-button__link']"));
+        WebElement startApp = getDriver().findElement(By.xpath("//a[@class='wp-block-button__link']"));
         startApp.click();
 
-        WebElement chooseLanguage = driver.findElement(By.xpath("//label[@for='language-ja']"));
+        WebElement chooseLanguage = getDriver().findElement(By.xpath("//label[@for='language-ja']"));
         chooseLanguage.click();
 
-        WebElement japaneseLanguage = driver.findElement(By.xpath("//button[@class='arrow-button forward']/span"));
+        WebElement japaneseLanguage = getDriver().findElement(By.xpath("//button[@class='arrow-button forward']/span"));
         String actualResult = japaneseLanguage.getText();
 
         Assert.assertEquals(actualResult, expectedResult);
