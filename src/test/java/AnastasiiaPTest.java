@@ -4,6 +4,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 
 import java.util.List;
@@ -13,6 +14,7 @@ public class AnastasiiaPTest extends BaseTest {
     private static final String URL = "https://shop.mango.com/us/women";
     private static final String SEARCH_ICON = "search_icon_button";
 
+    @Ignore
     @Test
     public void testCurrentAddressTextField() {
         String expectedResult = "Roses Delivery";
@@ -28,7 +30,7 @@ public class AnastasiiaPTest extends BaseTest {
 
         Assert.assertEquals(actualResult.getText(), expectedResult);
     }
-
+    @Ignore
     @Test
     public void testSearchSubjectTextField() {
         String expectedResult = "SEARCH RESULTS FOR NY DRESS";
@@ -42,6 +44,7 @@ public class AnastasiiaPTest extends BaseTest {
         Assert.assertEquals(actualResult.getText(), expectedResult);
     }
 
+    @Ignore
     @Test
     public void testVerificationText() {
         getDriver().get(URL);
