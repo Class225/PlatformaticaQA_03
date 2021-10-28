@@ -84,15 +84,13 @@ public class GroupJavaWestCoastTest extends BaseTest {
         String actualResult = getDriver().getCurrentUrl();
         Assert.assertEquals(actualResult, expectedResult);
     }
-
+    private static final By SEARCHBAR = By.xpath("//input[@id='chrome-search']");
     @Test
     public void testYelenaAnderson1() {
 
         getDriver().get("https://www.asos.com/us/");
 
-        WebElement searchBar = getDriver().findElement(By.xpath("//input[@type='search']"));
-
-        searchBar.sendKeys("skirt\n");
+        getDriver().findElement(SEARCHBAR).sendKeys("skirt\n");
 
         WebElement confirmText = getDriver().findElement(By.xpath("//p[contains(text(),'skirt')]"));
         String confirmTextText = confirmText.getText();
