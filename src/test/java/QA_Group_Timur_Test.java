@@ -271,6 +271,18 @@ public class QA_Group_Timur_Test {
         Assert.assertEquals(title.getText(),"Работа с молодежью");
 
     }
+
+    @Test
+    public void testBorisSevastyanovBrewery() {
+        driver.get("https://www.homebrewery.com.ua/");
+
+        driver.findElement(By.xpath("//input[@name='keyword']")).sendKeys("Hoegaarden\n");
+
+        WebElement product = driver.findElement(By.xpath("//a[@data-product = '487']"));
+
+        Assert.assertEquals(product.getText(), "Набор для приготовления пшеничного пива Hoegaarden");
+    }
+
     @Test
     public void IrynaKuEnterExistingEmailTest() {
         driver.get("http://automationpractice.com/");
