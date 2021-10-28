@@ -3,11 +3,14 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 
+import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
 public class GroupJavaWestCoastTest extends BaseTest {
@@ -84,13 +87,15 @@ public class GroupJavaWestCoastTest extends BaseTest {
         String actualResult = getDriver().getCurrentUrl();
         Assert.assertEquals(actualResult, expectedResult);
     }
-    private static final By SEARCHBAR = By.xpath("//input[@id='chrome-search']");
     @Test
     public void testYelenaAnderson1() {
 
         getDriver().get("https://www.asos.com/us/");
 
-        getDriver().findElement(SEARCHBAR).sendKeys("skirt\n");
+        WebElement searchBar  = new WebDriverWait
+                (getDriver(), Duration.ofSeconds(0,10).getNano()).
+                until(ExpectedConditions.presenceOfElementLocated(By.xpath("//input[@id='chrome-search']")));
+        searchBar.sendKeys("skirt\n");
 
         WebElement confirmText = getDriver().findElement(By.xpath("//p[contains(text(),'skirt')]"));
         String confirmTextText = confirmText.getText();
