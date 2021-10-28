@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit;
 
 import static org.testng.Assert.assertEquals;
 
-@Ignore
+
 public class Group_eat_and_drink_JavaTest extends BaseTest {
 
     private static final String URL = "https://www.godaddy.com/";
