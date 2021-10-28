@@ -85,7 +85,6 @@ public class GroupJavaWestCoastTest extends BaseTest {
         Assert.assertEquals(actualResult, expectedResult);
     }
 
-    @Ignore
     @Test
     public void testYelenaAnderson1() {
 
