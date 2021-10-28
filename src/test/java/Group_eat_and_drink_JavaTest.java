@@ -446,7 +446,7 @@ public class Group_eat_and_drink_JavaTest {
         Thread.sleep(3000);
 
         Assert.assertEquals(driver.getCurrentUrl(), "https://www.vacasa.com/search?place=/usa/Vermont/Charlotte/");
-        driver.quit();
+
     }
 }
 
