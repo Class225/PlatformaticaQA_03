@@ -88,5 +88,6 @@ public class RuslanMTest {
         String actualResult = japaneseLanguage.getText();
 
         Assert.assertEquals(actualResult, expectedResult);
+
     }
 }
