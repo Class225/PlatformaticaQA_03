@@ -92,9 +92,8 @@ public class GroupJavaWestCoastTest extends BaseTest {
 
         getDriver().get("https://www.asos.com/us/");
 
-        WebElement searchBar  = new WebDriverWait
-                (getDriver(), Duration.ofSeconds(0,10).getNano()).
-                until(ExpectedConditions.presenceOfElementLocated(By.xpath("//input[@id='chrome-search']")));
+        WebElement searchBar = getDriver().findElement(By.xpath("//input[@type='search']"));
+
         searchBar.sendKeys("skirt\n");
 
         WebElement confirmText = getDriver().findElement(By.xpath("//p[contains(text(),'skirt')]"));
