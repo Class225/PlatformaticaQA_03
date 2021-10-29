@@ -1,83 +1,61 @@
-import io.github.bonigarcia.wdm.WebDriverManager;
+import base.BaseTest;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
-
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
-@Ignore
-public class KosherDillsTest {
+public class KosherDillsTest extends BaseTest {
 
-    private WebDriver driver;
     private final By ERROR = By.xpath("//div[@class='alert alert-info']/b");
 
-    @BeforeMethod
-    public void setUp() {
-        WebDriverManager.chromedriver().setup();
-
-        driver = new ChromeDriver();
-
-        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-        driver.manage().window().maximize();
-    }
-
-    @AfterMethod
-
-    public void shutDown() {
-        driver.quit();
-    }
-
     @Test
-    public void testGoogleSearch() {
+    public void testGoogleSearchRuAmerica() {
 
-        driver.get("https://www.google.com");
-        driver.findElement(By.xpath("//input[@class='gLFyf gsfi']"))
+        getDriver().get("https://www.google.com");
+        getDriver().findElement(By.xpath("//input[@class='gLFyf gsfi']"))
                 .sendKeys("RuAmerica\n");
 
-        Assert.assertEquals(driver
+        Assert.assertEquals(getDriver()
                 .findElement(By.xpath("//cite[text()='https://ruamerica.com']"))
                 .getText(), "https://ruamerica.com");
 
     }
 
     @Test
-    public void testDropDownSelect() {
+    public void testDropDownSelectAmazonCharity() {
 
-        Actions action = new Actions(driver);
-        driver.get("https://www.amazon.com");
+        Actions action = new Actions(getDriver());
+        getDriver().get("https://www.amazon.com");
 
-        WebElement select = driver.findElement(By.xpath("//*[@id='nav-link-accountList']"));
+        WebElement select = getDriver().findElement(By.xpath("//*[@id='nav-link-accountList']"));
         action.moveToElement(select).perform();
-        driver.findElement(By.xpath("//*[@id='nav-al-wishlist']/a[3]")).click();
+        getDriver().findElement(By.xpath("//*[@id='nav-al-wishlist']/a[3]")).click();
 
-        Assert.assertEquals(driver
+        Assert.assertEquals(getDriver()
                 .findElement(By.xpath("//*[@id='ge-stories']/div[1]/h2"))
                 .getText(), "Over 1 million charities. See their stories.");
     }
 
+    @Ignore
     @Test
-    public void testDoubleDropDownSelect () {
+    public void testDoubleDropDownSelectBidFax () {
 
-        driver.get("https://bidfax.info/");
+        getDriver().get("https://bidfax.info");
+        System.out.println(getDriver().getPageSource());
 
-        driver.findElement(By.xpath("(//span[@class='drop-down'])[1]")).click();
-        driver.findElement(By.xpath("//a[normalize-space()='Aston martin']")).click();
-        driver.findElement(By.xpath("(//span[@class='drop-down'])[2]")).click();
-        driver.findElement(By.xpath("//a[normalize-space()='Db9']")).click();
+        getDriver().findElement(By.xpath("(//span[@class='drop-down'])[1]")).click();
+        getDriver().findElement(By.xpath("//a[normalize-space()='Aston martin']")).click();
+        getDriver().findElement(By.xpath("(//span[@class='drop-down'])[2]")).click();
+        getDriver().findElement(By.xpath("//a[normalize-space()='Db9']")).click();
 
             for (int i = 0; i < Integer.MAX_VALUE; i++) {
-            List<WebElement> cars = driver.findElements(By.xpath("//div[@class='caption']/a/h2"));
+            List<WebElement> cars = getDriver().findElements(By.xpath("//div[@class='caption']/a/h2"));
             Assert.assertTrue(carsCheck(cars));
-            driver.findElement(By.xpath("//a[normalize-space()='»']")).click();
-                if (driver.findElements(ERROR).size() > 0) break;
+                getDriver().findElement(By.xpath("//a[normalize-space()='»']")).click();
+                if (getDriver().findElements(ERROR).size() > 0) break;
         }
     }
 
@@ -92,19 +70,14 @@ public class KosherDillsTest {
     }
 
     @Test
-    public void testBatterySelect () {
-        driver.get("https://rbc.sm.ua/");
-        driver.findElement(By.xpath("//input[@id='input_search']")).sendKeys("apc 500\n");
+    public void testBatterySelectRbc () {
+        getDriver().get("https://rbc.sm.ua/");
+        getDriver().findElement(By.xpath("//input[@id='input_search']")).sendKeys("apc 500\n");
 
-        List<WebElement> upsList = driver.findElements(By.xpath("//div[@class='us-module-title']/a"));
+        List<WebElement> upsList = getDriver().findElements(By.xpath("//div[@class='us-module-title']/a"));
         for (int i = 0; i < upsList.size(); i++) {
 
             Assert.assertTrue(upsList.get(i).getText().toLowerCase().contains("500"));
         }
     }
-
-
-
-
-
 }
