@@ -64,7 +64,7 @@ public class RuslanMTest extends BaseTest {
         WebElement chooseLanguage = getDriver().findElement(By.xpath("//div/label[@class='row relative radio-selector'][@for='language-ja']"));
         chooseLanguage.click();
 
-        WebElement japaneseLanguage = getDriver().findElement(By.xpath("//button[@class='arrow-button forward']/span"));
+        WebElement japaneseLanguage = getDriver().findElement(By.xpath("///label[@for='language-ja']"));
         String actualResult = japaneseLanguage.getText();
 
         Assert.assertEquals(actualResult, expectedResult);
