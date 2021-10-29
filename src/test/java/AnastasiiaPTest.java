@@ -60,7 +60,6 @@ public class AnastasiiaPTest extends BaseTest {
             Assert.assertTrue(webElement.getText().toLowerCase().contains("dress"));
         }
     }
-
     @Ignore
     @Test
     public void testAvailabilityMenuButtons() {
