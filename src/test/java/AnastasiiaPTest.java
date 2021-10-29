@@ -26,7 +26,7 @@ public class AnastasiiaPTest extends BaseTest {
         getDriver().findElement(By.id("SearchBox_desktop")).sendKeys("Roses");
         getDriver().findElement(By.id("btn-search")).click();
 
-        WebElement actualResult = getDriver().findElement(By.xpath("//div//h1"));
+        WebElement actualResult = getDriver().findElement(By.xpath("//div/h1"));
 
         Assert.assertEquals(actualResult.getText(), expectedResult);
     }
