@@ -30,7 +30,6 @@ public class AnastasiiaPTest extends BaseTest {
 
         Assert.assertEquals(actualResult.getText(), expectedResult);
     }
-
     @Ignore
     @Test
     public void testSearchSubjectTextField() {
