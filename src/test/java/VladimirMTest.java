@@ -47,7 +47,7 @@ public class VladimirMTest {
 
         String expectedUrl = "https://cars.av.by/bmw/x7";
         String actualUrl = driver.getCurrentUrl();
-
+//
         Assert.assertEquals(actualUrl, expectedUrl);
 
         driver.quit();
