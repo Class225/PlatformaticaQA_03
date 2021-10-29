@@ -73,7 +73,6 @@ public class GroupJavaWestCoastTest extends BaseTest {
         }
         Assert.assertEquals(resultActual,resultExpected);
     }
-
     @Test
     public void testYelenaAnderson() throws InterruptedException {
 
