@@ -31,6 +31,7 @@ public class AnastasiiaPTest extends BaseTest {
         Assert.assertEquals(actualResult.getText(), expectedResult);
     }
 
+    @Ignore
     @Test
     public void testSearchSubjectTextField() {
         String expectedResult = "SEARCH RESULTS FOR NY DRESS";
@@ -60,6 +61,7 @@ public class AnastasiiaPTest extends BaseTest {
             Assert.assertTrue(webElement.getText().toLowerCase().contains("dress"));
         }
     }
+
     @Ignore
     @Test
     public void testAvailabilityMenuButtons() {
