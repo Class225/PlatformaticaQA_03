@@ -1,3 +1,4 @@
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -5,18 +6,20 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 
 import java.util.concurrent.TimeUnit;
 
+@Ignore
 public class OlgaAnTest2 {
 
     private WebDriver driverChr;
 
     @BeforeMethod
     public void setUp () {
+        WebDriverManager.chromedriver().setup();
         driverChr = new ChromeDriver();
-
         driverChr.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
         driverChr.manage().window().maximize();
     }

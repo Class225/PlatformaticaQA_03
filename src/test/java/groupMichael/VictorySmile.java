@@ -3,17 +3,21 @@ package groupMichael;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 
 import java.util.concurrent.TimeUnit;
 
-public class EvgeniyaPiskunova {
-
+@Ignore
+public class VictorySmile {
     WebDriver driver;
 
     @BeforeMethod
@@ -30,14 +34,17 @@ public class EvgeniyaPiskunova {
     }
 
     @Test
-    public void testEvgeniyaPiskunovaCartEmpty() {
+    public void testVictorySmileSearchResult() {
+
         WebDriverWait wait = new WebDriverWait(driver, 10);
-        driver.get("https://sunduchokknig.com/cart");
-        String expetedResult = "Ваша корзина пуста";
-        String actual = driver
-                .findElement(By.xpath("//*[@class='cart--empty-message']"))
-                .getText();
-        Assert.assertEquals(actual, expetedResult);
+        driver.get("https://en.wikipedia.org/wiki/Main_Page");
+
+        driver.get("http://automationpractice.com");
+
+        WebElement input = driver.findElement(By.id("search_query_top"));
+        input.sendKeys("dress\n");
+
+        WebElement result = driver.findElement(By.className("lighter"));
+        Assert.assertEquals(result.getText(), "\"DRESS\"");
     }
 }
-
