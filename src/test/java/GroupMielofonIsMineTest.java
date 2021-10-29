@@ -1,6 +1,11 @@
+import base.BaseTest;
+
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
@@ -9,20 +14,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-@Ignore
-public class GroupMielofonIsMineTest extends BaseTest_ {
+public class GroupMielofonIsMineTest extends BaseTest {
 
     private final static String URL_VW = "https://www.vw.com/";
 
     @Test
-    public void testVitalyZverevFirst()  {
+    public void testVitalyZverevFirst() {
         getDriver().get(URL_VW);
         getDriver().findElement(By.xpath("//button[contains(@class, 'StyledTopBarButton')]")).click();
-        WebElement menu = getDriver().findElement(By.xpath("//div[contains(@class, 'StyledMainNavigationAreaInner')]/div[contains(@class, 'StyledTextComponent')]"));
-        getWait().until(ExpectedConditions.visibilityOf(menu));
         getDriver().findElement(By.xpath("//a[@title='Models']")).click();
-        WebElement section = getDriver().findElement(By.id("MOFA"));
-        getWait().until(ExpectedConditions.visibilityOf(section));
+        WebElement modelName = getDriver().findElement(By.xpath("//a[@href='/en/models/passat.html']//h3"));
+        getWait().until(ExpectedConditions.visibilityOf(modelName));
         List<WebElement> listElementsModels = getDriver().findElements(By.xpath("//h3[contains(@class, 'StyledTextComponent')]"));
         List<String> listModels = new ArrayList<>();
 
@@ -35,7 +37,7 @@ public class GroupMielofonIsMineTest extends BaseTest_ {
     }
 
     @Test
-    public void testVitalyZverevSecond()  {
+    public void testVitalyZverevSecond() {
         getDriver().get(URL_VW);
         getDriver().findElement(By.xpath("//a[@title='Learn More ']")).click();
         getWait().until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@aria-labelledby='Input_zip_modal']")));
@@ -56,6 +58,7 @@ public class GroupMielofonIsMineTest extends BaseTest_ {
         Assert.assertEquals(first, second);
     }
 
+    @Ignore
     @Test
     public void testSearchAnastasiaKaz() {
 
@@ -86,6 +89,7 @@ public class GroupMielofonIsMineTest extends BaseTest_ {
         Assert.assertTrue(logotip.isDisplayed());
     }
 
+    @Ignore
     @Test
     public void testFAQAnastasiaKaz() {
         getDriver().get("https://rp5.by");
@@ -97,6 +101,7 @@ public class GroupMielofonIsMineTest extends BaseTest_ {
         Assert.assertEquals(lastQuestion.getText(), "Что означает определение \"обложной\" во фразах \"обложной дождь\" или \"обложной снег\"?");
     }
 
+    @Ignore
     @Test
     public void testAlenaKuts1() {
         getDriver().get("https://stepik.org/catalog");
@@ -110,23 +115,24 @@ public class GroupMielofonIsMineTest extends BaseTest_ {
 
     }
 
+    @Ignore
     @Test
     public void testAlenaKuts2() {
         getDriver().get("https://stepik.org/catalog");
 
-        String strExpectedNumber = getDriver().findElement(By.xpath("//a[@href=\"/catalog/12\"]/div[@class='course-list-card__courses']")).getText();
+        String strExpectedNumber = getDriver().findElement(By.xpath("//a[@href='/catalog/12']/div[@class='course-list-card__courses']")).getText();
         int expectedNumber = Integer.parseInt(strExpectedNumber.replaceAll("[^0-9]", ""));
-        WebElement catalog = getDriver().findElement(By.xpath("//a[@href=\"/catalog/12\"]"));
+        WebElement catalog = getDriver().findElement(By.xpath("//a[@href='/catalog/12']"));
         catalog.click();
 
-        List<WebElement> itemList = getDriver().findElements(By.xpath("//div[@data-list-type=\"default\"]//li[@class = \"course-cards__item\"]"));
+        List<WebElement> itemList = getDriver().findElements(By.xpath("//div[@data-list-type='default']//li[@class='course-cards__item']"));
         int actualNumber = itemList.size();
         Assert.assertEquals(actualNumber, expectedNumber);
 
     }
 
     @Test
-    public void testJuliaVorobej(){
+    public void testJuliaVorobej() {
         getDriver().get("https://ru.wikipedia.org/wiki/%D0%97%D0%B0%D0%B3%D0%BB%D0%B0%D0%B2%D0%BD%D0%B0%D1%8F_%D1%81%D1%82%D1%80%D0%B0%D0%BD%D0%B8%D1%86%D0%B0");
         WebElement search = getDriver().findElement(By.id("searchInput"));
         WebElement button = getDriver().findElement(By.id("searchButton"));
@@ -134,15 +140,24 @@ public class GroupMielofonIsMineTest extends BaseTest_ {
         button.click();
         WebElement result = getDriver().findElement(By.id("firstHeading"));
         Assert.assertEquals(result.getText().toLowerCase(Locale.ROOT), "миелофон");
-        }
+    }
 
     @Test
-    public void testIlyaZozuliaFirst(){
+    public void testIlyaZozuliaFirst() {
         getDriver().get("https://www.stratege.ru");
 
         WebElement buttonGames = getDriver().findElement(By.id("menu-games"));
         buttonGames.click();
 
         Assert.assertEquals(getDriver().getCurrentUrl(), "https://www.stratege.ru/games");
+    }
+
+    protected WebDriverWait getWait() {
+        return new WebDriverWait(getDriver(), 10);
+    }
+
+    public static void scroll(WebDriver driver, WebElement element) {
+        JavascriptExecutor executor = (JavascriptExecutor) driver;
+        executor.executeScript("arguments[0].scrollIntoView();", element);
     }
 }
