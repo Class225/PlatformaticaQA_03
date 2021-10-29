@@ -101,6 +101,7 @@ public class GroupMielofonIsMineTest extends BaseTest {
         Assert.assertEquals(lastQuestion.getText(), "Что означает определение \"обложной\" во фразах \"обложной дождь\" или \"обложной снег\"?");
     }
 
+
     @Test
     public void testAlenaKuts1() {
         getDriver().get("https://stepik.org/catalog");
@@ -111,7 +112,9 @@ public class GroupMielofonIsMineTest extends BaseTest {
 
         String actualTitle = getDriver().findElement(By.xpath("//div[contains (@class, 'catalog__category')]//h1[@class = 'catalog-block__title']")).getText();
         Assert.assertEquals(actualTitle, expectedTitle);
+
     }
+
 
     @Test
     public void testAlenaKuts2() {
@@ -125,6 +128,7 @@ public class GroupMielofonIsMineTest extends BaseTest {
         List<WebElement> itemList = getDriver().findElements(By.xpath("//div[@data-list-type='default']//li[@class = 'course-cards__item']"));
         int actualNumber = itemList.size();
         Assert.assertEquals(actualNumber, expectedNumber);
+
     }
 
     @Test
