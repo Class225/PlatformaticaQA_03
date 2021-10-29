@@ -165,23 +165,19 @@ public class GroupJavaWestCoastTest extends BaseTest {
         Assert.assertTrue(iWantToDropdown.isDisplayed());
     }
 
-    @Ignore
     @Test
     public void testMaxFindText() throws InterruptedException{
-        String baseUrl = "http://the-internet.herokapp.com/";
+        String baseUrl = "http://the-internet.herokuapp.com/";
 
-        getDriver().manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
         getDriver().get(baseUrl);
         getDriver().findElement(By.xpath("//a[@href='/abtest']")).click();
         Assert.assertEquals(getDriver().findElement(By.xpath("//*[(text()='A/B Test Control')]")).getText(), "A/B Test Control");
     }
 
-    @Ignore
     @Test
     public void testMaxCheckElementIsDisplayed() throws InterruptedException{
-        String baseUrl = "http://the-internet.herokapp.com/";
+        String baseUrl = "http://the-internet.herokuapp.com/";
 
-        getDriver().manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
         getDriver().get(baseUrl);
         getDriver().findElement(By.xpath("//a[@href='/add_remove_elements/']")).click();
         getDriver().findElement(By.xpath("//button[@onclick='addElement()']")).click();
