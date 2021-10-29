@@ -53,7 +53,7 @@ public class RuslanMTest extends BaseTest {
 
         getDriver().get(URL);
 
-        String expectedResult = "English";
+        String expectedResult = "次へ";
 
         WebElement applyId = getDriver().findElement(By.xpath("//a[@id='dmv-modal1__apply-real-id']"));
         applyId.click();
@@ -61,11 +61,33 @@ public class RuslanMTest extends BaseTest {
         WebElement startApp = getDriver().findElement(By.xpath("//a[@class='wp-block-button__link']"));
         startApp.click();
 
-        WebElement chooseLanguage = getDriver().findElement(By.xpath("//label[@for='language-en']"));
+        WebElement chooseLanguage = getDriver().findElement(By.xpath("//div[@id='ja']/../.."));
         chooseLanguage.click();
 
-        WebElement japaneseLanguage = getDriver().findElement(By.xpath("//div[@class='row']/span[text()='English']"));
-        String actualResult = japaneseLanguage.getText();
+        WebElement englishLanguage = getDriver().findElement(By.xpath("//div/button[@class='arrow-button forward']/span[text()='" + expectedResult +"']"));
+        String actualResult = englishLanguage.getText();
+
+        Assert.assertEquals(actualResult, expectedResult);
+    }
+
+    @Test
+    public void testWeb4() {
+
+        getDriver().get(URL);
+
+        String expectedResult = "English";
+
+        WebElement applyId = getDriver().findElement(By.xpath("//a[@id='dmv-modal1__apply-real-id']"));
+        applyId.click();
+
+        WebElement startApp = getDriver().findElement(By.xpath("//a[text()='Start application']"));
+        startApp.click();
+
+        WebElement chooseLanguage = getDriver().findElement(By.xpath("//div[@id='en']/../.."));
+        chooseLanguage.click();
+
+        WebElement englishLanguage = getDriver().findElement(By.xpath("//div[@class='row']/span[text()='" + expectedResult +"']"));
+        String actualResult = englishLanguage.getText();
 
         Assert.assertEquals(actualResult, expectedResult);
     }
