@@ -118,7 +118,7 @@ public class Group_eat_and_drink_JavaTest extends BaseTest {
         Assert.assertEquals(actualResult, expectedResult);
     }
 
-    @Ignore
+
     @Test
     public void testRegistrationTatianaT() throws InterruptedException {
         getDriver().get("https://humans.net/");
@@ -155,7 +155,7 @@ public class Group_eat_and_drink_JavaTest extends BaseTest {
         Assert.assertEquals(error.getText(), "Incorrect verification code");
     }
 
-    @Ignore
+
     @Test
     public void testLogInIncorrectValuesTatianaT() throws InterruptedException {
         getDriver().get("https://humans.net/registration");
@@ -249,6 +249,7 @@ public class Group_eat_and_drink_JavaTest extends BaseTest {
         answerButton.click();
     }
 
+
     @Test
     public void testElenauSIncorrectResultCheck() {
         navigateToPage();
@@ -259,6 +260,7 @@ public class Group_eat_and_drink_JavaTest extends BaseTest {
 
         Assert.assertEquals(warning.getText(), "Not Correct");
     }
+
 
     @Test
     public void testElenauSCorrectResultCheck() {
@@ -340,6 +342,7 @@ public class Group_eat_and_drink_JavaTest extends BaseTest {
 
     }
 
+
     @Test
     public void SergeyBrigSearchTest() {
 
@@ -365,19 +368,18 @@ public class Group_eat_and_drink_JavaTest extends BaseTest {
         }
     }
 
-    @Ignore
+
     @Test
     public void testSearchFieldFindJobTatianaT() {
         getDriver().get("https://humans.net/");
-
-        WebElement searchField = getDriver().findElement(By.xpath("//input[@role='combobox']"));
-        searchField.sendKeys("Engineering");
         WebElement fieldLocation = getDriver().findElement(By.xpath("//button[@type='button']/div"));
         fieldLocation.click();
         WebElement fieldCity = getDriver().findElement(By.xpath("//input[@placeholder='City']"));
         fieldCity.sendKeys("Seattle");
         WebElement city = getDriver().findElement(By.xpath("//span[text()='Seattle']"));
         city.click();
+        WebElement searchField = getDriver().findElement(By.xpath("//input[@role='combobox']"));
+        searchField.sendKeys("Engineering");
         WebElement find = getDriver().findElement(By.xpath("//button[text()='Find']"));
         find.click();
 
