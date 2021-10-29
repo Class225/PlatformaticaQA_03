@@ -61,10 +61,10 @@ public class RuslanMTest extends BaseTest {
         WebElement startApp = getDriver().findElement(By.xpath("//a[@class='wp-block-button__link']"));
         startApp.click();
 
-        WebElement chooseLanguage = getDriver().findElement(By.xpath("//div/label[@class='row relative radio-selector'][@for='language-ja']"));
+        WebElement chooseLanguage = getDriver().findElement(By.xpath("//label[@for='language-ja']"));
         chooseLanguage.click();
 
-        WebElement japaneseLanguage = getDriver().findElement(By.xpath("///label[@for='language-ja']"));
+        WebElement japaneseLanguage = getDriver().findElement(By.xpath("//button[@class='arrow-button forward']"));
         String actualResult = japaneseLanguage.getText();
 
         Assert.assertEquals(actualResult, expectedResult);
