@@ -53,7 +53,7 @@ public class RuslanMTest extends BaseTest {
 
         getDriver().get(URL);
 
-        String expectedResult = "次へ";
+        String expectedResult = "English";
 
         WebElement applyId = getDriver().findElement(By.xpath("//a[@id='dmv-modal1__apply-real-id']"));
         applyId.click();
@@ -61,10 +61,10 @@ public class RuslanMTest extends BaseTest {
         WebElement startApp = getDriver().findElement(By.xpath("//a[@class='wp-block-button__link']"));
         startApp.click();
 
-        WebElement chooseLanguage = getDriver().findElement(By.xpath("//div[@class=' choice-selector unit']/div/label[@class='row relative radio-selector'][@for='language-ja']"));
+        WebElement chooseLanguage = getDriver().findElement(By.xpath("//label[@for='language-en']"));
         chooseLanguage.click();
 
-        WebElement japaneseLanguage = getDriver().findElement(By.xpath("///label[@for='language-ja']"));
+        WebElement japaneseLanguage = getDriver().findElement(By.xpath("//div[@class='row']/span[text()='English']"));
         String actualResult = japaneseLanguage.getText();
 
         Assert.assertEquals(actualResult, expectedResult);
