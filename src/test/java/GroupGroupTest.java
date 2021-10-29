@@ -318,6 +318,18 @@ public class GroupGroupTest {
             Assert.assertTrue(webElement.getText().toLowerCase().contains("платье"));
         }
     }
+
+    @Test
+    public void testTaniaLutsenko() {
+
+        driver.get("https://postel-market.com.ua/");
+
+        WebElement search = driver.findElement(By.name("query"));
+        search.sendKeys("одеяло\n");
+
+        WebElement result = driver.findElement(By.className("page-name"));
+        Assert.assertEquals(result.getText(), "ОДЕЯЛО");
+    }
 }
 
 
