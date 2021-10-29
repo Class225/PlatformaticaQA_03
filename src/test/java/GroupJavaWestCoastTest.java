@@ -100,16 +100,15 @@ public class GroupJavaWestCoastTest extends BaseTest {
         Assert.assertEquals(confirmTextText, "\"Skirt\"");
     }
 
-    @Ignore
+
     @Test
     public void testGlebShkut() throws InterruptedException {
         getDriver().get("https://generator.email/");
         String randomEmail1 = getDriver().findElement(By.xpath("//input[@id='userName']")).getAttribute("value");
         String randomEmail2 = getDriver().findElement(By.xpath("//input[@id='domainName2']")).getAttribute("value");
-        getDriver().get("https://www.ck12.org/teacher/");
+        getDriver().get("https://www.ck12.org/auth/signup/teacher");
         getDriver().findElement(By.xpath("//a[@class=\"button turquoise large signup-email-button js-signup-email-button\"]")).click();
         getDriver().findElement(By.xpath("//input[@id='name']")).sendKeys("Dmitry Petrov");
-        getDriver().findElement(By.xpath("//a[@title=\"Create an Account with CK-12\"]")).click();
         getDriver().findElement(By.xpath("//input[@id='email']")).sendKeys(randomEmail1 + "@" + randomEmail2);
         getDriver().findElement(By.xpath("//input[@id='password']")).sendKeys("dmitripetrov2312!sas");
         getDriver().findElement(By.xpath("//span[@id=\"password_check\"]")).click();
@@ -165,23 +164,19 @@ public class GroupJavaWestCoastTest extends BaseTest {
         Assert.assertTrue(iWantToDropdown.isDisplayed());
     }
 
-    @Ignore
     @Test
     public void testMaxFindText() throws InterruptedException{
-        String baseUrl = "http://the-internet.herokapp.com/";
+        String baseUrl = "http://the-internet.herokuapp.com/";
 
-        getDriver().manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
         getDriver().get(baseUrl);
         getDriver().findElement(By.xpath("//a[@href='/abtest']")).click();
         Assert.assertEquals(getDriver().findElement(By.xpath("//*[(text()='A/B Test Control')]")).getText(), "A/B Test Control");
     }
 
-    @Ignore
     @Test
     public void testMaxCheckElementIsDisplayed() throws InterruptedException{
-        String baseUrl = "http://the-internet.herokapp.com/";
+        String baseUrl = "http://the-internet.herokuapp.com/";
 
-        getDriver().manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
         getDriver().get(baseUrl);
         getDriver().findElement(By.xpath("//a[@href='/add_remove_elements/']")).click();
         getDriver().findElement(By.xpath("//button[@onclick='addElement()']")).click();

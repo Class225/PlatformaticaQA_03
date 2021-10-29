@@ -118,44 +118,14 @@ public class Group_eat_and_drink_JavaTest extends BaseTest {
         Assert.assertEquals(actualResult, expectedResult);
     }
 
-    @Ignore
+
     @Test
-    public void testRegistrationTatianaT() throws InterruptedException {
-        getDriver().get("https://humans.net/");
-        WebElement signUp = getDriver().findElement
-                (By.xpath("//a[text()='Sign up']"));
-        signUp.click();
-        Thread.sleep(3000);
-
-        WebElement userName = getDriver().findElement(By.xpath("//input[@type='text']"));
-        userName.sendKeys("8883468487");
-        WebElement password = getDriver().findElement(By.name("password"));
-        password.sendKeys("humans");
-
-        WebElement joinNow = getDriver().findElement(By.id("reg-step-1"));
-        joinNow.click();
-
-        WebElement codeBox1 = getDriver().findElement(By.name("digit0"));
-        codeBox1.sendKeys("1");
-
-        WebElement codeBox2 = getDriver().findElement(By.name("digit1"));
-        codeBox2.sendKeys("2");
-
-        WebElement codeBox3 = getDriver().findElement(By.name("digit2"));
-        codeBox3.sendKeys("3");
-
-        WebElement codeBox4 = getDriver().findElement(By.name("digit3"));
-        codeBox4.sendKeys("4");
-
-        WebElement continueButton = getDriver().findElement(By.xpath("//button[text()='Continue']"));
-        continueButton.click();
-
-        WebElement error = getDriver().findElement(By.xpath("//div[text()='Incorrect verification code']"));
-
-        Assert.assertEquals(error.getText(), "Incorrect verification code");
+    public void testVerifyForgotPasswordLinkTatianaT() {
+        getDriver().get("https://humans.net/login");
+        WebElement forgotPassword = getDriver().findElement(By.xpath("//a[@class='login-form__pass-subtitle']"));
+        forgotPassword.click();
+        Assert.assertEquals(getDriver().getCurrentUrl(), "https://humans.net/recoveryform");
     }
-
-    @Ignore
     @Test
     public void testLogInIncorrectValuesTatianaT() throws InterruptedException {
         getDriver().get("https://humans.net/registration");
@@ -249,6 +219,7 @@ public class Group_eat_and_drink_JavaTest extends BaseTest {
         answerButton.click();
     }
 
+
     @Test
     public void testElenauSIncorrectResultCheck() {
         navigateToPage();
@@ -259,6 +230,7 @@ public class Group_eat_and_drink_JavaTest extends BaseTest {
 
         Assert.assertEquals(warning.getText(), "Not Correct");
     }
+
 
     @Test
     public void testElenauSCorrectResultCheck() {
@@ -340,6 +312,7 @@ public class Group_eat_and_drink_JavaTest extends BaseTest {
 
     }
 
+
     @Test
     public void SergeyBrigSearchTest() {
 
@@ -365,19 +338,18 @@ public class Group_eat_and_drink_JavaTest extends BaseTest {
         }
     }
 
-    @Ignore
+
     @Test
     public void testSearchFieldFindJobTatianaT() {
         getDriver().get("https://humans.net/");
-
-        WebElement searchField = getDriver().findElement(By.xpath("//input[@role='combobox']"));
-        searchField.sendKeys("Engineering");
         WebElement fieldLocation = getDriver().findElement(By.xpath("//button[@type='button']/div"));
         fieldLocation.click();
         WebElement fieldCity = getDriver().findElement(By.xpath("//input[@placeholder='City']"));
         fieldCity.sendKeys("Seattle");
         WebElement city = getDriver().findElement(By.xpath("//span[text()='Seattle']"));
         city.click();
+        WebElement searchField = getDriver().findElement(By.xpath("//input[@role='combobox']"));
+        searchField.sendKeys("Engineering");
         WebElement find = getDriver().findElement(By.xpath("//button[text()='Find']"));
         find.click();
 
