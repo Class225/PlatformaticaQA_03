@@ -5,11 +5,14 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -17,7 +20,7 @@ import java.util.concurrent.TimeUnit;
 
 import static org.testng.Assert.assertEquals;
 
-
+@Ignore
 public class Group_eat_and_drink_JavaTest extends BaseTest {
 
     private static final String URL = "https://www.godaddy.com/";
@@ -26,8 +29,11 @@ public class Group_eat_and_drink_JavaTest extends BaseTest {
     private static final By EXERCISE3 = By.name("ex3");
     private static final By NEXTEX = By.id("correctnextbtn");
     private static final String URLWEB = "http://www.diamondpeak.com/";
+    private static final String PAGEURL = "https://phptravels.com/";
 
-    @Test(priority = 1)
+
+    @Ignore
+    @Test
     public void testFindCorrectItem() {
 
         getDriver().get("https://askent.ru/");
@@ -43,7 +49,8 @@ public class Group_eat_and_drink_JavaTest extends BaseTest {
         Assert.assertEquals(getDriver().getCurrentUrl(), "https://askent.ru/cat/sumki/ryukzak_63/");
     }
 
-    @Test(priority = 2)
+
+    @Test
     public void testItemToBasket() {
 
         getDriver().get("https://askent.ru/cat/sumki/ryukzak_63/");
@@ -60,7 +67,7 @@ public class Group_eat_and_drink_JavaTest extends BaseTest {
         Assert.assertEquals(getDriver().getCurrentUrl(), "https://askent.ru/order/");
     }
 
-    @Test(priority = 3)
+    @Test
     public void testSingIn() {
 
         getDriver().get("https://askent.ru/order/");
@@ -78,6 +85,7 @@ public class Group_eat_and_drink_JavaTest extends BaseTest {
         Assert.assertEquals(message.getText(), "Не верный логин или пароль");
     }
 
+    @Ignore
     @Test
     public void testOlenaKSearches() {
         getDriver().get("https://www.kobo.com/");
@@ -94,6 +102,7 @@ public class Group_eat_and_drink_JavaTest extends BaseTest {
         }
     }
 
+    @Ignore
     @Test
     public void testOlenaKFindByIsbn() {
         getDriver().get("https://www.kobo.com/");
@@ -109,6 +118,7 @@ public class Group_eat_and_drink_JavaTest extends BaseTest {
         Assert.assertEquals(actualResult, expectedResult);
     }
 
+    @Ignore
     @Test
     public void testRegistrationTatianaT() throws InterruptedException {
         getDriver().get("https://humans.net/");
@@ -145,6 +155,7 @@ public class Group_eat_and_drink_JavaTest extends BaseTest {
         Assert.assertEquals(error.getText(), "Incorrect verification code");
     }
 
+    @Ignore
     @Test
     public void testLogInIncorrectValuesTatianaT() throws InterruptedException {
         getDriver().get("https://humans.net/registration");
@@ -280,6 +291,7 @@ public class Group_eat_and_drink_JavaTest extends BaseTest {
         Assert.assertEquals(description.getText(), "Comments in Java are written with special characters. Insert the missing parts:");
     }
 
+    @Ignore
     @Test
     public void SergeyBrigMenuTest() {
 
@@ -297,6 +309,7 @@ public class Group_eat_and_drink_JavaTest extends BaseTest {
 
     }
 
+    @Ignore
     @Test
     public void OlenaMSearchTheItemTest() {
 
@@ -309,6 +322,7 @@ public class Group_eat_and_drink_JavaTest extends BaseTest {
         Assert.assertEquals(getDriver().getCurrentUrl(), "https://www.homedepot.com/b/Appliances-Refrigerators-French-Door-Refrigerators/N-5yc1vZc3oo");
     }
 
+    @Ignore
     @Test
     public void OlenaMSignInTest() {
 
@@ -351,6 +365,7 @@ public class Group_eat_and_drink_JavaTest extends BaseTest {
         }
     }
 
+    @Ignore
     @Test
     public void testSearchFieldFindJobTatianaT() {
         getDriver().get("https://humans.net/");
@@ -368,6 +383,7 @@ public class Group_eat_and_drink_JavaTest extends BaseTest {
 
         Assert.assertEquals(getDriver().getCurrentUrl(), "https://humans.net/findwork/all/any/Seattle%20WA/?q=Engineering");
     }
+
     @Test
     public void SergeyBrigBrandSearch() {
 
@@ -380,20 +396,22 @@ public class Group_eat_and_drink_JavaTest extends BaseTest {
             Assert.assertTrue(brandList.get(i).getText().toLowerCase().contains("cup"));
         }
     }
+
+    @Ignore
     @Test
     public void SergeyBrigMenu2Test() {
         getDriver().get("https://www.webstaurantstore.com");
 
         List<WebElement> menuList = getDriver().findElements(By.xpath("//div[@class = 'm-0 lt:flex']/a"));
         for (int i = 0; i < menuList.size(); i++) {
-            if(menuList.get(i).getText().toLowerCase().contains("furniture")) {
+            if (menuList.get(i).getText().toLowerCase().contains("furniture")) {
                 menuList.get(i).click();
                 break;
             }
         }
         List<WebElement> categoryList = getDriver().findElements(By.xpath("//div/a/h2"));
-        for(int i = 0; i < categoryList.size(); i++) {
-            if(categoryList.get(i).getText().contains("Hotel Furniture")) {
+        for (int i = 0; i < categoryList.size(); i++) {
+            if (categoryList.get(i).getText().contains("Hotel Furniture")) {
                 categoryList.get(i).click();
                 break;
             }
@@ -417,6 +435,7 @@ public class Group_eat_and_drink_JavaTest extends BaseTest {
 
     }
 
+    @Ignore
     @Test
     public void testElena_uSRegistrationPage() {
 
@@ -428,15 +447,15 @@ public class Group_eat_and_drink_JavaTest extends BaseTest {
         WebElement register = getDriver().findElement(By.xpath("//*[@id='SPSORegister']/a"));
         register.click();
 
-        WebElement personalAccount =getDriver().findElement(By.xpath("//*[@id='single-signin__body']/div/div[2]/div/div[2]/div[1]/div"));
+        WebElement personalAccount = getDriver().findElement(By.xpath("//*[@id='single-signin__body']/div/div[2]/div/div[2]/div[1]/div"));
         personalAccount.click();
 
-        Assert.assertEquals(getDriver().getTitle(),"The Home Depot: sign in, create or secure your account");
+        Assert.assertEquals(getDriver().getTitle(), "The Home Depot: sign in, create or secure your account");
 
     }
 
 
-
+    @Ignore
     @Test
     public void testElena_uSChewyCartButton() {
 
@@ -469,6 +488,32 @@ public class Group_eat_and_drink_JavaTest extends BaseTest {
 
     }
 
+    @Test
+    public void testSergeANavigateToPage() {
+        getDriver().get(PAGEURL);
+        WebElement logoName = getDriver().findElement(By.id("PHPTRAVELS"));
+        Assert.assertEquals(logoName.getText(), "PHPTRAVELS");
+    }
+
+    @Test
+    public void selectItemforList() throws InterruptedException {
+        getDriver().get(PAGEURL);
+        getDriver().findElement(By.xpath("//span[normalize-space()='Features']")).click();
+        List<WebElement> allOptions = getDriver().findElements(By.xpath("//header/div//div/a"));
+
+        for (WebElement option : allOptions) {
+            System.out.println(option.getText());
+            if (option.getText().contains("Flights Module")) {
+                option.click();
+                break;
+            }
+        }
+
+        WebElement h2Name = getDriver().findElement(By.id("header-title"));
+        WebDriverWait wait = new WebDriverWait(getDriver(), 5);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("header-title"))).click();
+        Assert.assertEquals(h2Name.getText(), "Flights reservation module");
+    }
     @Test
     private void SergeyBrigEddToCartTest() {
         getDriver().get("https://www.webstaurantstore.com");
