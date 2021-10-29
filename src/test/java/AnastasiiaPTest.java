@@ -30,7 +30,7 @@ public class AnastasiiaPTest extends BaseTest {
 
         Assert.assertEquals(actualResult.getText(), expectedResult);
     }
-
+    @Ignore
     @Test
     public void testSearchSubjectTextField() {
         String expectedResult = "SEARCH RESULTS FOR NY DRESS";
@@ -61,7 +61,7 @@ public class AnastasiiaPTest extends BaseTest {
         }
     }
 
-
+    @Ignore
     @Test
     public void testAvailabilityMenuButtons() {
         String[] expectedArray = new String[]{
@@ -81,7 +81,7 @@ public class AnastasiiaPTest extends BaseTest {
 
         List<WebElement> menuList = getDriver().findElements(By.xpath("//ul[contains(@id,'icecream')]//li"));
         for (int i = 0; i < menuList.size(); i++) {
-            Assert.assertEquals(menuList.get(i).getText(),expectedArray[i]);
+            Assert.assertEquals(menuList.get(i).getText(), expectedArray[i]);
         }
     }
 }
