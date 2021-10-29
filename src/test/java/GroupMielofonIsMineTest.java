@@ -101,31 +101,31 @@ public class GroupMielofonIsMineTest extends BaseTest {
         Assert.assertEquals(lastQuestion.getText(), "Что означает определение \"обложной\" во фразах \"обложной дождь\" или \"обложной снег\"?");
     }
 
-    @Ignore
+
     @Test
     public void testAlenaKuts1() {
         getDriver().get("https://stepik.org/catalog");
 
-        String expectedTitle = getDriver().findElement(By.xpath("//a[@href=\"/catalog/2\"]/div[@class='course-list-card__title']")).getText();
-        WebElement catalog = getDriver().findElement(By.xpath("//a[@href=\"/catalog/2\"]"));
+        String expectedTitle = getDriver().findElement(By.xpath("(//a[@class='course-list-card__link-wrapper'])[1]/div[@class='course-list-card__title']")).getText();
+        WebElement catalog = getDriver().findElement(By.xpath("(//a[@class='course-list-card__link-wrapper'])[1]"));
         catalog.click();
 
-        String actualTitle = getDriver().findElement(By.xpath("//div[contains (@class, 'catalog__category')]//h1[@class = \"catalog-block__title\"]")).getText();
+        String actualTitle = getDriver().findElement(By.xpath("//div[contains (@class, 'catalog__category')]//h1[@class = 'catalog-block__title']")).getText();
         Assert.assertEquals(actualTitle, expectedTitle);
 
     }
 
-    @Ignore
+
     @Test
     public void testAlenaKuts2() {
         getDriver().get("https://stepik.org/catalog");
 
-        String strExpectedNumber = getDriver().findElement(By.xpath("//a[@href='/catalog/12']/div[@class='course-list-card__courses']")).getText();
+        String strExpectedNumber = getDriver().findElement(By.xpath("(//a[@class='course-list-card__link-wrapper'])[3]/div[@class='course-list-card__courses']")).getText();
         int expectedNumber = Integer.parseInt(strExpectedNumber.replaceAll("[^0-9]", ""));
-        WebElement catalog = getDriver().findElement(By.xpath("//a[@href='/catalog/12']"));
+        WebElement catalog = getDriver().findElement(By.xpath("(//a[@class='course-list-card__link-wrapper'])[3]"));
         catalog.click();
 
-        List<WebElement> itemList = getDriver().findElements(By.xpath("//div[@data-list-type='default']//li[@class='course-cards__item']"));
+        List<WebElement> itemList = getDriver().findElements(By.xpath("//div[@data-list-type='default']//li[@class = 'course-cards__item']"));
         int actualNumber = itemList.size();
         Assert.assertEquals(actualNumber, expectedNumber);
 
