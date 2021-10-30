@@ -126,6 +126,7 @@ public class Group_eat_and_drink_JavaTest extends BaseTest {
         forgotPassword.click();
         Assert.assertEquals(getDriver().getCurrentUrl(), "https://humans.net/recoveryform");
     }
+    @Ignore
     @Test
     public void testLogInIncorrectValuesTatianaT() throws InterruptedException {
         getDriver().get("https://humans.net/registration");

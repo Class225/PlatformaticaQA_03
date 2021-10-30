@@ -17,7 +17,7 @@ import java.util.Locale;
 public class GroupMielofonIsMineTest extends BaseTest {
 
     private final static String URL_VW = "https://www.vw.com/";
-
+    @Ignore
     @Test
     public void testVitalyZverevFirst() {
         getDriver().get(URL_VW);
