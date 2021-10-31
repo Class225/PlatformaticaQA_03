@@ -17,6 +17,7 @@ import java.util.Locale;
 public class GroupMielofonIsMineTest extends BaseTest {
 
     private final static String URL_VW = "https://www.vw.com/";
+
     @Ignore
     @Test
     public void testVitalyZverevFirst() {
@@ -36,6 +37,7 @@ public class GroupMielofonIsMineTest extends BaseTest {
         Assert.assertEquals(listModels.size(), 15);
     }
 
+    @Ignore
     @Test
     public void testVitalyZverevSecond() {
         getDriver().get(URL_VW);
