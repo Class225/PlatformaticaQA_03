@@ -20,7 +20,7 @@ import java.util.concurrent.TimeUnit;
 
 import static org.testng.Assert.assertEquals;
 
-//@Ignore
+
 public class Group_eat_and_drink_JavaTest extends BaseTest {
 
     private static final String URL = "https://www.godaddy.com/";
@@ -264,7 +264,6 @@ public class Group_eat_and_drink_JavaTest extends BaseTest {
 
         Assert.assertEquals(description.getText(), "Comments in Java are written with special characters. Insert the missing parts:");
     }
-
     @Ignore
     @Test
     public void SergeyBrigMenuTest() {
@@ -371,7 +370,6 @@ public class Group_eat_and_drink_JavaTest extends BaseTest {
         }
     }
 
-    @Ignore
     @Test
     public void SergeyBrigMenu2Test() {
         getDriver().get("https://www.webstaurantstore.com");
@@ -383,9 +381,9 @@ public class Group_eat_and_drink_JavaTest extends BaseTest {
                 break;
             }
         }
-        List<WebElement> categoryList = getDriver().findElements(By.xpath("//div/a/h2"));
+        List<WebElement> categoryList = getDriver().findElements(By.xpath("//div/a/h2[@data-testid='displayTitle']"));
         for (int i = 0; i < categoryList.size(); i++) {
-            if (categoryList.get(i).getText().contains("Hotel Furniture")) {
+            if (categoryList.get(i).getText().toLowerCase().contains("hotel furniture")) {
                 categoryList.get(i).click();
                 break;
             }
@@ -456,5 +454,28 @@ public class Group_eat_and_drink_JavaTest extends BaseTest {
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("header-title"))).click();
         Assert.assertEquals(h2Name.getText(), "Flights reservation module");
     }
+
+    @Test
+    private void SergeyBrigEddToCartTest() {
+        getDriver().get("https://www.webstaurantstore.com");
+
+        getDriver().findElement(By.xpath("//input[@id = 'searchval']")).sendKeys("220SPRDWNEN3"+ "\n");
+
+        List<WebElement> sizeVariations = getDriver().findElements(By.xpath("//ul[@class = 'nav nav-pills nav-stacked']/li"));
+        for (int i = 0; i < sizeVariations.size(); i++) {
+            if(sizeVariations.get(i).getText().contains("5 1/2\"")) {
+                sizeVariations.get(i).click();
+                break;
+            }
+        }
+        getDriver().findElement(By.xpath("//input[@id ='qty']")).sendKeys("2");
+        getDriver().findElement(By.xpath("//input[@id ='buyButton']")).click();
+        getDriver().findElement(By.xpath("//a[@data-testid='cart-nav-link']")).click();
+        WebElement orderItem = getDriver().findElement(By.xpath("//span[@id= 'cartItemCountSpan']"));
+
+        Assert.assertEquals(orderItem.getText(), "21");
+
+    }
+
 }
 
