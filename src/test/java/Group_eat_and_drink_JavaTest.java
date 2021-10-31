@@ -409,7 +409,7 @@ public class Group_eat_and_drink_JavaTest extends BaseTest {
 
     }
 
-    @Ignore
+
     @Test
     public void testElena_uSRegistrationPage() {
 
@@ -428,39 +428,6 @@ public class Group_eat_and_drink_JavaTest extends BaseTest {
 
     }
 
-
-    @Ignore
-    @Test
-    public void testElena_uSChewyCartButton() {
-
-        String URL = "https://www.chewy.com/";
-
-        getDriver().get(URL);
-
-        WebElement halloweenShop = getDriver().findElement(By.xpath("//*[@id='sfw-header__main']/header/div[2]/div/ul/li[7]/a"));
-        halloweenShop.click();
-
-        WebElement shopFunny = getDriver().findElement(By.xpath("//*[@id='tns3-item3']/a"));
-        shopFunny.click();
-
-        WebElement forDog = getDriver().findElement(By.xpath("//*[@id='tns1-item0']"));
-        forDog.click();
-
-        WebElement pigCostume = getDriver().findElement(By.xpath("//*[@id='page-content']/div[2]/div[2]/div[2]/div[1]/div/section[2]/article[2]/a"));
-        pigCostume.click();
-
-        WebElement smallSize = getDriver().findElement(By.xpath("//*[@id='variation-Size']/div[2]/div[2]/div/label"));
-        smallSize.click();
-
-        WebElement addToCartButton = getDriver().findElement(By.xpath("//*[@id='buybox']/div[1]/div/form/div[2]/div[1]/a"));
-        addToCartButton.click();
-
-
-        WebElement checkCart = getDriver().findElement(By.xpath("//*[@id='smartshelf-minicart']/div[5]/div[1]/a"));
-        Assert.assertTrue(checkCart.isDisplayed());
-
-
-    }
 
     @Test
     public void testSergeANavigateToPage() {

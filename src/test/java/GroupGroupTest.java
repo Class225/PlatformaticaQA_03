@@ -153,6 +153,7 @@ public class GroupGroupTest extends BaseTest {
         enter.click();
     }
 
+    @Ignore
     @Test
     public void testGayanaGSearchEdx() {
         getDriver().get(URL1_GG);
