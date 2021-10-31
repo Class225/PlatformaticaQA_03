@@ -24,8 +24,8 @@ public class VladimirMTest {
 
         driver.get("https://av.by");
 
-        WebElement bmw = driver.findElement(By.xpath("/html[1]/body[1]/div[1]/div[2]/div[2]/div[1]/main[1]/div[1]/div[1]" +
-                "/div[1]/div[2]/div[1]/div[2]/div[1]/ul[3]/li[1]/a[1]/span[1]"));
+        WebElement bmw = driver.findElement(By.xpath("/html[1]/body[1]/div[1]/div[2]/div[2]/div[1]/main[1]/div[1]" +
+                "/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/ul[3]/li[1]/a[1]/span[1]"));
 
         bmw.click();
 
