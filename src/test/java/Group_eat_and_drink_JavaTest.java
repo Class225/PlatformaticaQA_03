@@ -32,26 +32,27 @@ public class Group_eat_and_drink_JavaTest extends BaseTest {
     private static final String PAGEURL = "https://phptravels.com/";
 
 
-    @Ignore
     @Test
-    public void testFindCorrectItem() {
+    public void testStasLFindCorrectItem() throws InterruptedException {
 
         getDriver().get("https://askent.ru/");
-        WebElement bags = getDriver().findElement(By.xpath("//a[@href=\"https://askent.ru/cat/zhenskoe/filter/kollektsiya-is-9b65b8c3-fe04-11e8-80be-18a905775a6f/apply/\"]"));
-        bags.click();
+        WebElement woman = getDriver().findElement(By.xpath("//li[@class = 'dropDown']/a[contains(text(), 'Woman')]"));
+        woman.click();
+        WebElement whiteCollection= getDriver().findElement(By.xpath("//a[@href='https://askent.ru/cat/sumki/']"));
+        whiteCollection.click();
 
         getDriver().findElement(By.cssSelector("body")).sendKeys(Keys.CONTROL, Keys.END);
         getDriver().manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
         getDriver().findElement(By.xpath("//a[contains(text(),'Показать ещё')]")).click();
-        getDriver().findElement(By.xpath("//div[@class=\"productItem__link\"]/a[@href=\"/cat/sumki/ryukzak_63/\"]")).click();
+        getDriver().findElement(By.xpath("//a[@href='/cat/sumki/sumka_514/']")).click();
 
-        Assert.assertEquals(getDriver().getCurrentUrl(), "https://askent.ru/cat/sumki/ryukzak_63/");
+        Assert.assertEquals(getDriver().getCurrentUrl(), "https://askent.ru/cat/sumki/sumka_514/");
     }
 
 
     @Test
-    public void testItemToBasket() {
+    public void testStasLItemToBasket() {
 
         getDriver().get("https://askent.ru/cat/sumki/ryukzak_63/");
 
@@ -68,7 +69,7 @@ public class Group_eat_and_drink_JavaTest extends BaseTest {
     }
 
     @Test
-    public void testSingIn() {
+    public void testStasLSingIn() {
 
         getDriver().get("https://askent.ru/order/");
 
@@ -84,6 +85,53 @@ public class Group_eat_and_drink_JavaTest extends BaseTest {
 
         Assert.assertEquals(message.getText(), "Не верный логин или пароль");
     }
+
+    @Test
+    public void testStasLSearchs() throws InterruptedException {
+
+        getDriver().get("https://kubkov.net/");
+        WebElement searchFild = getDriver().findElement(By.xpath("//div[@class = 'btn_search']"));
+        searchFild.click();
+        WebElement fullSearchFild = getDriver().findElement(By.xpath("//input[@id = 'title-search-input']"));
+        fullSearchFild.sendKeys("медали\n");
+        WebElement medaliClass = getDriver().findElement(By.xpath("//li[@class = 'level1']/a[@href = '/catalog/medali/']"));
+        medaliClass.click();
+        WebElement options = getDriver().findElement(By.xpath("//div[@class = 'col-sm-6 col-md-4 bx-filter-title']"));
+        options.click();
+        getDriver().findElement(By.xpath("//input[@class = 'min-price']")).sendKeys("10");
+        getDriver().findElement(By.xpath("//input[@class = 'max-price']")).sendKeys("200");
+        getDriver().findElement((By.xpath("//div[@class='bx-filter-select-text'][contains(text(),'Все')]"))).click();
+        getDriver().findElement(By.xpath("//div[@id='popup-window-content-smartFilterDropDown19']//label[@for = 'arrFilter_19_3076719002'][contains(text(),'45 мм')]")).click();
+        Thread.sleep(2000);
+        WebElement showBotton = getDriver().findElement(By.xpath("//input[@class = 'btn btn-themes']"));
+        showBotton.click();
+        getDriver().findElement(By.xpath("//a[@href = '/catalog/medali/medali-kn005-/'][contains(., 'Медали')]")).click();
+        WebElement countField = getDriver().findElement(By.id("prod_quantity_1369"));
+        countField.clear();
+        countField.sendKeys("4");
+        getDriver().findElement(By.id("prod_link_1369")).click();
+        getDriver().findElement(By.xpath("//img[@class = 'shop-box-image-header']")).click();
+        getDriver().findElement(By.xpath("//td/input[@type='text']")).clear();
+        getDriver().findElement(By.xpath("//td/input[@type='text']")).sendKeys("8");
+        getDriver().findElement(By.xpath("//td[@class ='fwb']")).click();
+        WebElement deleteItemsInCart = getDriver().findElement(By.xpath("//td[@class = 'control']/a[@class = 'cart_del']"));
+        deleteItemsInCart.click();
+        WebElement emptyCart = getDriver().findElement(By.xpath("//font[@class = 'errortext']"));
+
+        Assert.assertEquals(emptyCart.getText(), "Ваша корзина пуста");
+    }
+
+    @Test
+    public void testStasLCountItems() {
+        getDriver().get("https://kubkov.net/catalog/medali/filter/price-base-from-10-to-200/diametr-is-5bbdbff0df2a97e4deb25da4f5fe7b4b/apply/");
+        List<WebElement> medalList = getDriver().findElements(By.xpath("//div[@class = 'ow-table']/a[@class='h']"));
+        Assert.assertTrue(medalList.size() != 0);
+        for (int i = 0; i < medalList.size(); i++) {
+            medalList.get(i);
+            Assert.assertTrue(medalList.get(i).getText().toLowerCase().contains("медали".toLowerCase(Locale.ROOT)));
+        }
+    }
+
 
     @Ignore
     @Test
