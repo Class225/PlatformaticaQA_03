@@ -43,6 +43,20 @@ public class QA_Group_Timur_Test{
         Assert.assertEquals(errors.size(),1,
                 "Сообщение с ошибкой \"Пожалуйста, укажите email или телефон\" отсутствует или их несколько.");
 
-    };
+
+   }
+   @Test
+    public void soelmaSanzhievaTest(){
+        driver.get("https://www.arbys.com/");
+
+        WebElement signIn = driver.findElement(By.xpath("//div[@class = 'navigation_linkContainer__l-4E2']//span[@class = 'navigation_linkLabel__1cMU_']"));
+        signIn.click();
+
+        String expectedURL = "https://www.arbys.com/menu/";
+
+        Assert.assertEquals(driver.getCurrentUrl(), expectedURL);
+   }
+
+
 
 }
