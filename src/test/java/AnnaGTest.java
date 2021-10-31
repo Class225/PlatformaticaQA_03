@@ -1,3 +1,4 @@
+import base.BaseTest;
 import com.google.gson.internal.bind.util.ISO8601Utils;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
@@ -13,32 +14,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-public class AnnaGTest {
+public class AnnaGTest extends BaseTest {
 
     private static final String URL = "http://www.99-bottles-of-beer.net/lyrics.html";
 
     private WebDriver driver;
 
-    @BeforeMethod
-    public void setUp() {
-        WebDriverManager.chromedriver().setup();
 
-        driver = new ChromeDriver();
-
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        driver.manage().window().maximize();
-    }
-
-    @AfterMethod
-    public void setDown() {
-        driver.quit();
-    }
 
     @Test
 
     public void testBottles99Song(){
-       driver.get(URL);
-       List<WebElement> pAllTags = driver.findElements(By.xpath("//div[@id = 'main']/p")); // поиск всех элементов
+       getDriver().get(URL);
+       List<WebElement> pAllTags = getDriver().findElements(By.xpath("//div[@id = 'main']/p")); // поиск всех элементов
 
         // List<WebElement> pFirst = driver.findElement(By.xpath("//div[@id = 'main']/p[1]")); // потск по одному элементу
 
