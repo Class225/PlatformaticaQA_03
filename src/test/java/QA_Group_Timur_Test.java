@@ -12,7 +12,7 @@ import org.testng.annotations.Test;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-public class QA_Group_Timur_Test{
+public class QA_Group_Timur_Test {
     private WebDriver driver;
 
     @BeforeMethod
@@ -27,26 +27,26 @@ public class QA_Group_Timur_Test{
 
     @AfterMethod
     public void setDown() {
- //       driver.quit();
+        //       driver.quit();
     }
 
     @Test
-    public void evgenyRogoznev(){
+    public void evgenyRogoznev() {
         driver.get("https://hh.ru/");
         WebElement signIn = driver.findElement(By.xpath("//*[@data-qa='login']"));
-        JavascriptExecutor jse = (JavascriptExecutor)driver;
+        JavascriptExecutor jse = (JavascriptExecutor) driver;
         jse.executeScript("arguments[0].click();", signIn);
         driver.findElement(By.xpath("//*[@data-qa='account-signup-email']")).sendKeys("falseLogin");
         WebElement submitBtn = driver.findElement(By.xpath("//*[@data-qa='account-signup-submit']"));
         submitBtn.click();
-        List<WebElement> errors= driver.findElements(By.xpath("//*[text()='Пожалуйста, укажите email или телефон']"));
-        Assert.assertEquals(errors.size(),1,
+        List<WebElement> errors = driver.findElements(By.xpath("//*[text()='Пожалуйста, укажите email или телефон']"));
+        Assert.assertEquals(errors.size(), 1,
                 "Сообщение с ошибкой \"Пожалуйста, укажите email или телефон\" отсутствует или их несколько.");
 
+    }
 
-   }
-   @Test
-    public void soelmaSanzhievaTest(){
+    @Test
+    public void soelmaSanzhievaTest() {
         driver.get("https://www.arbys.com/");
 
         WebElement signIn = driver.findElement(By.xpath("//div[@class = 'navigation_linkContainer__l-4E2']//span[@class = 'navigation_linkLabel__1cMU_']"));
@@ -55,8 +55,6 @@ public class QA_Group_Timur_Test{
         String expectedURL = "https://www.arbys.com/menu/";
 
         Assert.assertEquals(driver.getCurrentUrl(), expectedURL);
-   }
 
-
-
+    }
 }
