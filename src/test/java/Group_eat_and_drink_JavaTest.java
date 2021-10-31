@@ -431,12 +431,14 @@ public class Group_eat_and_drink_JavaTest extends BaseTest {
 
     @Test
 
-    public void testElena_uS(){
+    public void testElena_uS() throws InterruptedException {
         String URL = "https://www.chewy.com/";
 
         getDriver().get(URL);
+        Thread.sleep(3000);
 
-        WebElement searchBox = getDriver().findElement(By.name("query"));
+
+        WebElement searchBox = getDriver().findElement(By.xpath("//*[@id=\"search-autocomplete\"]"));
         searchBox.sendKeys("Hills science diet for cats" + "\n");
 
         List<WebElement> itemList = getDriver().findElements(By.className("bd-search-results"));
