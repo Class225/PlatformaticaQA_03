@@ -1,4 +1,5 @@
 
+import base.BaseTest;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -15,31 +16,18 @@ import org.testng.annotations.Test;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-@Ignore
-public class Group_timurTest {
-    private WebDriver driver;
+
+public class Group_timurTest extends BaseTest {
+
     private final String URL = "https://kg.wildberries.ru/";
 
-    @BeforeMethod
-    public void setUp(){
-        WebDriverManager.chromedriver().setup();
-
-        driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        driver.manage().window().maximize();
-    }
-
-    @AfterMethod
-    public void setDown(){
-        driver.quit();
-    }
 
     @Test
     public void testSearchesVasiliyTsoy(){
-        driver.get(URL);
+        getDriver().get(URL);
 
-        driver.findElement(By.id("searchInput")).sendKeys("ноутбук\n");
-        List<WebElement> itemList = driver.findElements(By.xpath("div[@class= 'catalog-page__content']//div[@class='product-card-list']"));
+        getDriver().findElement(By.id("searchInput")).sendKeys("ноутбук\n");
+        List<WebElement> itemList = getDriver().findElements(By.xpath("div[@class= 'catalog-page__content']//div[@class='product-card-list']"));
         for (WebElement webElement : itemList) {
 
             Assert.assertTrue(webElement.getText().toLowerCase().contains("ноутбук"));
@@ -48,34 +36,34 @@ public class Group_timurTest {
 
     @Test
     public void testLoginVasiliyTsoy(){
-        driver.get(URL);
+        getDriver().get(URL);
 
-        WebElement login = driver.findElement(By.xpath("//div[@class='navbar-pc__item']/a[@class='navbar-pc__link j-main-login']"));
+        WebElement login = getDriver().findElement(By.xpath("//div[@class='navbar-pc__item']/a[@class='navbar-pc__link j-main-login']"));
         login.click();
-        WebElement numberInput = driver.findElement(By.className("input-item"));
+        WebElement numberInput = getDriver().findElement(By.className("input-item"));
         numberInput.sendKeys("852111222");
-        driver.findElement(By.id("requestCode")).click();
+        getDriver().findElement(By.id("requestCode")).click();
 
-        WebElement actualResult = driver.findElement(By.xpath("//div[@class='login__captcha form-block form-block--captcha']//*[text()='Введите код с картинки']"));
+        WebElement actualResult = getDriver().findElement(By.xpath("//div[@class='login__captcha form-block form-block--captcha']//*[text()='Введите код с картинки']"));
         Assert.assertEquals(actualResult.getText(),"Введите код с картинки");
     }
 
     @Test
     public void testCheckingCurrencySwitchingVasiliyTsoy(){
-        driver.get(URL);
+       getDriver().get(URL);
         final String value = "Казахстан";
 
-        Actions action = new Actions(driver);
-        WebElement countrySelection = driver.findElement(By.xpath("//span[@class='simple-menu__flag flag-kg']"));
+        Actions action = new Actions(getDriver());
+        WebElement countrySelection = getDriver().findElement(By.xpath("//span[@class='simple-menu__flag flag-kg']"));
         action.moveToElement(countrySelection).build().perform();
-        List<WebElement> listOfCountries = driver.findElements(By.xpath("//*[@class='country__item']/label/span[2]"));
+        List<WebElement> listOfCountries = getDriver().findElements(By.xpath("//*[@class='country__item']/label/span[2]"));
         for(WebElement county:listOfCountries){
             if(county.getText().contains(value)){
                county.click();
                break;
             }
         }
-        List<WebElement> listItem =driver.findElements(By.xpath("//p[@class='goods-card__price-localized']"));
+        List<WebElement> listItem = getDriver().findElements(By.xpath("//p[@class='goods-card__price-localized']"));
         for(WebElement webElement : listItem){
                 Assert.assertTrue(webElement.getText().toLowerCase().contains("тг"));
             }
