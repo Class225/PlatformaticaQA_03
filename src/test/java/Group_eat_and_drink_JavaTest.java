@@ -20,7 +20,7 @@ import java.util.concurrent.TimeUnit;
 
 import static org.testng.Assert.assertEquals;
 
-@Ignore
+
 public class Group_eat_and_drink_JavaTest extends BaseTest {
 
     private static final String URL = "https://www.godaddy.com/";
@@ -32,26 +32,27 @@ public class Group_eat_and_drink_JavaTest extends BaseTest {
     private static final String PAGEURL = "https://phptravels.com/";
 
 
-    @Ignore
     @Test
-    public void testFindCorrectItem() {
+    public void testStasLFindCorrectItem() throws InterruptedException {
 
         getDriver().get("https://askent.ru/");
-        WebElement bags = getDriver().findElement(By.xpath("//a[@href=\"https://askent.ru/cat/zhenskoe/filter/kollektsiya-is-9b65b8c3-fe04-11e8-80be-18a905775a6f/apply/\"]"));
-        bags.click();
+        WebElement woman = getDriver().findElement(By.xpath("//li[@class = 'dropDown']/a[contains(text(), 'Woman')]"));
+        woman.click();
+        WebElement whiteCollection= getDriver().findElement(By.xpath("//a[@href='https://askent.ru/cat/sumki/']"));
+        whiteCollection.click();
 
         getDriver().findElement(By.cssSelector("body")).sendKeys(Keys.CONTROL, Keys.END);
         getDriver().manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
         getDriver().findElement(By.xpath("//a[contains(text(),'Показать ещё')]")).click();
-        getDriver().findElement(By.xpath("//div[@class=\"productItem__link\"]/a[@href=\"/cat/sumki/ryukzak_63/\"]")).click();
+        getDriver().findElement(By.xpath("//a[@href='/cat/sumki/sumka_514/']")).click();
 
-        Assert.assertEquals(getDriver().getCurrentUrl(), "https://askent.ru/cat/sumki/ryukzak_63/");
+        Assert.assertEquals(getDriver().getCurrentUrl(), "https://askent.ru/cat/sumki/sumka_514/");
     }
 
 
     @Test
-    public void testItemToBasket() {
+    public void testStasLItemToBasket() {
 
         getDriver().get("https://askent.ru/cat/sumki/ryukzak_63/");
 
@@ -68,7 +69,7 @@ public class Group_eat_and_drink_JavaTest extends BaseTest {
     }
 
     @Test
-    public void testSingIn() {
+    public void testStasLSingIn() {
 
         getDriver().get("https://askent.ru/order/");
 
@@ -84,6 +85,53 @@ public class Group_eat_and_drink_JavaTest extends BaseTest {
 
         Assert.assertEquals(message.getText(), "Не верный логин или пароль");
     }
+
+    @Test
+    public void testStasLSearchs() throws InterruptedException {
+
+        getDriver().get("https://kubkov.net/");
+        WebElement searchFild = getDriver().findElement(By.xpath("//div[@class = 'btn_search']"));
+        searchFild.click();
+        WebElement fullSearchFild = getDriver().findElement(By.xpath("//input[@id = 'title-search-input']"));
+        fullSearchFild.sendKeys("медали\n");
+        WebElement medaliClass = getDriver().findElement(By.xpath("//li[@class = 'level1']/a[@href = '/catalog/medali/']"));
+        medaliClass.click();
+        WebElement options = getDriver().findElement(By.xpath("//div[@class = 'col-sm-6 col-md-4 bx-filter-title']"));
+        options.click();
+        getDriver().findElement(By.xpath("//input[@class = 'min-price']")).sendKeys("10");
+        getDriver().findElement(By.xpath("//input[@class = 'max-price']")).sendKeys("200");
+        getDriver().findElement((By.xpath("//div[@class='bx-filter-select-text'][contains(text(),'Все')]"))).click();
+        getDriver().findElement(By.xpath("//div[@id='popup-window-content-smartFilterDropDown19']//label[@for = 'arrFilter_19_3076719002'][contains(text(),'45 мм')]")).click();
+        Thread.sleep(2000);
+        WebElement showBotton = getDriver().findElement(By.xpath("//input[@class = 'btn btn-themes']"));
+        showBotton.click();
+        getDriver().findElement(By.xpath("//a[@href = '/catalog/medali/medali-kn005-/'][contains(., 'Медали')]")).click();
+        WebElement countField = getDriver().findElement(By.id("prod_quantity_1369"));
+        countField.clear();
+        countField.sendKeys("4");
+        getDriver().findElement(By.id("prod_link_1369")).click();
+        getDriver().findElement(By.xpath("//img[@class = 'shop-box-image-header']")).click();
+        getDriver().findElement(By.xpath("//td/input[@type='text']")).clear();
+        getDriver().findElement(By.xpath("//td/input[@type='text']")).sendKeys("8");
+        getDriver().findElement(By.xpath("//td[@class ='fwb']")).click();
+        WebElement deleteItemsInCart = getDriver().findElement(By.xpath("//td[@class = 'control']/a[@class = 'cart_del']"));
+        deleteItemsInCart.click();
+        WebElement emptyCart = getDriver().findElement(By.xpath("//font[@class = 'errortext']"));
+
+        Assert.assertEquals(emptyCart.getText(), "Ваша корзина пуста");
+    }
+
+    @Test
+    public void testStasLCountItems() {
+        getDriver().get("https://kubkov.net/catalog/medali/filter/price-base-from-10-to-200/diametr-is-5bbdbff0df2a97e4deb25da4f5fe7b4b/apply/");
+        List<WebElement> medalList = getDriver().findElements(By.xpath("//div[@class = 'ow-table']/a[@class='h']"));
+        Assert.assertTrue(medalList.size() != 0);
+        for (int i = 0; i < medalList.size(); i++) {
+            medalList.get(i);
+            Assert.assertTrue(medalList.get(i).getText().toLowerCase().contains("медали".toLowerCase(Locale.ROOT)));
+        }
+    }
+
 
     @Ignore
     @Test
@@ -117,8 +165,6 @@ public class Group_eat_and_drink_JavaTest extends BaseTest {
 
         Assert.assertEquals(actualResult, expectedResult);
     }
-
-
     @Test
     public void testVerifyForgotPasswordLinkTatianaT() {
         getDriver().get("https://humans.net/login");
@@ -127,27 +173,18 @@ public class Group_eat_and_drink_JavaTest extends BaseTest {
         Assert.assertEquals(getDriver().getCurrentUrl(), "https://humans.net/recoveryform");
     }
     @Test
-    public void testLogInIncorrectValuesTatianaT() throws InterruptedException {
-        getDriver().get("https://humans.net/registration");
-        WebElement logIn = getDriver().findElement(By.xpath("//span[text()='Log in']"));
-        logIn.click();
-        Thread.sleep(3000);
+    public void testVerifyListItemsTatianaT() {
+        getDriver().get("http://automationpractice.com/");
 
-        WebElement userName = getDriver().findElement(By.xpath("//input[@type='text']"));
-        userName.sendKeys("8883468487");
+        WebElement searchField = getDriver().findElement(By.id("search_query_top"));
+        searchField.sendKeys("dress\n");
+        List<WebElement> itemList = getDriver().findElements(By.id("search"));
 
-        WebElement password = getDriver().findElement(By.xpath("//input[@type='password']"));
-        password.sendKeys("humans");
-
-        WebElement continueButton = getDriver().findElement(By.xpath("//button[@type='submit']/span"));
-        continueButton.click();
-
-        WebElement error = getDriver().findElement(By.xpath("//span[text()='Incorrect login or password']"));
-
-        Assert.assertEquals(error.getText(), "Incorrect login or password");
-
+        Assert.assertTrue(itemList.size() != 0);
+        for (int i = 0; i < itemList.size(); i++) {
+            Assert.assertTrue(itemList.get(i).getText().toLowerCase().contains("dress"));
+        }
     }
-
     @Test
     void testSergeA_navigateMainPage() {
         getDriver().get(URL);
@@ -369,7 +406,6 @@ public class Group_eat_and_drink_JavaTest extends BaseTest {
         }
     }
 
-    @Ignore
     @Test
     public void SergeyBrigMenu2Test() {
         getDriver().get("https://www.webstaurantstore.com");
@@ -381,9 +417,9 @@ public class Group_eat_and_drink_JavaTest extends BaseTest {
                 break;
             }
         }
-        List<WebElement> categoryList = getDriver().findElements(By.xpath("//div/a/h2"));
+        List<WebElement> categoryList = getDriver().findElements(By.xpath("//div/a/h2[@data-testid='displayTitle']"));
         for (int i = 0; i < categoryList.size(); i++) {
-            if (categoryList.get(i).getText().contains("Hotel Furniture")) {
+            if (categoryList.get(i).getText().toLowerCase().contains("hotel furniture")) {
                 categoryList.get(i).click();
                 break;
             }
@@ -407,7 +443,7 @@ public class Group_eat_and_drink_JavaTest extends BaseTest {
 
     }
 
-    @Ignore
+
     @Test
     public void testElena_uSRegistrationPage() {
 
@@ -427,39 +463,6 @@ public class Group_eat_and_drink_JavaTest extends BaseTest {
     }
 
 
-    @Ignore
-    @Test
-    public void testElena_uSChewyCartButton() {
-
-        String URL = "https://www.chewy.com/";
-
-        getDriver().get(URL);
-
-        WebElement halloweenShop = getDriver().findElement(By.xpath("//*[@id='sfw-header__main']/header/div[2]/div/ul/li[7]/a"));
-        halloweenShop.click();
-
-        WebElement shopFunny = getDriver().findElement(By.xpath("//*[@id='tns3-item3']/a"));
-        shopFunny.click();
-
-        WebElement forDog = getDriver().findElement(By.xpath("//*[@id='tns1-item0']"));
-        forDog.click();
-
-        WebElement pigCostume = getDriver().findElement(By.xpath("//*[@id='page-content']/div[2]/div[2]/div[2]/div[1]/div/section[2]/article[2]/a"));
-        pigCostume.click();
-
-        WebElement smallSize = getDriver().findElement(By.xpath("//*[@id='variation-Size']/div[2]/div[2]/div/label"));
-        smallSize.click();
-
-        WebElement addToCartButton = getDriver().findElement(By.xpath("//*[@id='buybox']/div[1]/div/form/div[2]/div[1]/a"));
-        addToCartButton.click();
-
-
-        WebElement checkCart = getDriver().findElement(By.xpath("//*[@id='smartshelf-minicart']/div[5]/div[1]/a"));
-        Assert.assertTrue(checkCart.isDisplayed());
-
-
-    }
-
     @Test
     public void testSergeANavigateToPage() {
         getDriver().get(PAGEURL);
@@ -467,6 +470,7 @@ public class Group_eat_and_drink_JavaTest extends BaseTest {
         Assert.assertEquals(logoName.getText(), "PHPTRAVELS");
     }
 
+    @Ignore
     @Test
     public void selectItemforList() throws InterruptedException {
         getDriver().get(PAGEURL);
@@ -486,6 +490,7 @@ public class Group_eat_and_drink_JavaTest extends BaseTest {
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("header-title"))).click();
         Assert.assertEquals(h2Name.getText(), "Flights reservation module");
     }
+
     @Test
     private void SergeyBrigEddToCartTest() {
         getDriver().get("https://www.webstaurantstore.com");
@@ -507,5 +512,6 @@ public class Group_eat_and_drink_JavaTest extends BaseTest {
         Assert.assertEquals(orderItem.getText(), "21");
 
     }
+
 }
 

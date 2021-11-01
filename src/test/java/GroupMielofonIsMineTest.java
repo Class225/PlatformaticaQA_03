@@ -18,6 +18,7 @@ public class GroupMielofonIsMineTest extends BaseTest {
 
     private final static String URL_VW = "https://www.vw.com/";
 
+    @Ignore
     @Test
     public void testVitalyZverevFirst() {
         getDriver().get(URL_VW);
@@ -36,6 +37,7 @@ public class GroupMielofonIsMineTest extends BaseTest {
         Assert.assertEquals(listModels.size(), 15);
     }
 
+    @Ignore
     @Test
     public void testVitalyZverevSecond() {
         getDriver().get(URL_VW);
@@ -74,6 +76,7 @@ public class GroupMielofonIsMineTest extends BaseTest {
         Assert.assertEquals(text.getText(), "Результат поиска");
     }
 
+    @Ignore
     @Test
     public void testLogotipAnastasiaKaz() {
 

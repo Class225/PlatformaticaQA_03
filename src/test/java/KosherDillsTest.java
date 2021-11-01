@@ -24,6 +24,7 @@ public class KosherDillsTest extends BaseTest {
 
     }
 
+    @Ignore
     @Test
     public void testDropDownSelectAmazonCharity() {
 
