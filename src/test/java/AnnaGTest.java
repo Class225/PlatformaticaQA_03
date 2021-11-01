@@ -22,7 +22,7 @@ public class AnnaGTest extends BaseTest {
     private WebDriver driver;
 
     private static final String BOTTLES = " bottles of beer";
-    private static final String BOTTLE = " bottle of beer";
+   private static final String BOTTLE = " bottle of beer";
     private static final String WALL = " on the wall";
     private static final String TAKE = "Take one down and pass it around";
     private static final String COMA_SPACE = ", ";
@@ -34,6 +34,28 @@ public class AnnaGTest extends BaseTest {
     private static final String ENTER = "\n";
 
 
+
+    public String getBottles (int index, String bottles){
+        StringBuilder result = new StringBuilder();
+
+        return String.valueOf(result.append(index).append(bottles));
+
+    }
+    public String getBottles (String noMore, String bottles){
+        StringBuilder result = new StringBuilder();
+
+        return String.valueOf(result.append(noMore).append(bottles));
+
+    }
+  public String getWall(String punctuation){
+        StringBuilder result = new StringBuilder();
+        return String.valueOf(result.append(WALL).append(punctuation));
+  }
+
+
+
+
+
     private  String songLyric() {
         StringBuilder expectedResult = new StringBuilder();
 
@@ -41,12 +63,9 @@ public class AnnaGTest extends BaseTest {
             if (i == 99) {
 
                 expectedResult
-                        .append(i)
-                        .append(BOTTLES)
-                        .append(WALL)
-                        .append(COMA_SPACE)
-                        .append(i)
-                        .append(BOTTLES)
+                        .append(getBottles(i, BOTTLES))
+                        .append(getWall(COMA_SPACE))
+                        .append(getBottles(i, BOTTLES))
                         .append(DOT)
                         .append(ENTER);
 
@@ -55,25 +74,18 @@ public class AnnaGTest extends BaseTest {
                 expectedResult
                         .append(TAKE)
                         .append(COMA_SPACE)
-                        .append(NO_MORE.toLowerCase(Locale.ROOT))
-                        .append(BOTTLES)
-                        .append(WALL)
-                        .append(DOT)
-                        .append(NO_MORE)
-                        .append(BOTTLES)
-                        .append(WALL)
-                        .append(COMA_SPACE)
-                        .append(NO_MORE.toLowerCase(Locale.ROOT))
-                        .append(BOTTLES)
+                        .append(getBottles(NO_MORE.toLowerCase(Locale.ROOT), BOTTLES))
+                        .append(getWall(DOT))
+                        .append(getBottles(NO_MORE, BOTTLES))
+                        .append(getWall(COMA_SPACE))
+                        .append(getBottles(NO_MORE.toLowerCase(Locale.ROOT), BOTTLES))
                         .append(DOT)
                         .append(ENTER);
                 expectedResult
                         .append(GO)
                         .append(COMA_SPACE)
-                        .append(99)
-                        .append(BOTTLES)
-                        .append(WALL)
-                        .append(DOT);
+                        .append(getBottles(99, BOTTLES))
+                        .append(getWall(DOT));
 
 
             } else {
@@ -81,16 +93,11 @@ public class AnnaGTest extends BaseTest {
                     expectedResult
                             .append(TAKE)
                             .append(COMA_SPACE)
-                            .append(i)
-                            .append(BOTTLES)
-                            .append(WALL)
-                            .append(DOT)
-                            .append(i)
-                            .append(BOTTLES)
-                            .append(WALL)
-                            .append(COMA_SPACE)
-                            .append(i)
-                            .append(BOTTLES)
+                            .append(getBottles(i, BOTTLES))
+                            .append(getWall(DOT))
+                            .append(getBottles(i, BOTTLES))
+                            .append(getWall(COMA_SPACE))
+                            .append(getBottles(i, BOTTLES))
                             .append(DOT)
                             .append(ENTER);
 
@@ -99,16 +106,11 @@ public class AnnaGTest extends BaseTest {
                     expectedResult
                             .append(TAKE)
                             .append(COMA_SPACE)
-                            .append(i)
-                            .append(BOTTLE)
-                            .append(WALL)
-                            .append(DOT)
-                            .append(i)
-                            .append(BOTTLE)
-                            .append(WALL)
-                            .append(COMA_SPACE)
-                            .append(i)
-                            .append(BOTTLE)
+                            .append(getBottles(i, BOTTLE))
+                            .append(getWall(DOT))
+                            .append(getBottles(i, BOTTLE))
+                            .append(getWall(COMA_SPACE))
+                            .append(getBottles(i, BOTTLE))
                             .append(DOT)
                             .append(ENTER);
 
