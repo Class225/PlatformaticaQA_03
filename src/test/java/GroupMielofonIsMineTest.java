@@ -76,6 +76,7 @@ public class GroupMielofonIsMineTest extends BaseTest {
         Assert.assertEquals(text.getText(), "Результат поиска");
     }
 
+    @Ignore
     @Test
     public void testLogotipAnastasiaKaz() {
 
