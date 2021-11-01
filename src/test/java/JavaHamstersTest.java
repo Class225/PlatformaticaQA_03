@@ -1,57 +1,42 @@
+import base.BaseTest;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
-
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import static org.testng.Assert.assertEquals;
 
-@Ignore
-public class JavaHamstersTest {
+
+public class JavaHamstersTest extends BaseTest {
 
     private final String URL_IK = "https://www.vprok.ru/";
     private static final String MAIN_PAGE_URL = "http://automationpractice.com/index.php";
     private static final String SAUSEDEMO_URL = "https://www.saucedemo.com/";
 
-    WebDriver driver;
-
     @BeforeMethod
-    public void setUp() {
-        WebDriverManager.chromedriver().setup();
-
-        driver = new ChromeDriver();
-
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        driver.manage().window().maximize();
-    }
-
-    @AfterMethod
-    public void setDown() {
-        driver.quit();
+    public void maximizeScreen() {
+        getDriver().manage().window().maximize();
     }
 
     @Test
     public void testPavelSipatySearchResult() {
 
-        driver.get("https://www.webstaurantstore.com/");
+        getDriver().get("https://www.webstaurantstore.com/");
 
-        WebElement search = driver.findElement(By.id("searchval"));
+        WebElement search = getDriver().findElement(By.id("searchval"));
         search.sendKeys("stainless work table\n");
 
-        List<WebElement> listOfTableDescriptions = driver.findElements(By.xpath("//a[@data-testid = 'itemDescription']"));
+        List<WebElement> listOfTableDescriptions = getDriver().findElements(By.xpath("//a[@data-testid = 'itemDescription']"));
         if (!listOfTableDescriptions.isEmpty()) {
             WebElement element = listOfTableDescriptions.get(listOfTableDescriptions.size() - 1);
         }
@@ -67,127 +52,127 @@ public class JavaHamstersTest {
 
         String expectedUrl = "https://www.saucedemo.com/inventory.html";
 
-        driver.get(SAUSEDEMO_URL);
-        WebElement username = driver.findElement(By.xpath("//input[@id='user-name']"));
-        WebElement password = driver.findElement(By.xpath("//input[@id='password']"));
+        getDriver().get(SAUSEDEMO_URL);
+        WebElement username = getDriver().findElement(By.xpath("//input[@id='user-name']"));
+        WebElement password = getDriver().findElement(By.xpath("//input[@id='password']"));
 
         username.sendKeys("standard_user");
         password.sendKeys("secret_sauce");
 
-        driver.findElement(By.xpath("//input[@id='login-button']")).click();
+        getDriver().findElement(By.xpath("//input[@id='login-button']")).click();
 
-        Assert.assertEquals(driver.getCurrentUrl(), expectedUrl);
+        Assert.assertEquals(getDriver().getCurrentUrl(), expectedUrl);
     }
 
     @Test
     public void testAddToCartAllElementsMaximGolubtsov() {
-        driver.get(SAUSEDEMO_URL);
-        WebElement login = driver.findElement(By.xpath("//input[@id='user-name']"));
-        WebElement password = driver.findElement(By.xpath("//input[@id='password']"));
-        WebElement button = driver.findElement(By.xpath("//input[@id='login-button']"));
+        getDriver().get(SAUSEDEMO_URL);
+        WebElement login = getDriver().findElement(By.xpath("//input[@id='user-name']"));
+        WebElement password = getDriver().findElement(By.xpath("//input[@id='password']"));
+        WebElement button = getDriver().findElement(By.xpath("//input[@id='login-button']"));
 
         login.sendKeys("standard_user");
         password.sendKeys("secret_sauce");
         button.click();
 
-        List<WebElement> addToCart = driver.findElements(By.xpath("//button[text()='Add to cart']"));
+        List<WebElement> addToCart = getDriver().findElements(By.xpath("//button[text()='Add to cart']"));
         for (int i = 0; i<addToCart.size(); i++) {
             addToCart.get(i).click();
         }
-        WebElement cartCount = driver.findElement(By.xpath("//span[text()='6']"));
+        WebElement cartCount = getDriver().findElement(By.xpath("//span[text()='6']"));
         Assert.assertTrue(cartCount.getText().contains("6"));
     }
 
     @Test
     public void testUserFlowMaximGolubtsov() {
-        driver.get(SAUSEDEMO_URL);
-        WebElement login = driver.findElement(By.xpath("//input[@id='user-name']"));
-        WebElement password = driver.findElement(By.xpath("//input[@id='password']"));
-        WebElement button = driver.findElement(By.xpath("//input[@id='login-button']"));
+        getDriver().get(SAUSEDEMO_URL);
+        WebElement login = getDriver().findElement(By.xpath("//input[@id='user-name']"));
+        WebElement password = getDriver().findElement(By.xpath("//input[@id='password']"));
+        WebElement button = getDriver().findElement(By.xpath("//input[@id='login-button']"));
 
         login.sendKeys("standard_user");
         password.sendKeys("secret_sauce");
         button.click();
 
-        WebElement addToCart = driver.findElement(By.id("add-to-cart-sauce-labs-backpack"));
-        WebElement cart = driver.findElement(By.xpath("//div[@id='shopping_cart_container']"));
+        WebElement addToCart = getDriver().findElement(By.id("add-to-cart-sauce-labs-backpack"));
+        WebElement cart = getDriver().findElement(By.xpath("//div[@id='shopping_cart_container']"));
 
         addToCart.click();
         cart.click();
 
-        WebElement checkoutButton = driver.findElement(By.xpath("//button[text()='Checkout']"));
+        WebElement checkoutButton = getDriver().findElement(By.xpath("//button[text()='Checkout']"));
         checkoutButton.click();
 
-        WebElement firstName = driver.findElement(By.id("first-name"));
-        WebElement lastName = driver.findElement(By.id("last-name"));
-        WebElement postalCode = driver.findElement(By.id("postal-code"));
+        WebElement firstName = getDriver().findElement(By.id("first-name"));
+        WebElement lastName = getDriver().findElement(By.id("last-name"));
+        WebElement postalCode = getDriver().findElement(By.id("postal-code"));
 
         firstName.sendKeys("Anton");
         lastName.sendKeys("Petrov");
         postalCode.sendKeys("425430");
 
-        WebElement continueButton = driver.findElement(By.id("continue"));
+        WebElement continueButton = getDriver().findElement(By.id("continue"));
 
         continueButton.click();
 
-        WebElement finishButton = driver.findElement(By.xpath("//button[text()='Finish']"));
+        WebElement finishButton = getDriver().findElement(By.xpath("//button[text()='Finish']"));
 
         finishButton.click();
 
-        WebElement actualResult = driver.findElement(By.xpath("//h2[text()='THANK YOU FOR YOUR ORDER']"));
+        WebElement actualResult = getDriver().findElement(By.xpath("//h2[text()='THANK YOU FOR YOUR ORDER']"));
 
         Assert.assertTrue(actualResult.getText().contains("THANK YOU FOR YOUR ORDER"));
     }
 
     @Test
     public void testLoginLockedUserMaximGolubtsov() {
-        driver.get(SAUSEDEMO_URL);
-        WebElement login = driver.findElement(By.xpath("//input[@id='user-name']"));
-        WebElement password = driver.findElement(By.xpath("//input[@id='password']"));
-        WebElement button = driver.findElement(By.xpath("//input[@id='login-button']"));
+        getDriver().get(SAUSEDEMO_URL);
+        WebElement login = getDriver().findElement(By.xpath("//input[@id='user-name']"));
+        WebElement password = getDriver().findElement(By.xpath("//input[@id='password']"));
+        WebElement button = getDriver().findElement(By.xpath("//input[@id='login-button']"));
 
         login.sendKeys("locked_out_user");
         password.sendKeys("secret_sauce");
         button.click();
 
-        WebElement error = driver.findElement(By.xpath("//h3[@data-test='error']"));
+        WebElement error = getDriver().findElement(By.xpath("//h3[@data-test='error']"));
         Assert.assertTrue(error.getText().contains("Epic sadface: Sorry, this user has been locked out"));
     }
 
     @Test
     public void testZTADropDownListMaximGolubtsov() {
-        driver.get(SAUSEDEMO_URL);
-        WebElement login = driver.findElement(By.xpath("//input[@id='user-name']"));
-        WebElement password = driver.findElement(By.xpath("//input[@id='password']"));
-        WebElement button = driver.findElement(By.xpath("//input[@id='login-button']"));
+        getDriver().get(SAUSEDEMO_URL);
+        WebElement login = getDriver().findElement(By.xpath("//input[@id='user-name']"));
+        WebElement password = getDriver().findElement(By.xpath("//input[@id='password']"));
+        WebElement button = getDriver().findElement(By.xpath("//input[@id='login-button']"));
 
         login.sendKeys("standard_user");
         password.sendKeys("secret_sauce");
         button.click();
 
-        WebElement dropDownList = driver.findElement(By.xpath("//select[@class='product_sort_container']"));
+        WebElement dropDownList = getDriver().findElement(By.xpath("//select[@class='product_sort_container']"));
         Select selectDropDown = new Select(dropDownList);
         selectDropDown.selectByValue("za");
-        WebElement zElement = driver.findElement(By.xpath("//div[text()='Test.allTheThings() T-Shirt (Red)']"));
+        WebElement zElement = getDriver().findElement(By.xpath("//div[text()='Test.allTheThings() T-Shirt (Red)']"));
 
         Assert.assertTrue(zElement.getText().contains("Test"));
     }
 
     @Test
     public void testLowToHighDropDownListMaximGolubtsov() {
-        driver.get(SAUSEDEMO_URL);
-        WebElement login = driver.findElement(By.xpath("//input[@id='user-name']"));
-        WebElement password = driver.findElement(By.xpath("//input[@id='password']"));
-        WebElement button = driver.findElement(By.xpath("//input[@id='login-button']"));
+        getDriver().get(SAUSEDEMO_URL);
+        WebElement login = getDriver().findElement(By.xpath("//input[@id='user-name']"));
+        WebElement password = getDriver().findElement(By.xpath("//input[@id='password']"));
+        WebElement button = getDriver().findElement(By.xpath("//input[@id='login-button']"));
 
         login.sendKeys("standard_user");
         password.sendKeys("secret_sauce");
         button.click();
 
-        WebElement dropDownList = driver.findElement(By.xpath("//select[@class='product_sort_container']"));
+        WebElement dropDownList = getDriver().findElement(By.xpath("//select[@class='product_sort_container']"));
         Select selectDropDown = new Select(dropDownList);
         selectDropDown.selectByValue("lohi");
-        List<WebElement> productPrice = driver.findElements(By.xpath("//div[@class='inventory_item_price']"));
+        List<WebElement> productPrice = getDriver().findElements(By.xpath("//div[@class='inventory_item_price']"));
 
         String prise1 = productPrice.get(0).getText();
         String prise2 = productPrice.get(productPrice.size()-1).getText();
@@ -202,19 +187,19 @@ public class JavaHamstersTest {
 
     @Test
     public void testHighToLowDropDownListMaximGolubtsov() {
-        driver.get(SAUSEDEMO_URL);
-        WebElement login = driver.findElement(By.xpath("//input[@id='user-name']"));
-        WebElement password = driver.findElement(By.xpath("//input[@id='password']"));
-        WebElement button = driver.findElement(By.xpath("//input[@id='login-button']"));
+        getDriver().get(SAUSEDEMO_URL);
+        WebElement login = getDriver().findElement(By.xpath("//input[@id='user-name']"));
+        WebElement password = getDriver().findElement(By.xpath("//input[@id='password']"));
+        WebElement button = getDriver().findElement(By.xpath("//input[@id='login-button']"));
 
         login.sendKeys("standard_user");
         password.sendKeys("secret_sauce");
         button.click();
 
-        WebElement dropDownList = driver.findElement(By.xpath("//select[@class='product_sort_container']"));
+        WebElement dropDownList = getDriver().findElement(By.xpath("//select[@class='product_sort_container']"));
         Select selectDropDown = new Select(dropDownList);
         selectDropDown.selectByValue("hilo");
-        List<WebElement> productPrice = driver.findElements(By.xpath("//div[@class='inventory_item_price']"));
+        List<WebElement> productPrice = getDriver().findElements(By.xpath("//div[@class='inventory_item_price']"));
 
         String prise1 = productPrice.get(0).getText();
         String prise2 = productPrice.get(productPrice.size()-1).getText();
@@ -229,61 +214,63 @@ public class JavaHamstersTest {
 
     @Test
     public void IlyaKorolkovPopUpExistsTest() {
-        driver.get(URL_IK);
+        getDriver().get(URL_IK);
 
-        WebElement popUp = driver.findElement(By.className("fo-cookies-policy"));
+        WebElement popUp = getDriver().findElement(By.className("fo-cookies-policy"));
 
         Assert.assertTrue(popUp.isDisplayed());
     }
 
     @Test
     public void IlyaKorolkovClosePopUpTest() throws InterruptedException {
-        driver.get(URL_IK);
+        getDriver().get(URL_IK);
 
-        WebElement closePopUpButton = driver.findElement(By.className("fo-cookies-policy__close-btn"));
+        WebElement closePopUpButton = getDriver().findElement(By.className("fo-cookies-policy__close-btn"));
 
-        JavascriptExecutor executor = (JavascriptExecutor) driver;
+        JavascriptExecutor executor = (JavascriptExecutor) getDriver();
         executor.executeScript("arguments[0].click()", closePopUpButton);
 
-        driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
+        getDriver().manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
 
         Thread.sleep(2000);
 
-        List<WebElement> popUp = driver.findElements(By.className("fo-cookies-policy"));
+        List<WebElement> popUp = getDriver().findElements(By.className("fo-cookies-policy"));
         Assert.assertTrue(popUp.isEmpty());
     }
 
+    @Ignore
     @Test
     public void IlyaKorolkovChangeRegionTest() throws InterruptedException {
-        driver.get(URL_IK);
+        getDriver().get(URL_IK);
 
         final String region = "Свердловская обл.";
 
-        WebElement changeRegionLink = driver.findElement(By.className("js-address-data"));
+        WebElement changeRegionLink = getDriver().findElement(By.className("js-address-data"));
         changeRegionLink.click();
 
         Thread.sleep(3000);
 
-        WebElement regionToSelect = driver.findElement(By.xpath("//div[@id='form_popup-polygons']//a[contains(text(), '" + region + "')]"));
+        WebElement regionToSelect = getDriver().findElement(By.xpath("//div[@id='form_popup-polygons']//a[contains(text(), '" + region + "')]"));
         regionToSelect.click();
 
         Thread.sleep(1000);
 
-        Assert.assertEquals(driver.findElement(By.className("js-address-data")).getText().trim(), region);
+        Assert.assertEquals(getDriver().findElement(By.className("js-address-data")).getText().trim(), region);
     }
 
+    @Ignore
     @Test
     public void AlexeyKhomozovRegionListCountTest() {
 
-        driver.get(URL_IK);
+        getDriver().get(URL_IK);
 
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--disable-geolocation");
 
-        WebElement changeRegionButton = driver.findElement(By.className("xfnew-header__change-region"));
+        WebElement changeRegionButton = getDriver().findElement(By.className("xfnew-header__change-region"));
         changeRegionButton.click();
 
-        List<WebElement> regionsCount = driver.findElements(By.xpath(
+        List<WebElement> regionsCount = getDriver().findElements(By.xpath(
                 "//div/a[contains(@class, 'change-region__region') and contains(@class, 'change-region__region-online')]"));
         int actualRegionsCount = regionsCount.size();
         int expectedRegionsCount = 55; //ожидаемое на момент реализации теста
@@ -293,13 +280,13 @@ public class JavaHamstersTest {
 
     @Test
     public void IlyaKorolkovSearchTest() {
-        driver.get(URL_IK);
+        getDriver().get(URL_IK);
 
         final String textToSearch = "хамон";
 
-        driver.findElement(By.xpath("//div[@id='main-app']//input[@name='search']")).sendKeys(textToSearch + "\n");
+        getDriver().findElement(By.xpath("//div[@id='main-app']//input[@name='search']")).sendKeys(textToSearch + "\n");
 
-        List<WebElement> searchResults = driver.findElements(By.xpath("//ul[@id='catalogItems']//a[contains(@class, 'xf-product-title__link')]"));
+        List<WebElement> searchResults = getDriver().findElements(By.xpath("//ul[@id='catalogItems']//a[contains(@class, 'xf-product-title__link')]"));
 
         for (int i = 0; i < searchResults.size(); i++) {
             Assert.assertTrue(searchResults.get(i).getText().toLowerCase().contains(textToSearch));
@@ -308,18 +295,18 @@ public class JavaHamstersTest {
 
     @Test
     public void IlyaKorolkovLinkToPromosTest() {
-        driver.get(URL_IK);
+        getDriver().get(URL_IK);
 
         String expectedUrl = "https://www.vprok.ru/promos";
 
-        driver.findElement(By.xpath("//a[@target='_self' and contains(text(), 'Акции')]")).click();
+        getDriver().findElement(By.xpath("//a[@target='_self' and contains(text(), 'Акции')]")).click();
 
-        Assert.assertEquals(driver.getCurrentUrl(), expectedUrl);
+        Assert.assertEquals(getDriver().getCurrentUrl(), expectedUrl);
     }
 
     @Test
     public void testArtsiomAzarankaTextBox() {
-        driver.get("https://demoqa.com/text-box");
+        getDriver().get("https://demoqa.com/text-box");
 
         String FullName = "Marko Polo";
         String UserEmail = "test@test.com";
@@ -327,17 +314,17 @@ public class JavaHamstersTest {
         String PermanentAddress = "ulica";
 
 
-        driver.findElement(By.xpath("//input[@placeholder='Full Name']")).sendKeys(FullName);
-        driver.findElement(By.xpath("//input[@placeholder='name@example.com']")).sendKeys(UserEmail);
-        driver.findElement(By.xpath("//textarea[@placeholder='Current Address']")).sendKeys(CurrentAddress);
-        driver.findElement(By.xpath("//textarea[@id='permanentAddress']")).sendKeys(PermanentAddress);
+        getDriver().findElement(By.xpath("//input[@placeholder='Full Name']")).sendKeys(FullName);
+        getDriver().findElement(By.xpath("//input[@placeholder='name@example.com']")).sendKeys(UserEmail);
+        getDriver().findElement(By.xpath("//textarea[@placeholder='Current Address']")).sendKeys(CurrentAddress);
+        getDriver().findElement(By.xpath("//textarea[@id='permanentAddress']")).sendKeys(PermanentAddress);
 
-        driver.findElement(By.xpath("//button[@id='submit']")).click();
+        getDriver().findElement(By.xpath("//button[@id='submit']")).click();
 
-        WebElement name = driver.findElement(By.xpath("//p[@id='name']"));
-        WebElement email = driver.findElement(By.xpath("//p[@id='email']"));
-        WebElement currentAddress = driver.findElement(By.xpath("//p[@id='currentAddress']"));
-        WebElement permanentAddress = driver.findElement(By.xpath("//p[@id='permanentAddress']"));
+        WebElement name = getDriver().findElement(By.xpath("//p[@id='name']"));
+        WebElement email = getDriver().findElement(By.xpath("//p[@id='email']"));
+        WebElement currentAddress = getDriver().findElement(By.xpath("//p[@id='currentAddress']"));
+        WebElement permanentAddress = getDriver().findElement(By.xpath("//p[@id='permanentAddress']"));
 
         Assert.assertEquals(name.getText(), "Name:" + FullName);
         Assert.assertEquals(email.getText(), "Email:" + UserEmail);
@@ -351,23 +338,23 @@ public class JavaHamstersTest {
     @Test
     public void testArtsiomAzarankaButtons() {
 
-        Actions actions = new Actions(driver);
+        Actions actions = new Actions(getDriver());
 
-        driver.get("https://demoqa.com/buttons");
+        getDriver().get("https://demoqa.com/buttons");
 
 
-        WebElement doubleclick = driver.findElement(By.xpath("//button[@id='doubleClickBtn']"));
+        WebElement doubleclick = getDriver().findElement(By.xpath("//button[@id='doubleClickBtn']"));
         actions.doubleClick(doubleclick).perform();
 
-        WebElement rightclick = driver.findElement(By.xpath("//button[@id='rightClickBtn']"));
+        WebElement rightclick = getDriver().findElement(By.xpath("//button[@id='rightClickBtn']"));
         actions.contextClick(rightclick).perform();
 
-        WebElement oneclicl = driver.findElement(By.xpath("//button[text()='Click Me']"));
+        WebElement oneclicl = getDriver().findElement(By.xpath("//button[text()='Click Me']"));
         actions.click(oneclicl).perform();
 
-        WebElement doubleClickMessage = driver.findElement(By.xpath("//p[@id='doubleClickMessage']"));
-        WebElement rightClickMessage = driver.findElement(By.xpath("//p[@id='rightClickMessage']"));
-        WebElement dynamicClickMessage = driver.findElement(By.xpath("//p[@id='dynamicClickMessage']"));
+        WebElement doubleClickMessage = getDriver().findElement(By.xpath("//p[@id='doubleClickMessage']"));
+        WebElement rightClickMessage = getDriver().findElement(By.xpath("//p[@id='rightClickMessage']"));
+        WebElement dynamicClickMessage = getDriver().findElement(By.xpath("//p[@id='dynamicClickMessage']"));
 
         Assert.assertEquals(doubleClickMessage.getText(), "You have done a double click");
         Assert.assertEquals(rightClickMessage.getText(), "You have done a right click");
@@ -377,58 +364,59 @@ public class JavaHamstersTest {
 
     @Test
     public void testNataliaSavinovaContactUsButton() {
-        driver.get(MAIN_PAGE_URL);
-        driver.findElement(By.xpath("//a[@title = 'Contact Us']")).click();
+        getDriver().get(MAIN_PAGE_URL);
+        getDriver().findElement(By.xpath("//a[@title = 'Contact Us']")).click();
 
-        WebElement result = driver.findElement(By.xpath("//h1[@class = 'page-heading bottom-indent']"));
+        WebElement result = getDriver().findElement(By.xpath("//h1[@class = 'page-heading bottom-indent']"));
 
         Assert.assertEquals(result.getText(), "CUSTOMER SERVICE - CONTACT US");
     }
 
     @Test
     public void testNataliaSavinovaSignInButton() {
-        driver.get(MAIN_PAGE_URL);
-        driver.findElement(By.xpath("//a[@title = 'Log in to your customer account']")).click();
+        getDriver().get(MAIN_PAGE_URL);
+        getDriver().findElement(By.xpath("//a[@title = 'Log in to your customer account']")).click();
 
-        WebElement result = driver.findElement(By.xpath("//h1[@class = 'page-heading']"));
+        WebElement result = getDriver().findElement(By.xpath("//h1[@class = 'page-heading']"));
 
         Assert.assertEquals(result.getText(), "AUTHENTICATION");
     }
 
     @Test
     public void testNataliaSavinovaSaleLink() {
-        driver.get(MAIN_PAGE_URL);
-        driver.findElement(By.xpath("//div[@id = 'htmlcontent_top']//li[@class = 'htmlcontent-item-1 col-xs-4']")).click();
+        getDriver().get(MAIN_PAGE_URL);
+        getDriver().findElement(By.xpath("//div[@id = 'htmlcontent_top']//li[@class = 'htmlcontent-item-1 col-xs-4']")).click();
 
-        String result = driver.getCurrentUrl();
+        String result = getDriver().getCurrentUrl();
 
         Assert.assertEquals(result, "https://www.prestashop.com/en");
     }
 
     @Test
     public void NadezdhaDekhandLogo() {
-        driver.get("https://gb.ru/");
+        getDriver().get("https://gb.ru/");
 
-        WebElement link = driver.findElement(By.className("mn-header__logo-link"));
+        WebElement link = getDriver().findElement(By.className("mn-header__logo-link"));
         link.click();
-        assertEquals(driver.getCurrentUrl(), "https://gb.ru/");
+        assertEquals(getDriver().getCurrentUrl(), "https://gb.ru/");
     }
 
+    @Ignore
     @Test
     public void NadezdhaDekhandEnter() {
-        driver.get("https://gb.ru/");
+        getDriver().get("https://gb.ru/");
 
-        WebElement userPlan = driver.findElement(By.xpath("//div[contains(@class,'mn-header__left')]//a[text()='Мероприятия']"));
+        WebElement userPlan = getDriver().findElement(By.xpath("//div[contains(@class,'mn-header__left')]//a[text()='Мероприятия']"));
         userPlan.click();
-        WebElement privat = driver.findElement(By.linkText("Личные консультации"));
+        WebElement privat = getDriver().findElement(By.linkText("Личные консультации"));
         privat.click();
-        WebElement form = driver.findElement(By.linkText("Записаться"));
+        WebElement form = getDriver().findElement(By.linkText("Записаться"));
         form.click();
-        WebElement name1User = driver.findElement(By.id("full_name-3"));
-        WebElement name2User = driver.findElement(By.id("full_name-4"));
-        WebElement emailUser = driver.findElement(By.id("email-2"));
-        WebElement phoneUser = driver.findElement(By.id("phone-2"));
-        WebElement login = driver.findElement(By.cssSelector("#wf-form-email-form > input.submit-button.w-button"));
+        WebElement name1User = getDriver().findElement(By.id("full_name-3"));
+        WebElement name2User = getDriver().findElement(By.id("full_name-4"));
+        WebElement emailUser = getDriver().findElement(By.id("email-2"));
+        WebElement phoneUser = getDriver().findElement(By.id("phone-2"));
+        WebElement login = getDriver().findElement(By.cssSelector("#wf-form-email-form > input.submit-button.w-button"));
         name1User.sendKeys("gdhghd");
         name2User.sendKeys("fgdrgtr");
         emailUser.sendKeys("abc@gmail.com");
@@ -436,15 +424,15 @@ public class JavaHamstersTest {
 
 
         login.click();
-        assertEquals(driver.getCurrentUrl(), "https://gb.ru/events/personal-consultation#form");
+        assertEquals(getDriver().getCurrentUrl(), "https://gb.ru/events/personal-consultation#form");
     }
 
     @Test
     public void testSearchAndreiShupaev() {
-        driver.get("http://automationpractice.com/");
-        WebElement input = driver.findElement(By.id("search_query_top"));
+        getDriver().get("http://automationpractice.com/");
+        WebElement input = getDriver().findElement(By.id("search_query_top"));
         input.sendKeys("dress\n");
-        WebElement dress = driver.findElement(By.className("lighter"));
+        WebElement dress = getDriver().findElement(By.className("lighter"));
 
         Assert.assertEquals(dress.getText(), "\"DRESS\"");
 
@@ -452,55 +440,56 @@ public class JavaHamstersTest {
 
     @Test
     public void testContactUsAndreiShupaev() {
-        driver.get("http://automationpractice.com/");
-        WebElement contactUs = driver.findElement(By.id("contact-link"));
+        getDriver().get("http://automationpractice.com/");
+        WebElement contactUs = getDriver().findElement(By.id("contact-link"));
         contactUs.click();
 
-        WebElement email = driver.findElement(By.id("email"));
+        WebElement email = getDriver().findElement(By.id("email"));
         email.sendKeys("email@gmail.com");
 
-        WebElement order = driver.findElement(By.id("id_order"));
+        WebElement order = getDriver().findElement(By.id("id_order"));
         order.sendKeys("35");
 
-        WebElement message = driver.findElement(By.id("message"));
+        WebElement message = getDriver().findElement(By.id("message"));
         message.sendKeys("I have a problem!");
 
-        WebElement buttonSend = driver.findElement(By.id("submitMessage"));
+        WebElement buttonSend = getDriver().findElement(By.id("submitMessage"));
         buttonSend.click();
 
-        WebElement error = driver.findElement(By.xpath("//*[@id=\"center_column\"]/div/ol/li"));
+        WebElement error = getDriver().findElement(By.xpath("//*[@id=\"center_column\"]/div/ol/li"));
         Assert.assertEquals(error.getText(), "Please select a subject from the list provided.");
 
     }
 
+    @Ignore
     @Test
     public void testLogInWrongCredentialsAlexKapran () {
 
-        driver.get("https://www.theperfectloaf.com/");
-        driver.findElement(By.xpath("//a[@class='tpl-membership__button']" +
+        getDriver().get("https://www.theperfectloaf.com/");
+        getDriver().findElement(By.xpath("//a[@class='tpl-membership__button']" +
                 "/span[@class='tpl-membership__arrow']")).click();
 
-        driver.switchTo().frame("memberful-iframe-for-overlay");
+        getDriver().switchTo().frame("memberful-iframe-for-overlay");
 
-        driver.findElement(By.xpath("//div[@class='mt-4 text-center']/button[@class='underline']")).click();
-        driver.findElement(By.xpath("//div[@class='mb-3']" +
+        getDriver().findElement(By.xpath("//div[@class='mt-4 text-center']/button[@class='underline']")).click();
+        getDriver().findElement(By.xpath("//div[@class='mb-3']" +
                 "/input[@placeholder='Email']")).sendKeys("markus.lorg@gmail.com");
-        driver.findElement(By.xpath("//div[@class='mb-3']" +
+        getDriver().findElement(By.xpath("//div[@class='mb-3']" +
                 "/input[@placeholder='Password']")).sendKeys("QA_Hamster1!");
 
-        driver.findElement(By.xpath("//div[@data-display-if-target='#session_mode']/input[@value='Sign in']")).click();
+        getDriver().findElement(By.xpath("//div[@data-display-if-target='#session_mode']/input[@value='Sign in']")).click();
 
-        WebElement error = driver.findElement(By.xpath("//div[@class='error_explanation']/p"));
+        WebElement error = getDriver().findElement(By.xpath("//div[@class='error_explanation']/p"));
         Assert.assertEquals(error.getText(), "Wrong email or password.");
     }
 
     @Test
     public void testSearchAlexKapran(){
-        driver.get("https://www.theperfectloaf.com/");
-        driver.findElement(By.xpath("//a[@class='search_icon']/i[@class='fa fa-search search__icon']")).click();
-        driver.findElement(By.xpath("//input[@placeholder='Search']")).sendKeys("Bread\n");
+        getDriver().get("https://www.theperfectloaf.com/");
+        getDriver().findElement(By.xpath("//a[@class='search_icon']/i[@class='fa fa-search search__icon']")).click();
+        getDriver().findElement(By.xpath("//input[@placeholder='Search']")).sendKeys("Bread\n");
 
-        List<WebElement> searchList = driver.findElements(By.xpath("//div[@class='ais-hits--item']/" +
+        List<WebElement> searchList = getDriver().findElements(By.xpath("//div[@class='ais-hits--item']/" +
                 "/h2[@itemprop='name headline']//a[contains(@title,'Bread')]"));
         for (int i = 0; i < searchList.size(); i++){
             Assert.assertTrue(searchList.get(i).getText().toLowerCase().contains("bread"));
@@ -510,23 +499,23 @@ public class JavaHamstersTest {
     @Test
     public void testErrorPasswordBabkinaKatya(){
 
-        driver.get("https://pravoved.ru/");
+        getDriver().get("https://pravoved.ru/");
 
-        WebElement loginButton = driver.findElement(By.linkText("Войти"));
+        WebElement loginButton = getDriver().findElement(By.linkText("Войти"));
 
         loginButton.click();
 
 
-        WebElement username = driver.findElement(By.id("email"));
-        WebElement password = driver.findElement(By.id("password"));
-        WebElement loginSubmit = driver.findElement(By.id("loginSubmit"));
+        WebElement username = getDriver().findElement(By.id("email"));
+        WebElement password = getDriver().findElement(By.id("password"));
+        WebElement loginSubmit = getDriver().findElement(By.id("loginSubmit"));
 
 
         username.sendKeys("abc@gmail.com");
         password.sendKeys("yourPassword");
         loginSubmit.click();
 
-        WebElement error = driver.findElement(By.xpath("//div[@id=\"wrapper\"]//*[contains(@class,\"errors\")]/li[2]"));
+        WebElement error = getDriver().findElement(By.xpath("//div[@id=\"wrapper\"]//*[contains(@class,\"errors\")]/li[2]"));
 
         Assert.assertEquals(error.getText(), "Неправильная пара логин-пароль!\n" + "Авторизоваться не удалось.");
     }
@@ -534,14 +523,14 @@ public class JavaHamstersTest {
     @Test
     public void testSearchBabkinaKatya() {
 
-        driver.get("https://pravoved.ru/");
+        getDriver().get("https://pravoved.ru/");
 
-        WebElement questionButton = driver.findElement(By.xpath("//div[@class='Header_navigation__1am_z']//a[@href='/questions/']"));
+        WebElement questionButton = getDriver().findElement(By.xpath("//div[@class='Header_navigation__1am_z']//a[@href='/questions/']"));
 
         questionButton.click();
 
-        driver.findElement(By.id("questions-page-search")).sendKeys("договор\n");
-        List<WebElement> itemList = driver.findElements(By.xpath("//div[contains(@class, 'prvd-questions-list')]//div[@class='divH3']/a"));
+        getDriver().findElement(By.id("questions-page-search")).sendKeys("договор\n");
+        List<WebElement> itemList = getDriver().findElements(By.xpath("//div[contains(@class, 'prvd-questions-list')]//div[@class='divH3']/a"));
         for (int i = 0; i < itemList.size(); i++) {
             Assert.assertTrue(itemList.get(i).getText().toLowerCase(Locale.ROOT).contains("договор"));
         }
@@ -549,18 +538,18 @@ public class JavaHamstersTest {
     @Test
     void testLoginErrorChapaevAleksei(){
 
-        driver.get("https://www.yaplakal.com/act/Login/CODE/00/?return=");
+        getDriver().get("https://www.yaplakal.com/act/Login/CODE/00/?return=");
 
-        WebElement userName = driver.findElement(By.name("UserName"));
+        WebElement userName = getDriver().findElement(By.name("UserName"));
         userName.sendKeys("abc@gmail.com");
 
-        WebElement userPassword = driver.findElement(By.name("PassWord"));
+        WebElement userPassword = getDriver().findElement(By.name("PassWord"));
         userPassword.sendKeys("your_password");
 
-        WebElement login = driver.findElement(By.name("submit"));
+        WebElement login = getDriver().findElement(By.name("submit"));
         login.click();
 
-        WebElement error = driver.findElement(By.className("postcolor"));
+        WebElement error = getDriver().findElement(By.className("postcolor"));
         Assert.assertEquals(error.getText(), "Проверка на бота не пройдена (invalid-input-response)");
 
     }
@@ -568,12 +557,12 @@ public class JavaHamstersTest {
     @Test
     void testOnMainPageChapaevAleksei(){
 
-        driver.get("https://www.yaplakal.com/forum7/topic2342386.html");
+        getDriver().get("https://www.yaplakal.com/forum7/topic2342386.html");
 
-        WebElement mainPage = driver.findElement(By.xpath("//*[@id=\"top-logo\"]/a/img"));
+        WebElement mainPage = getDriver().findElement(By.xpath("//*[@id=\"top-logo\"]/a/img"));
         mainPage.click();
 
-        WebElement toMainPage = driver.findElement(By.xpath("//*[@id=\"tabs\"]/a[1]"));
+        WebElement toMainPage = getDriver().findElement(By.xpath("//*[@id=\"tabs\"]/a[1]"));
         Assert.assertEquals(toMainPage.getText(), "Главная");
     }
 }
