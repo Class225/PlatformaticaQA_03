@@ -11,7 +11,6 @@ import org.testng.annotations.Test;
 
 import java.util.concurrent.TimeUnit;
 
-@Ignore
 public class GulyaTest {
     @Test
     public void testSearches() {
@@ -25,5 +24,27 @@ public class GulyaTest {
         input.sendKeys("DRESS\n");
         WebElement result = driver.findElement(By.className("lighter"));
         Assert.assertEquals(result.getText(), "\"DRESS\"");
+    }
+
+    @Test
+    public static void main(String[] args) {
+        System.setProperty("webdriver.chrome.driver", "/Users/gulidieva/Downloads/chromedriver");
+        WebDriver driver = new ChromeDriver();
+        driver.get("https://www.economist.com");
+        String title = driver.getTitle();
+        int titleLength = driver.getTitle().length();
+        System.out.println(" Title of the page is " + title);
+        System.out.println(" Length of the title is" + titleLength);
+        String actualUrl = driver.getCurrentUrl();
+        if (actualUrl.equals(actualUrl)) {
+            System.out.println("Success");
+        } else {
+            System.out.println("incorrect");
+            System.out.println("Actual url is" + actualUrl);
+            String pageSource = driver.getPageSource();
+            int pageSourceLength = driver.getPageSource().length();
+            System.out.println(" Total pageSource is" + pageSourceLength);
+            driver.quit();
+        }
     }
 }
