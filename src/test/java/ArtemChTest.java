@@ -1,3 +1,4 @@
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -14,8 +15,8 @@ public class ArtemChTest {
 
     @BeforeMethod
     public void setUp() {
-        System.setProperty("webdriver.chrome.driver", "C:/Users/anduser/Downloads/chromedriver_win32/chromedriver.exe");
 
+        WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
 
         driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
