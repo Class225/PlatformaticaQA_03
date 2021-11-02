@@ -10,10 +10,11 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-public class GroupMichaelTest extends BaseTest_ {
+public class GroupMichaelTest extends BaseTest {
 
     @Test
     public void testIgorKomarovVerifyAlert_1() {
@@ -22,10 +23,7 @@ public class GroupMichaelTest extends BaseTest_ {
         Assert.assertEquals(getDriver().switchTo().alert().getText(), "You clicked a button");
     }
 
-
-
     @Test
-
     public void testOlAn1 () {
         getDriver().get("http://automationpractice.com/index.php");
         WebElement singIn = getDriver().findElement(By.xpath("//div[@class='header_user_info']"));
@@ -57,7 +55,6 @@ public class GroupMichaelTest extends BaseTest_ {
     }
 
     @Test
-
     public void testOlAnPage2 () throws InterruptedException {
         getDriver().get("https://demoqa.com/automation-practice-form");
         WebElement firstname = getDriver().findElement(By.id("firstName"));
@@ -69,7 +66,6 @@ public class GroupMichaelTest extends BaseTest_ {
     }
 
     private final String URL = "https://www.flowerchimp.co.id/";
-
     @Test
     public void testCountTextBox(){
         getDriver().get(URL);
@@ -102,18 +98,37 @@ public class GroupMichaelTest extends BaseTest_ {
         Assert.assertEquals(getDriver().getTitle(), "Pull requests · SergeiDemyanenko/PlatformaticaQA_03 · GitHub");
 
         WebElement watch = getDriver().findElement(By.xpath("//a[@class='tooltipped tooltipped-s btn-sm btn']"));
-//        watch.click();
-//        WebElement name = driverChr.findElement(By.xpath("//input[@id='login_field']"));
-//        name.sendKeys("zh@gmail.com");
-//        WebElement pass = driverChr.findElement(By.id("password"));
-//        pass.sendKeys("xxxxx");
-//        WebElement submit = driverChr.findElement(By.xpath("//input[@value='Sign in']"));
-//        submit.click();
         WebElement star = getDriver().findElement(By.xpath("//a[@data-hydro-click-hmac='7dd326fb77fbcc304fda4d7499fa4077b06a468f38d0608c4062d8b0568a6db3']"));
-//        star.click();
-//
         WebElement fork = getDriver().findElement(By.xpath("//a[@data-hydro-click-hmac='1c5d2096e9f9e799909d1ef6009f95a6e4688b06254400cd094bf5fb530fe9b4']"));
-//        fork.click();
+    }
+
+    @Test
+    public void testOlgAnHW18() throws InterruptedException {
+        getDriver().get("https://www.webstaurantstore.com/");
+        getDriver().findElement(By.id("searchval")).sendKeys("stainless work table 30x60");
+        getDriver().findElement(By.xpath("//button[contains(text(),'Search')]")).click();
+        List<WebElement> itemList = getDriver().findElements(By.xpath("//div[@id='details']/a[@data-testid='itemDescription']"));
+        for (int i =0; i < itemList.size(); i++) {
+            Assert.assertTrue(itemList.get(i).getText().toLowerCase().contains("table"));
+        }
+        List<WebElement> pagesList = getDriver().findElements(By.xpath("//ul[@unselectable='unselectable']/li"));
+        int n = pagesList.size()-3;
+        pagesList.get(n).click();
+        List<WebElement> nameList = new ArrayList<>();
+        List<WebElement> cartList = new ArrayList<>();
+        do {
+            nameList = getDriver().findElements(By.xpath("//div[@class='add-to-cart']//input[@name='addToCartButton']/../../../../../div[@id='details']/a[@data-testid='itemDescription']"));
+            cartList = getDriver().findElements(By.xpath("//div[@class='add-to-cart']//input[@name='addToCartButton']"));
+            if (cartList.isEmpty()) {
+                pagesList.get((0)).click();
+                n--;
+                Assert.assertTrue(n > 0);
+            }
+        } while (cartList.size()==0);
+        cartList.get(cartList.size()-1).click();
+        getDriver().findElement(By.xpath("//div[@class='notification__action']/a[contains(text(), 'View Cart')]")).click();
+        getDriver().findElement(By.xpath("//a[contains(text(),'Empty Cart')]")).click();
     }
 }
+
 

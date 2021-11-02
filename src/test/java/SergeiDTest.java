@@ -6,7 +6,7 @@ import org.testng.annotations.Test;
 
 import java.util.List;
 
-public class SergeiDTest extends BaseTest {
+public class SergeiDTest extends BaseTest{
 
     private static final String URL = "https://www.webstaurantstore.com/";
 
