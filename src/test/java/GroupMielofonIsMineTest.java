@@ -118,7 +118,7 @@ public class GroupMielofonIsMineTest extends BaseTest {
 
     }
 
-
+    @Ignore
     @Test
     public void testAlenaKuts2() {
         getDriver().get("https://stepik.org/catalog");

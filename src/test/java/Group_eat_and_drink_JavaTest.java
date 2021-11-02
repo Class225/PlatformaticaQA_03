@@ -412,6 +412,7 @@ public class Group_eat_and_drink_JavaTest extends BaseTest {
         }
     }
 
+    @Ignore
     @Test
     public void SergeyBrigMenu2Test() {
         getDriver().get("https://www.webstaurantstore.com");
@@ -497,6 +498,7 @@ public class Group_eat_and_drink_JavaTest extends BaseTest {
         Assert.assertEquals(h2Name.getText(), "Flights reservation module");
     }
 
+    @Ignore
     @Test
     private void SergeyBrigEddToCartTest() {
         getDriver().get("https://www.webstaurantstore.com");
