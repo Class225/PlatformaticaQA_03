@@ -37,14 +37,8 @@ public class GulyaTest {
         String actualUrl = driver.getCurrentUrl();
         if (actualUrl.equals(Url)) {
             System.out.println("Success");
-        } else {
-            System.out.println("incorrect");
-            System.out.println("Actual url is" + actualUrl);
-            String pageSource = driver.getPageSource();
+        }
             int pageSourceLength = driver.getPageSource().length();
             driver.quit();
         }
     }
-}
-
-
