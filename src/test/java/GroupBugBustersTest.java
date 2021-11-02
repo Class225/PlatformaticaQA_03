@@ -160,6 +160,7 @@ public class GroupBugBustersTest extends BaseTest {
         }
     }
 
+    @Ignore
     @Test
     public void testNatalliaMarkhotka_AddingToWishList() {
         getDriver().get(URL);
