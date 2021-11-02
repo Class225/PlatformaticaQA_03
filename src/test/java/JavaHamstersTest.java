@@ -1,5 +1,4 @@
 import base.BaseTest;
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
@@ -427,6 +426,7 @@ public class JavaHamstersTest extends BaseTest {
         assertEquals(getDriver().getCurrentUrl(), "https://gb.ru/events/personal-consultation#form");
     }
 
+    @Ignore
     @Test
     public void testSearchAndreiShupaev() {
         getDriver().get("http://automationpractice.com/");
