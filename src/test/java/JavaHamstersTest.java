@@ -382,6 +382,7 @@ public class JavaHamstersTest extends BaseTest {
         Assert.assertEquals(result.getText(), "AUTHENTICATION");
     }
 
+    @Ignore
     @Test
     public void testNataliaSavinovaSaleLink() {
         getDriver().get(MAIN_PAGE_URL);
