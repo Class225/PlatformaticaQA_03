@@ -6,7 +6,7 @@ import org.testng.annotations.Test;
 
 import java.util.List;
 
-public class BeginnersBottles99Test extends BaseTest {
+public class LizBalBottles99LyricsTest extends BaseTest {
 
     private static final String URL = "http://www.99-bottles-of-beer.net/lyrics.html";
     private static final String BOTTLES = " bottles of beer";
@@ -19,13 +19,13 @@ public class BeginnersBottles99Test extends BaseTest {
     private static final String DOT = ".";
     private static final String ENTER = "\n";
 
-    public String getBottles (int index, String bottles) {
+    public String getBottles(int index, String bottles) {
         StringBuilder result = new StringBuilder();
 
         return String.valueOf(result.append(index).append(bottles));
     }
 
-    public String getBottles (String noMore, String bottles) {
+    public String getBottles(String noMore, String bottles) {
         StringBuilder result = new StringBuilder();
 
         return String.valueOf(result.append(noMore).append(bottles));
@@ -59,21 +59,21 @@ public class BeginnersBottles99Test extends BaseTest {
         result
                 .append(TAKE)
                 .append(COMMA_SPACE)
-                .append(getBottles (NO_MORE.toLowerCase(), BOTTLES))
+                .append(getBottles(NO_MORE.toLowerCase(), BOTTLES))
                 .append(getWall(DOT))
-                .append(getBottles (NO_MORE, BOTTLES))
+                .append(getBottles(NO_MORE, BOTTLES))
                 .append(getWall(COMMA_SPACE))
-                .append(getBottles (NO_MORE.toLowerCase(), BOTTLES))
+                .append(getBottles(NO_MORE.toLowerCase(), BOTTLES))
                 .append(DOT)
                 .append(ENTER);
 
         return String.valueOf(result);
     }
 
-    private String songLyric() {
+    private String songLyrics() {
         StringBuilder expectedResult = new StringBuilder();
 
-        for(int i = 99; i >= 0; i --) {
+        for (int i = 99; i >= 0; i--) {
             if (i == 99) {
                 expectedResult
                         .append(getBottles(i, BOTTLES))
@@ -81,7 +81,7 @@ public class BeginnersBottles99Test extends BaseTest {
                         .append(getBottles(i, BOTTLES))
                         .append(DOT)
                         .append(ENTER);
-            } else if(i == 0) {
+            } else if (i == 0) {
                 expectedResult
                         .append(getText());
 
@@ -90,9 +90,11 @@ public class BeginnersBottles99Test extends BaseTest {
                         .append(COMMA_SPACE)
                         .append(getBottles(99, BOTTLES))
                         .append(getWall(DOT));
+
             } else {
                 if (i != 1) {
                     expectedResult.append(getText(i, BOTTLES));
+
                 } else if (i == 1) {
                     expectedResult.append(getText(i, BOTTLE));
                 }
@@ -103,10 +105,10 @@ public class BeginnersBottles99Test extends BaseTest {
     }
 
     @Test
-    public void testBottles99Song () {
+    public void testBottles99Lyrics() {
         getDriver().get(URL);
         List<WebElement> pAllTags = getDriver().findElements(By.xpath("//div[@id = 'main']/p"));
-        String expectedResult = songLyric();
+        String expectedResult = songLyrics();
 
         String actualResult = "";
 
