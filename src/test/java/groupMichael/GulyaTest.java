@@ -27,15 +27,13 @@ public class GulyaTest {
     }
 
     @Test
-    public static void main(String[] args) {
-        System.setProperty("webdriver.chrome.driver", "/Users/gulidieva/Downloads/chromedriver");
+    public void Gulya1() {
+        WebDriverManager.chromedriver().setup();
         WebDriver driver = new ChromeDriver();
-        String Url =("https://www.economist.com");
-         driver.get(Url);
-         String title =driver.getTitle();
+        String Url = ("https://www.economist.com");
+        driver.get(Url);
+        String title = driver.getTitle();
         int titleLength = driver.getTitle().length();
-        System.out.println(" Title of the page is " + title);
-        System.out.println(" Length of the title is" + titleLength);
         String actualUrl = driver.getCurrentUrl();
         if (actualUrl.equals(Url)) {
             System.out.println("Success");
@@ -44,7 +42,9 @@ public class GulyaTest {
             System.out.println("Actual url is" + actualUrl);
             String pageSource = driver.getPageSource();
             int pageSourceLength = driver.getPageSource().length();
-            System.out.println(" Total pageSource is" + pageSourceLength);
             driver.quit();
         }
-    }}
+    }
+}
+
+
