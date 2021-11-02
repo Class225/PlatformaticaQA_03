@@ -371,6 +371,7 @@ public class JavaHamstersTest extends BaseTest {
         Assert.assertEquals(result.getText(), "CUSTOMER SERVICE - CONTACT US");
     }
 
+    @Ignore
     @Test
     public void testNataliaSavinovaSignInButton() {
         getDriver().get(MAIN_PAGE_URL);
