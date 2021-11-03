@@ -43,7 +43,6 @@ public class AnnaGTest extends BaseTest {
     }
     public String getBottles (String noMore, String bottles){
         StringBuilder result = new StringBuilder();
-
         return String.valueOf(result.append(noMore).append(bottles));
 
     }
