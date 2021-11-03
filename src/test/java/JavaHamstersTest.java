@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 
 import static org.testng.Assert.assertEquals;
 
-@Ignore
+
 public class JavaHamstersTest extends BaseTest {
 
     private final String URL_IK = "https://www.vprok.ru/";
@@ -41,7 +41,6 @@ public class JavaHamstersTest extends BaseTest {
         for (int i = 0; i < listOfTableDescriptions.size(); i++) {
             Assert.assertTrue(listOfTableDescriptions.get(i).getText().contains("Table"), "All found goods have word \"Table\" in description");
         }
-
     }
 
     @Test
@@ -328,8 +327,6 @@ public class JavaHamstersTest extends BaseTest {
         Assert.assertEquals(currentAddress.getText(), "Current Address :" + CurrentAddress);
         Assert.assertEquals(permanentAddress.getText(), "Permananet Address :" + PermanentAddress);
         //тест написан на тот результат, который выдаёт сайт (есть баг - ошибка в слове Permanent на выводе результата)
-
-
     }
 
     @Test
@@ -356,7 +353,6 @@ public class JavaHamstersTest extends BaseTest {
         Assert.assertEquals(doubleClickMessage.getText(), "You have done a double click");
         Assert.assertEquals(rightClickMessage.getText(), "You have done a right click");
         Assert.assertEquals(dynamicClickMessage.getText(), "You have done a dynamic click");
-
     }
 
     @Test
@@ -421,7 +417,6 @@ public class JavaHamstersTest extends BaseTest {
         emailUser.sendKeys("abc@gmail.com");
         phoneUser.sendKeys("9999999999");
 
-
         login.click();
         assertEquals(getDriver().getCurrentUrl(), "https://gb.ru/events/personal-consultation#form");
     }
@@ -435,7 +430,6 @@ public class JavaHamstersTest extends BaseTest {
         WebElement dress = getDriver().findElement(By.className("lighter"));
 
         Assert.assertEquals(dress.getText(), "\"DRESS\"");
-
     }
 
     @Test
@@ -458,7 +452,6 @@ public class JavaHamstersTest extends BaseTest {
 
         WebElement error = getDriver().findElement(By.xpath("//*[@id=\"center_column\"]/div/ol/li"));
         Assert.assertEquals(error.getText(), "Please select a subject from the list provided.");
-
     }
 
     @Ignore
@@ -505,11 +498,9 @@ public class JavaHamstersTest extends BaseTest {
 
         loginButton.click();
 
-
         WebElement username = getDriver().findElement(By.id("email"));
         WebElement password = getDriver().findElement(By.id("password"));
         WebElement loginSubmit = getDriver().findElement(By.id("loginSubmit"));
-
 
         username.sendKeys("abc@gmail.com");
         password.sendKeys("yourPassword");
@@ -552,7 +543,6 @@ public class JavaHamstersTest extends BaseTest {
 
         WebElement error = getDriver().findElement(By.className("postcolor"));
         Assert.assertEquals(error.getText(), "Проверка на бота не пройдена (invalid-input-response)");
-
     }
 
     @Test
