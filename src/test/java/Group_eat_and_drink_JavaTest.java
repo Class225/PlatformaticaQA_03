@@ -172,18 +172,17 @@ public class Group_eat_and_drink_JavaTest extends BaseTest {
         Assert.assertEquals(getDriver().getCurrentUrl(), "https://humans.net/recoveryform");
     }
 
-    @Ignore
     @Test
     public void testVerifyListItemsTatianaT() {
         getDriver().get("http://automationpractice.com/");
+        final String text = "dress";
 
-        WebElement searchField = getDriver().findElement(By.id("search_query_top"));
-        searchField.sendKeys("dress\n");
+        getDriver().findElement(By.id("search_query_top")).sendKeys(text + "\n");
         List<WebElement> itemList = getDriver().findElements(By.id("search"));
 
         Assert.assertTrue(itemList.size() != 0);
         for (int i = 0; i < itemList.size(); i++) {
-            Assert.assertTrue(itemList.get(i).getText().toLowerCase().contains("dress"));
+            Assert.assertTrue(itemList.get(i).getText().toLowerCase().contains(text));
         }
     }
     @Test
