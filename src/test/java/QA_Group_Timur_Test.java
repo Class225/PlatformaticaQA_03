@@ -1,25 +1,21 @@
 import base.BaseTest;
-import io.github.bonigarcia.wdm.WebDriverManager;
-import org.openqa.selenium.*;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
 
 import static java.lang.Thread.sleep;
 
-@Ignore
 public class QA_Group_Timur_Test extends BaseTest {
 
     public WebDriverWait getWait() {
@@ -214,6 +210,8 @@ public class QA_Group_Timur_Test extends BaseTest {
         getDriver().findElement(By.xpath("//input[contains(@class,'suk8z4-0')]")).sendKeys("Apple Watch \n");
         getDriver().findElement(By.xpath("//a/span[text() = 'Inteligentne zegarki']")).click();
         getDriver().findElement(By.xpath("//span[text() = 'Smartwatche']")).click();
+        String count = getDriver().findElement(By.xpath("//ul[@class = 'sc-1fme39r-5 sc-1fme39r-6 kcwhtJ']//span[@class = 'sc-1fme39r-0 gAgTIZ']")).getText();
+        String countWatches = count.substring(1,count.length()-1);
 
         List<WebElement> listOfPage1 = (getDriver().findElements(By.xpath("//div[@class = 'sc-1yu46qn-4 zZmhy sc-2ride2-0 eYsBmG']")));
         List<WebElement> listOfPage2 = new ArrayList<>();
@@ -242,7 +240,7 @@ public class QA_Group_Timur_Test extends BaseTest {
         listWatches.addAll(listOfPage1);
         listWatches.addAll(listOfPage2);
         listWatches.addAll(listOfPage3);
-        Assert.assertEquals(listWatches.size(),67);
+        Assert.assertEquals(listWatches.size(), Integer.parseInt(countWatches));
     }
 
     @Test
