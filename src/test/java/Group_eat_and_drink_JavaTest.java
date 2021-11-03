@@ -443,7 +443,7 @@ public class Group_eat_and_drink_JavaTest extends BaseTest {
 
     }
 
-
+    @Ignore
     @Test
     public void testElena_uSRegistrationPage() {
 
