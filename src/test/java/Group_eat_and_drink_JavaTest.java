@@ -567,6 +567,7 @@ public class Group_eat_and_drink_JavaTest extends BaseTest {
                 break;
             }
         }
+
         List<WebElement> productListBrand = getDriver().findElements(By.xpath("//div[@id='details']/a[2]"));
         for (WebElement item : productListBrand) {
             Assert.assertTrue(item.getText().toLowerCase().contains("cambro"));
