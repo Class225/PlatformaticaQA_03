@@ -18,7 +18,6 @@ public class GulyaTest {
         WebDriver driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.manage().window().maximize();
-
         driver.get("http://automationpractice.com");
         WebElement input = driver.findElement(By.id("search_query_top"));
         input.sendKeys("DRESS\n");
