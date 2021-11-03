@@ -17,7 +17,7 @@ public class GroupBugBustersTest extends BaseTest {
     }
 
     @Test
-    public void testNatalliaMarkhotka_ValidateMainPage() {
+    public void testValidateMainPageNatalliaMarkhotka() {
         getDriver().get(URL);
 
         List<WebElement> images = getDriver().findElements(By.xpath("//div[@id='post-53473']/div[1]/ div"));
@@ -26,7 +26,7 @@ public class GroupBugBustersTest extends BaseTest {
 
     }
 
-    public void UtilMethod_NatalliaMarkhotka_Login() {
+    public void utilMethodLoginNatalliaMarkhotkaLogin() {
         getDriver().get(URL);
 
         WebElement myAccount = getDriver().findElement(By.id("menu-item-261238"));
@@ -43,9 +43,9 @@ public class GroupBugBustersTest extends BaseTest {
         }
 
     @Test
-    public void testNatalliaMarkhotka_Login() {
+    public void testLoginNatalliaMarkhotka() {
 
-        UtilMethod_NatalliaMarkhotka_Login();
+        utilMethodLoginNatalliaMarkhotkaLogin();
 
         WebElement greetings = getDriver().findElement(By.xpath("//span[@class='nm-username']"));
 
@@ -141,8 +141,8 @@ public class GroupBugBustersTest extends BaseTest {
     }
 
     @Test
-    public void testNatalliaMarkhotka_Logout() {
-        UtilMethod_NatalliaMarkhotka_Login();
+    public void testLogoutNatalliaMarkhotka() {
+        utilMethodLoginNatalliaMarkhotkaLogin();
 
         WebElement logout_F = getDriver().findElement(By.xpath("//li/a[text() ='Logout']"));
 
@@ -160,9 +160,10 @@ public class GroupBugBustersTest extends BaseTest {
         }
     }
 
+    @Ignore
     @Test
-    public void testNatalliaMarkhotka_AddingToWishList() {
-        getDriver().get(URL);
+    public void testAddingToWishListNatalliaMarkhotka() {
+    getDriver().get(URL);
 
         WebElement shop_L = getDriver().findElement(By.id("menu-item-261990"));
 
@@ -195,4 +196,39 @@ public class GroupBugBustersTest extends BaseTest {
         Assert.assertTrue(isPresent);
         Assert.assertEquals(wishListCount.getText(), "1");
     }
+
+    @Test
+    public void testAddToCartStainlessWorkTableNatalliaM(){
+        getDriver().get("https://www.webstaurantstore.com/");
+
+        WebElement searchField = getDriver().findElement(By.id("searchval"));
+        searchField.sendKeys("stainless work table\n");
+
+        List<WebElement> searchResultItems = getDriver().findElements(By.xpath("//a[@data-testid = 'itemDescription']"));
+        for (WebElement element: searchResultItems) {
+            Assert.assertTrue(element.getText().toLowerCase().contains("table"));
+        }
+
+        WebElement addToCart = getDriver().findElement(By.xpath("//div[contains(@class, 'ag-item')][last()]//input[contains(@value, 'Add to Cart')]"));
+        addToCart.click();
+
+        WebElement viewCartButton = getDriver().findElement(By.xpath("//a[contains(@class, 'btn btn-small btn-primary')]"));
+        viewCartButton.click();
+
+        List <WebElement> elementsInCart = getDriver().findElements(By.xpath("//div[contains(@data-cart-item-id, 'id_')]"));
+        Assert.assertEquals(elementsInCart.size(), 1);
+        WebElement emptyCartButton = getDriver().findElement(By.className("emptyCartButton"));
+        emptyCartButton.click();
+
+        WebElement confirmEmptyCartButton = getDriver().findElement(By.xpath("//button[@class='btn btn-primary']"));
+        confirmEmptyCartButton.click();
+
+
+        WebElement emptyCartBunner = getDriver().findElement(By.className("empty-cart__inner"));
+        getWait().until(ExpectedConditions.visibilityOf(emptyCartBunner));
+        List <WebElement> elementsInCartAfterEmptyCart = getDriver().findElements(By.xpath("//div[contains(@data-cart-item-id, 'id_')]"));
+        Assert.assertEquals(elementsInCartAfterEmptyCart.size(), 0);
+
+    }
+
 }

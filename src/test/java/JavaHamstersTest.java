@@ -1,5 +1,4 @@
 import base.BaseTest;
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
@@ -16,17 +15,15 @@ import java.util.concurrent.TimeUnit;
 
 import static org.testng.Assert.assertEquals;
 
-
+@Ignore
 public class JavaHamstersTest extends BaseTest {
 
     private final String URL_IK = "https://www.vprok.ru/";
     private static final String MAIN_PAGE_URL = "http://automationpractice.com/index.php";
     private static final String SAUSEDEMO_URL = "https://www.saucedemo.com/";
+    private static final String VELOGRAD_URL = "https://www.velograd.ru/";
 
-    @BeforeMethod
-    public void maximizeScreen() {
-        getDriver().manage().window().maximize();
-    }
+    private final static By LOGIN_VELOGRAD_XPATH = By.xpath("(//span[@class='name'])[2]");
 
     @Test
     public void testPavelSipatySearchResult() {
@@ -372,6 +369,7 @@ public class JavaHamstersTest extends BaseTest {
         Assert.assertEquals(result.getText(), "CUSTOMER SERVICE - CONTACT US");
     }
 
+    @Ignore
     @Test
     public void testNataliaSavinovaSignInButton() {
         getDriver().get(MAIN_PAGE_URL);
@@ -382,6 +380,7 @@ public class JavaHamstersTest extends BaseTest {
         Assert.assertEquals(result.getText(), "AUTHENTICATION");
     }
 
+    @Ignore
     @Test
     public void testNataliaSavinovaSaleLink() {
         getDriver().get(MAIN_PAGE_URL);
@@ -427,6 +426,7 @@ public class JavaHamstersTest extends BaseTest {
         assertEquals(getDriver().getCurrentUrl(), "https://gb.ru/events/personal-consultation#form");
     }
 
+    @Ignore
     @Test
     public void testSearchAndreiShupaev() {
         getDriver().get("http://automationpractice.com/");
@@ -535,6 +535,7 @@ public class JavaHamstersTest extends BaseTest {
             Assert.assertTrue(itemList.get(i).getText().toLowerCase(Locale.ROOT).contains("договор"));
         }
     }
+
     @Test
     void testLoginErrorChapaevAleksei(){
 
@@ -564,5 +565,61 @@ public class JavaHamstersTest extends BaseTest {
 
         WebElement toMainPage = getDriver().findElement(By.xpath("//*[@id=\"tabs\"]/a[1]"));
         Assert.assertEquals(toMainPage.getText(), "Главная");
+    }
+
+    @Test
+    public void testLoginMarinaSpirina() {
+        getDriver().get(VELOGRAD_URL);
+
+        WebElement login = getDriver().findElement(LOGIN_VELOGRAD_XPATH);
+        login.click();
+
+        WebElement username = getDriver().findElement(By.xpath("//input[@id='USER_LOGIN_POPUP']"));
+        WebElement password = getDriver().findElement(By.xpath("//input[@id='USER_PASSWORD_POPUP']"));
+
+        WebElement login1 = getDriver().findElement(By.xpath("//div[@class = 'buttons clearfix']/button"));
+
+        username.sendKeys("4msky@hotmail.com");
+        password.sendKeys("123456");
+        login1.click();
+
+        WebElement personalCabinet = getDriver().findElement(By.xpath("(//i[@title='Личный кабинет'])[1]/../span/span/../.."));
+        Assert.assertEquals(personalCabinet.getAttribute("title"), "Личный кабинет");
+    }
+
+    @Test
+    public void testLoginWithoutPasswordMarinaSpirina() {
+        getDriver().get(VELOGRAD_URL);
+
+        WebElement login = getDriver().findElement(LOGIN_VELOGRAD_XPATH);
+        login.click();
+
+        WebElement username = getDriver().findElement(By.xpath("//input[@id='USER_LOGIN_POPUP']"));
+
+        WebElement login1 = getDriver().findElement(By.xpath("//div[@class = 'buttons clearfix']/button"));
+
+        username.sendKeys("4msky@hotmail.com");
+        login1.click();
+
+        WebElement personalCabinet = getDriver().findElement(By.xpath("//label[@id='USER_PASSWORD_POPUP-error']"));
+        Assert.assertEquals(personalCabinet.getText(), "Заполните это поле");
+    }
+
+    @Test
+    public void testLoginWithoutEmailMarinaSpirina() {
+        getDriver().get(VELOGRAD_URL);
+
+        WebElement login = getDriver().findElement(LOGIN_VELOGRAD_XPATH);
+        login.click();
+
+        WebElement password = getDriver().findElement(By.xpath("//input[@id='USER_PASSWORD_POPUP']"));
+
+        WebElement login1 = getDriver().findElement(By.xpath("//div[@class = 'buttons clearfix']/button"));
+
+        password.sendKeys("123456");
+        login1.click();
+
+        WebElement personalCabinet = getDriver().findElement(By.xpath("//label[@id='USER_LOGIN_POPUP-error']"));
+        Assert.assertEquals(personalCabinet.getText(), "Заполните это поле");
     }
 }

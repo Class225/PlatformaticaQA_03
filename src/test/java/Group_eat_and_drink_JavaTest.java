@@ -1,15 +1,10 @@
 import base.BaseTest;
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 
@@ -30,6 +25,8 @@ public class Group_eat_and_drink_JavaTest extends BaseTest {
     private static final By NEXTEX = By.id("correctnextbtn");
     private static final String URLWEB = "http://www.diamondpeak.com/";
     private static final String PAGEURL = "https://phptravels.com/";
+    private static final By SERCHFIELD = By.xpath("//input[@id = 'searchval']");
+    private static final By BUYBUTTON = By.xpath("//input[@id = 'buyButton']");
 
 
     @Test
@@ -165,6 +162,8 @@ public class Group_eat_and_drink_JavaTest extends BaseTest {
 
         Assert.assertEquals(actualResult, expectedResult);
     }
+
+    @Ignore
     @Test
     public void testVerifyForgotPasswordLinkTatianaT() {
         getDriver().get("https://humans.net/login");
@@ -172,17 +171,18 @@ public class Group_eat_and_drink_JavaTest extends BaseTest {
         forgotPassword.click();
         Assert.assertEquals(getDriver().getCurrentUrl(), "https://humans.net/recoveryform");
     }
+
     @Test
     public void testVerifyListItemsTatianaT() {
         getDriver().get("http://automationpractice.com/");
+        final String text = "dress";
 
-        WebElement searchField = getDriver().findElement(By.id("search_query_top"));
-        searchField.sendKeys("dress\n");
+        getDriver().findElement(By.id("search_query_top")).sendKeys(text + "\n");
         List<WebElement> itemList = getDriver().findElements(By.id("search"));
 
         Assert.assertTrue(itemList.size() != 0);
         for (int i = 0; i < itemList.size(); i++) {
-            Assert.assertTrue(itemList.get(i).getText().toLowerCase().contains("dress"));
+            Assert.assertTrue(itemList.get(i).getText().toLowerCase().contains(text));
         }
     }
     @Test
@@ -299,6 +299,7 @@ public class Group_eat_and_drink_JavaTest extends BaseTest {
 
         Assert.assertEquals(description.getText(), "Comments in Java are written with special characters. Insert the missing parts:");
     }
+
     @Ignore
     @Test
     public void SergeyBrigMenuTest() {
@@ -355,7 +356,7 @@ public class Group_eat_and_drink_JavaTest extends BaseTest {
         getDriver().get("https://www.webstaurantstore.com");
 
         final String searchText = "fork";
-        getDriver().findElement(By.id("searchval")).sendKeys(searchText + "\n");
+        getDriver().findElement(SERCHFIELD).sendKeys(searchText + "\n");
         List<WebElement> itemList = getDriver().findElements(By.xpath("//div/a[@data-testid='itemDescription']"));
         for (int i = 0; i < itemList.size(); i++) {
             Assert.assertTrue(itemList.get(i).getText().toLowerCase().contains(searchText));
@@ -397,7 +398,7 @@ public class Group_eat_and_drink_JavaTest extends BaseTest {
 
         getDriver().get("https://www.webstaurantstore.com");
 
-        getDriver().findElement(By.xpath("//input[@id = 'searchval']")).sendKeys("cup \n");
+        getDriver().findElement(SERCHFIELD).sendKeys("cup \n");
 
         List<WebElement> brandList = getDriver().findElements(By.xpath("//a[@ data-testid='itemDescription']"));
         for (int i = 0; i < brandList.size(); i++) {
@@ -405,6 +406,7 @@ public class Group_eat_and_drink_JavaTest extends BaseTest {
         }
     }
 
+    @Ignore
     @Test
     public void SergeyBrigMenu2Test() {
         getDriver().get("https://www.webstaurantstore.com");
@@ -489,12 +491,13 @@ public class Group_eat_and_drink_JavaTest extends BaseTest {
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("header-title"))).click();
         Assert.assertEquals(h2Name.getText(), "Flights reservation module");
     }
-
+  
+    @Ignore
     @Test
     private void SergeyBrigEddToCartTest() {
         getDriver().get("https://www.webstaurantstore.com");
 
-        getDriver().findElement(By.xpath("//input[@id = 'searchval']")).sendKeys("220SPRDWNEN3"+ "\n");
+        getDriver().findElement(SERCHFIELD).sendKeys("220SPRDWNEN3"+ "\n");
 
         List<WebElement> sizeVariations = getDriver().findElements(By.xpath("//ul[@class = 'nav nav-pills nav-stacked']/li"));
         for (int i = 0; i < sizeVariations.size(); i++) {
@@ -510,6 +513,48 @@ public class Group_eat_and_drink_JavaTest extends BaseTest {
 
         Assert.assertEquals(orderItem.getText(), "21");
 
+    }
+    @Test
+    public void SergeyBrigCheckCard() {
+        getDriver().get("https://www.webstaurantstore.com");
+
+
+        getDriver().findElement(SERCHFIELD).sendKeys("3493048BBESP" + "\n");
+        List<WebElement> sizeList = getDriver().findElements(By.xpath("//ul[@class = 'nav nav-pills nav-stacked']/li"));
+        for (WebElement item : sizeList) {
+            if (item.getText().contains("36\" x 36\"")) {
+                item.click();
+                break;
+            }
+        }
+        getDriver().findElement(BUYBUTTON).click();
+
+        getDriver().findElement(SERCHFIELD).sendKeys("176BIN21GL" + "\n");
+        List<WebElement> cupsList = getDriver().findElements(By.xpath("//ul[@class = 'nav nav-pills nav-stacked']/li"));
+        for (WebElement item : cupsList) {
+            if (item.getText().contains("27 Gallons (430 Cups)")) {
+                item.click();
+                break;
+            }
+        }
+        getDriver().findElement(BUYBUTTON).click();
+
+        getDriver().findElement(SERCHFIELD).sendKeys("4070669" + "\n");
+        List<WebElement> nobleList = getDriver().findElements(By.xpath("//ul[@class = 'nav nav-pills nav-stacked']/li"));
+        for (WebElement item : nobleList) {
+            if (item.getText().contains("4\" Deep ")) {
+                item.click();
+                break;
+            }
+        }
+        getDriver().findElement(BUYBUTTON).click();
+
+        getDriver().findElement(By.xpath("//a[@data-testid='cart-nav-link']")).click();
+
+        List<WebElement> cardItemList = getDriver().findElements(By.xpath("//div[@class = 'ag ag-cart box']/div/div[@class='cartItem ag-item gtm-product-auto']"));
+        int countItem = cardItemList.size();;
+
+        Assert.assertEquals(countItem,3);
     }
 
 }
