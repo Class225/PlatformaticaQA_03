@@ -491,9 +491,9 @@ public class Group_eat_and_drink_JavaTest extends BaseTest {
         Assert.assertEquals(h2Name.getText(), "Flights reservation module");
     }
   
-    @Ignore
+
     @Test
-    private void SergeyBrigEddToCartTest() {
+    public void sBrigEddToCartTest() {
         getDriver().get("https://www.webstaurantstore.com");
 
         getDriver().findElement(SERCHFIELD).sendKeys("220SPRDWNEN3"+ "\n");
@@ -506,7 +506,7 @@ public class Group_eat_and_drink_JavaTest extends BaseTest {
             }
         }
         getDriver().findElement(By.xpath("//input[@id ='qty']")).sendKeys("2");
-        getDriver().findElement(By.xpath("//input[@id ='buyButton']")).click();
+        getDriver().findElement(BUYBUTTON).click();
         getDriver().findElement(By.xpath("//a[@data-testid='cart-nav-link']")).click();
         WebElement orderItem = getDriver().findElement(By.xpath("//span[@id= 'cartItemCountSpan']"));
 
