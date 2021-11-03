@@ -24,9 +24,8 @@ public class GulyaTest {
         WebElement result = driver.findElement(By.className("lighter"));
         Assert.assertEquals(result.getText(), "\"DRESS\"");
     }
-
     @Test
-    public void Gulya1() {
+    public void Gulya1test() {
         WebDriverManager.chromedriver().setup();
         WebDriver driver = new ChromeDriver();
         String Url = ("https://www.economist.com");
@@ -36,8 +35,8 @@ public class GulyaTest {
         String actualUrl = driver.getCurrentUrl();
         if (actualUrl.equals(Url)) {
             System.out.println("Success");
-        }
             int pageSourceLength = driver.getPageSource().length();
             driver.quit();
         }
     }
+}
