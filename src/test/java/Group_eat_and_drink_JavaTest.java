@@ -511,7 +511,6 @@ public class Group_eat_and_drink_JavaTest extends BaseTest {
         WebElement orderItem = getDriver().findElement(By.xpath("//span[@id= 'cartItemCountSpan']"));
 
         Assert.assertEquals(orderItem.getText(), "21");
-
     }
     @Test
     public void SergeyBrigCheckCard() {
