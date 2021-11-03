@@ -318,9 +318,8 @@ public class Group_eat_and_drink_JavaTest extends BaseTest {
 
     }
 
-    @Ignore
     @Test
-    public void OlenaMSearchTheItemTest() {
+    public void testSearchTheItemOlenaM() {
 
         getDriver().get("https://www.homedepot.com/");
         getDriver().findElement(By.id("headerSearch")).sendKeys("refrigerator\n");
@@ -333,7 +332,7 @@ public class Group_eat_and_drink_JavaTest extends BaseTest {
 
     @Ignore
     @Test
-    public void OlenaMSignInTest() {
+    public void testSignInOlena() {
 
         getDriver().get("https://www.homedepot.com/");
 
