@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 
 import static org.testng.Assert.assertEquals;
 
-
+@Ignore
 public class JavaHamstersTest extends BaseTest {
 
     private final String URL_IK = "https://www.vprok.ru/";

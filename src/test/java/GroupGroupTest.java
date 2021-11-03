@@ -191,7 +191,6 @@ public class GroupGroupTest extends BaseTest {
         getDriver().get(URL3_DS);
         Assert.assertEquals(getDriver().getCurrentUrl(), URL3_DS);
     }
-
     @Test
     public void testDashaSandlerPreconditionsPlaceholdersNames() {
         getDriver().get(URL3_DS);
@@ -207,7 +206,6 @@ public class GroupGroupTest extends BaseTest {
         Assert.assertEquals(placeholderNameUsername, placeholderUsernameTextExpected); //does it have correct placeholder name for username?
         Assert.assertEquals(passwordTextExpected, placeholderPasswordActual);  //does it have correct placeholder name for password?
     }
-
     @Test
         public void testDashaSandlerLoginCheck() {
         getDriver().get(URL3_DS);
