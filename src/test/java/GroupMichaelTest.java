@@ -124,6 +124,35 @@ public class GroupMichaelTest extends BaseTest {
         getDriver().findElement(By.xpath("//div[@class='notification__action']/a[contains(text(), 'View Cart')]")).click();
         getDriver().findElement(By.xpath("//a[contains(text(),'Empty Cart')]")).click();
     }
+
+    @Test
+    public void testEvgeniyaPiskunovaSteelTable() {
+        getDriver().get("https://www.webstaurantstore.com/");
+        getDriver()
+                .findElement(By.id("searchval"))
+                .sendKeys("stainless work table\n");
+        List<WebElement> items = getDriver()
+                .findElements(By.xpath("//a[contains(@data-testid,'itemDescription')]"));
+        Assert.assertFalse(items.isEmpty());
+        items.forEach(titleElement -> {
+            String title = titleElement
+                    .getText()
+                    .toLowerCase();
+            Assert.assertTrue(title.contains("table"));
+        });
+        WebElement lastTable = items.get(items.size()-1);
+        lastTable
+                .findElement(By.xpath("../../div[contains(@class, 'add-to-cart')]"))
+                .click();
+        getDriver().get("https://www.webstaurantstore.com/viewcart.cfm");
+        getDriver()
+                .findElement(By.xpath("//div[contains(@class, 'itemDelete')]/a"))
+                .click();
+        String cartIsEmptyTitle = getDriver()
+                .findElement(By.xpath("//div[contains(@class, 'empty-cart__text')]/p[contains(@class, 'header-1')]"))
+                .getAttribute("textContent");
+        Assert.assertEquals(cartIsEmptyTitle, "Your cart is empty.");
+    }
 }
 
 
