@@ -185,15 +185,15 @@ public class GroupGroupTest extends BaseTest {
         Assert.assertEquals(getDriver().findElements(By.xpath
                 ("//div[@class='d-card-wrapper bg-primary-500']")).size(), 4);
     }
-    @Ignore
+
     @Test
     public void testDashaSandlerGoToLoginPage() {
-        String currentUrl = getDriver().getCurrentUrl();
-        Assert.assertEquals(currentUrl, URL3_DS); //does it the same urls?
+        getDriver().get(URL3_DS);
+        Assert.assertEquals(getDriver().getCurrentUrl(), URL3_DS);
     }
-    @Ignore
     @Test
     public void testDashaSandlerPreconditionsPlaceholdersNames() {
+        getDriver().get(URL3_DS);
         String placeholderUsernameTextExpected = "Username";
         String passwordTextExpected = "Password";
         WebElement placeholderUserName = getDriver().findElement(By.xpath("//input[@id='user-name']")); //placeholder for username
@@ -206,9 +206,9 @@ public class GroupGroupTest extends BaseTest {
         Assert.assertEquals(placeholderNameUsername, placeholderUsernameTextExpected); //does it have correct placeholder name for username?
         Assert.assertEquals(passwordTextExpected, placeholderPasswordActual);  //does it have correct placeholder name for password?
     }
-    @Ignore
     @Test
-    public void testDashaSandlerLoginCheck() {
+        public void testDashaSandlerLoginCheck() {
+        getDriver().get(URL3_DS);
         String expectedPageAfterLogin = "https://www.saucedemo.com/inventory.html";
         WebElement loginBtn = getDriver().findElement(By.id("login-button"));
         WebElement placeholderUserName = getDriver().findElement(By.xpath("//input[@id='user-name']")); //placeholder for username
