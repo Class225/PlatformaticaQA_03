@@ -554,6 +554,23 @@ public class Group_eat_and_drink_JavaTest extends BaseTest {
 
         Assert.assertEquals(countItem,3);
     }
+    @Test
+    public void sBrigGetBrandProductTest() {
+        getDriver().get("https://www.webstaurantstore.com/");
 
+        getDriver().findElement(By.xpath("//a[@title = 'Cambro']")).click();
+
+        List<WebElement> titleList = getDriver().findElements(By.xpath("//div/a/h2[@data-testid='displayTitle']"));
+        for (WebElement item : titleList) {
+            if (item.getText().toLowerCase().contains("catering bags")) {
+                item.click();
+                break;
+            }
+        }
+        List<WebElement> productListBrand = getDriver().findElements(By.xpath("//div[@id='details']/a[2]"));
+        for (WebElement item : productListBrand) {
+            Assert.assertTrue(item.getText().toLowerCase().contains("cambro"));
+        }
+    }
 }
 
