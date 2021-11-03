@@ -1,5 +1,4 @@
 import base.BaseTest;
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
@@ -16,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 
 import static org.testng.Assert.assertEquals;
 
-
+@Ignore
 public class JavaHamstersTest extends BaseTest {
 
     private final String URL_IK = "https://www.vprok.ru/";
@@ -370,6 +369,7 @@ public class JavaHamstersTest extends BaseTest {
         Assert.assertEquals(result.getText(), "CUSTOMER SERVICE - CONTACT US");
     }
 
+    @Ignore
     @Test
     public void testNataliaSavinovaSignInButton() {
         getDriver().get(MAIN_PAGE_URL);
@@ -380,6 +380,7 @@ public class JavaHamstersTest extends BaseTest {
         Assert.assertEquals(result.getText(), "AUTHENTICATION");
     }
 
+    @Ignore
     @Test
     public void testNataliaSavinovaSaleLink() {
         getDriver().get(MAIN_PAGE_URL);
@@ -425,6 +426,7 @@ public class JavaHamstersTest extends BaseTest {
         assertEquals(getDriver().getCurrentUrl(), "https://gb.ru/events/personal-consultation#form");
     }
 
+    @Ignore
     @Test
     public void testSearchAndreiShupaev() {
         getDriver().get("http://automationpractice.com/");

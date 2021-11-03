@@ -7,6 +7,7 @@ import org.testng.Assert;
 import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class AnastasiiaPTest extends BaseTest {
@@ -77,6 +78,27 @@ public class AnastasiiaPTest extends BaseTest {
         List<WebElement> menuList = getDriver().findElements(By.xpath("//ul[contains(@id,'icecream')]//li"));
         for (int i = 0; i < menuList.size(); i++) {
             Assert.assertEquals(menuList.get(i).getText(), expectedArray[i]);
+        }
+    }
+
+    @Test
+    public void testMenuItems() {
+        final List<String> expectedList = Arrays.asList("Pizza",
+                "Specialty Pizza",
+                "Pizza by the Slice",
+                "Soups",
+                "Salads",
+                "Side Orders",
+                "Calzones",
+                "Sandwiches",
+                "Hot Subs");
+
+        getDriver().get("https://www.familypizzainc.com/");
+        getDriver().findElement(By.cssSelector("#navigation-link-menu")).click();
+
+        List<WebElement> menuList = getDriver().findElements(By.xpath("//a[contains(@class,'_1tk5thq')]"));
+        for (int i = 0; i < menuList.size(); i++) {
+            Assert.assertEquals(menuList.get(i).getText(), expectedList.get(i));
         }
     }
 }
