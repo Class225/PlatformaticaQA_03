@@ -104,7 +104,7 @@ public class GroupMielofonIsMineTest extends BaseTest {
         Assert.assertEquals(lastQuestion.getText(), "Что означает определение \"обложной\" во фразах \"обложной дождь\" или \"обложной снег\"?");
     }
 
-
+    @Ignore
     @Test
     public void testAlenaKuts1() {
         getDriver().get("https://stepik.org/catalog");

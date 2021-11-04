@@ -317,7 +317,7 @@ public class Group_eat_and_drink_JavaTest extends BaseTest {
         Assert.assertEquals(actualResult, expectedResult);
 
     }
-
+    @Ignore
     @Test
     public void testSearchTheItemOlenaM() {
 

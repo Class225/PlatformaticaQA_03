@@ -324,7 +324,7 @@ public class GroupGroupTest extends BaseTest {
         WebElement result = getDriver().findElement(By.className("page-name"));
         Assert.assertEquals(result.getText(), "ОДЕЯЛО");
     }
-
+    @Ignore
     @Test
     public void testKonstantinL() {
         getDriver().get("https://www.amazon.com/");
