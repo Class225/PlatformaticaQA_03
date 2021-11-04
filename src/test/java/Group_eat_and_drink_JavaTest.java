@@ -405,7 +405,6 @@ public class Group_eat_and_drink_JavaTest extends BaseTest {
         }
     }
 
-    @Ignore
     @Test
     public void SergeyBrigMenu2Test() {
         getDriver().get("https://www.webstaurantstore.com");
