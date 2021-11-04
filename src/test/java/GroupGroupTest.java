@@ -8,6 +8,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.awt.*;
 import java.util.List;
@@ -322,6 +323,16 @@ public class GroupGroupTest extends BaseTest {
 
         WebElement result = getDriver().findElement(By.className("page-name"));
         Assert.assertEquals(result.getText(), "ОДЕЯЛО");
+    }
+
+    @Test
+    public void testKonstantinL() {
+        getDriver().get("https://www.amazon.com/");
+
+        getDriver().findElement(By.xpath("//input[@id='twotabsearchtextbox']")).sendKeys("samsung galaxy s21 ultra\n");
+
+        String item = getDriver().findElement(By.xpath("//span[@class='a-size-medium a-color-base a-text-normal']")).getText().toLowerCase();
+        Assert.assertTrue(item.contains("samsung"));
     }
 }
 
