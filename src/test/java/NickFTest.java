@@ -16,16 +16,16 @@ public class NickFTest extends BaseTest{
     public void testSearches() {
         getDriver().get(MAIN_URL);
 
+        String xpathOfGoods = "//div[@class='c-model-content d-f fl-d-c']/h2/a";
+
         getDriver().findElement(By.xpath("//*[@class='base-text-field__input']")).sendKeys("apple");
-                //className("base-text-field__input")).sendKeys("apple");
         getDriver().findElement(By.className("search-desktop__icon")).click();
 
-        // ожидаем пока элементы станут кликабельные
         WebDriverWait myWait = new WebDriverWait(getDriver(), 5);
         myWait.until(ExpectedConditions.titleContains("apple"));
-        myWait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@class='c-model-content d-f fl-d-c']/h2/a")));
+        myWait.until(ExpectedConditions.elementToBeClickable(By.xpath(xpathOfGoods)));
 
-        List<WebElement> itemList = getDriver().findElements(By.xpath("//div[@class='c-model-content d-f fl-d-c']"));
+        List<WebElement> itemList = getDriver().findElements(By.xpath(xpathOfGoods));
 
         for (int i = 0; i < itemList.size(); i++) {
 
