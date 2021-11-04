@@ -327,7 +327,6 @@ public class Group_eat_and_drink_JavaTest extends BaseTest {
         getDriver().findElement(By.id("headerSearchButton")).click();
         getDriver().findElement(By.linkText("Shop All French Door Refrigerators")).click();
         List<WebElement> itemList = getDriver().findElements(By.xpath("//a[@class='header product-pod--ie-fix']"));
-        Assert.assertTrue(itemList.size() != 0);
         for (int i = 0; i < itemList.size(); i++) {
             Assert.assertTrue(itemList.get(i).getText().toLowerCase().contains("refrigerator"));
         }
