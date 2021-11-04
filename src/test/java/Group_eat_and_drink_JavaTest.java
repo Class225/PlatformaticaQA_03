@@ -322,30 +322,14 @@ public class Group_eat_and_drink_JavaTest extends BaseTest {
     public void testSearchTheItemOlenaM() {
 
         getDriver().get("https://www.homedepot.com/");
+
         getDriver().findElement(By.id("headerSearch")).sendKeys("refrigerator\n");
         getDriver().findElement(By.id("headerSearchButton")).click();
-
         getDriver().findElement(By.linkText("Shop All French Door Refrigerators")).click();
-
-        Assert.assertEquals(getDriver().getCurrentUrl(), "https://www.homedepot.com/b/Appliances-Refrigerators-French-Door-Refrigerators/N-5yc1vZc3oo");
-    }
-
-    @Ignore
-    @Test
-    public void testSignInOlena() {
-
-        getDriver().get("https://www.homedepot.com/");
-
-        getDriver().findElement(By.id("headerMyAccount")).click();
-        getDriver().findElement(By.id("SPSOSignIn")).click();
-
-        getDriver().findElement(By.id("email")).sendKeys("abc@gmail.com");
-        getDriver().findElement(By.id("password-input-field")).sendKeys("ZXCasd123");
-        getDriver().findElement(By.xpath("//span[normalize-space()='Sign In']")).click();
-
-        WebElement error = getDriver().findElement(By.xpath("//span[@class='alert-inline__message']"));
-        Assert.assertEquals(error.getText(), "For your protection, we've locked your account for a short period of time. You may try logging in again in 15 minutes. If you've forgotten your password, you may change it using the link below.");
-
+        List<WebElement> itemList = getDriver().findElements(By.xpath("//a[@class='header product-pod--ie-fix']"));
+        for (int i = 0; i < itemList.size(); i++) {
+            Assert.assertTrue(itemList.get(i).getText().toLowerCase().contains("refrigerator"));
+        }
     }
 
 
