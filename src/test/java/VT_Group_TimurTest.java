@@ -101,14 +101,4 @@ public class VT_Group_TimurTest extends BaseTest {
 
         Assert.assertEquals(actualResult.getText(),"There aren’t any open issues.");
     }
-    @Test
-    public void clickButtonPullRequests(){
-        getDriver().get(URL_GIT_HUB);
-
-        getDriver().findElement(By.xpath("//span[@data-content='Pull requests']")).click();
-
-        WebElement actualResult = getDriver().findElement(By.xpath("//span[@class='d-none d-md-block']"));
-
-        Assert.assertEquals(actualResult.getText(),"New pull request ");
-    }
 }
