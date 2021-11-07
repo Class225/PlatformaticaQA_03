@@ -29,7 +29,7 @@ public class EntityReferenceValuesTest extends BaseTest {
     void testEditRecord() {
         testCreateRecord();
 
-        getDriver().findElement(By.xpath("//tr[@data-index = '0']/td[last()]//button")).click();
+        getDriver().findElement(By.xpath("//div[@class = 'dropdown pull-left']//button")).click();
         getWait().until(ExpectedConditions.elementToBeClickable(By.xpath("//ul[@role = 'menu']//a[contains(text(), 'edit')]"))).click();
 
         WebElement label = getDriver().findElement(By.id("label"));
