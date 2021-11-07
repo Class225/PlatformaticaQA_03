@@ -18,8 +18,8 @@ public class ReferenceValuesTest extends BaseTest {
         getDriver().findElement(By.id("filter_2")).sendKeys(FILTER2);
         getDriver().findElement(By.id("pa-entity-form-save-btn")).click();
 
-        Assert.assertEquals(LABEL,getDriver().findElement(By.xpath("//tr[@data-index = '0']//a[contains(text(),'Label')]")).getText());
-        Assert.assertEquals(FILTER1,getDriver().findElement(By.xpath("//tr[@data-index = '0']//a[contains(text(),'FILTER1')]")).getText());
-        Assert.assertEquals(FILTER2,getDriver().findElement(By.xpath("//tr[@data-index = '0']//a[contains(text(),'FILTER2')]")).getText());
+        Assert.assertEquals(LABEL, getDriver().findElement(By.xpath("//tr[@data-index = '0']//a[contains(text(),'" + LABEL + "')]")).getText());
+        Assert.assertEquals(FILTER1, getDriver().findElement(By.xpath("//tr[@data-index = '0']//a[contains(text(),'" + FILTER1 + "')]")).getText());
+        Assert.assertEquals(FILTER2, getDriver().findElement(By.xpath("//tr[@data-index = '0']//a[contains(text(),'" + FILTER2 + "')]")).getText());
     }
 }
