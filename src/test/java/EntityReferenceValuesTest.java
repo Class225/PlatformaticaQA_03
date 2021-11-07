@@ -5,7 +5,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class ReferenceValuesTest extends BaseTest {
+public class EntityReferenceValuesTest extends BaseTest {
     private static final String LABEL_VALUE = "Label";
     private static final String FILTER1_VALUE = "FILTER1";
     private static final String FILTER2_VALUE = "FILTER2";
