@@ -9,6 +9,7 @@ public class EntityReferenceValuesTest extends BaseTest {
     private static final String ID_LABEL = "label";
     private static final String ID_FILTER1 = "filter_1";
     private static final String ID_FILTER2 = "filter_2";
+    private static final String ID_BUTTON_SAVE = "pa-entity-form-save-btn";
 
     private static final String LABEL_VALUE = "Label";
     private static final String FILTER1_VALUE = "FILTER1";
@@ -26,7 +27,7 @@ public class EntityReferenceValuesTest extends BaseTest {
         getDriver().findElement(By.id(ID_LABEL)).sendKeys(LABEL_VALUE);
         getDriver().findElement(By.id(ID_FILTER1)).sendKeys(FILTER1_VALUE);
         getDriver().findElement(By.id(ID_FILTER2)).sendKeys(FILTER2_VALUE);
-        getDriver().findElement(By.id("pa-entity-form-save-btn")).click();
+        getDriver().findElement(By.id(ID_BUTTON_SAVE)).click();
 
         Assert.assertEquals(LABEL_VALUE, getDriver().findElement(By.xpath(ASSERT_LOCATOR_LABEL)).getText());
         Assert.assertEquals(FILTER1_VALUE, getDriver().findElement(By.xpath(ASSERT_LOCATOR_FILTER1)).getText());
@@ -52,7 +53,7 @@ public class EntityReferenceValuesTest extends BaseTest {
         filter2.clear();
         filter2.sendKeys(FILTER2_VALUE + " 1");
 
-        getDriver().findElement(By.id("pa-entity-form-save-btn")).click();
+        getDriver().findElement(By.id(ID_BUTTON_SAVE)).click();
 
         Assert.assertEquals(LABEL_VALUE + " 1", getDriver().findElement(By.xpath(ASSERT_LOCATOR_LABEL)).getText());
         Assert.assertEquals(FILTER1_VALUE + " 1", getDriver().findElement(By.xpath(ASSERT_LOCATOR_FILTER1)).getText());
