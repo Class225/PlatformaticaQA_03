@@ -29,9 +29,9 @@ public class EntityReferenceValuesTest extends BaseTest {
         getDriver().findElement(By.id(ID_FILTER2)).sendKeys(FILTER2_VALUE);
         getDriver().findElement(By.id(ID_BUTTON_SAVE)).click();
 
-        Assert.assertEquals(LABEL_VALUE, getDriver().findElement(By.xpath(ASSERT_LOCATOR_LABEL)).getText());
-        Assert.assertEquals(FILTER1_VALUE, getDriver().findElement(By.xpath(ASSERT_LOCATOR_FILTER1)).getText());
-        Assert.assertEquals(FILTER2_VALUE, getDriver().findElement(By.xpath(ASSERT_LOCATOR_FILTER2)).getText());
+        Assert.assertEquals(getDriver().findElement(By.xpath(ASSERT_LOCATOR_LABEL)).getText(),LABEL_VALUE);
+        Assert.assertEquals(getDriver().findElement(By.xpath(ASSERT_LOCATOR_FILTER1)).getText(),FILTER1_VALUE);
+        Assert.assertEquals(getDriver().findElement(By.xpath(ASSERT_LOCATOR_FILTER2)).getText(),FILTER2_VALUE);
     }
 
     @Test
