@@ -11,7 +11,7 @@ public class EntityReferenceValuesTest extends BaseTest {
     private static final String FILTER2_VALUE = "FILTER2";
 
     @Test
-    void testCreateRecord() {
+    public void testCreateRecord() {
         getDriver().findElement(By.xpath("//div[@id = 'menu-list-parent']//p[contains(text(), 'Reference values' )]")).click();
         getDriver().findElement(By.className("card-icon")).click();
 
@@ -26,7 +26,7 @@ public class EntityReferenceValuesTest extends BaseTest {
     }
 
     @Test
-    void testEditRecord() {
+    public void testEditRecord() {
         testCreateRecord();
 
         getDriver().findElement(By.xpath("//div[@class = 'dropdown pull-left']//button")).click();
