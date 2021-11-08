@@ -39,6 +39,5 @@ public class EntityChevronTest extends BaseTest {
 
         Assert.assertEquals(recordValues.get(0).getText(), "Pending");
     }
-
 }
 
