@@ -40,5 +40,23 @@ public class EntityChevronTest extends BaseTest {
         Assert.assertEquals(recordValues.get(0).getText(), "Pending");
     }
 
+    @Test
+    public void testCreateRecordFulfillment(){
+        getDriver().findElement(ENTITYCHEVRON).click();
+        getDriver().findElement(CREATENEWFOLDER).click();
+        getDriver().findElement(STRINGSTATUSMENU).click();
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        getDriver().findElement(By.xpath("//span[text()='Fulfillment']")).click();
+        getDriver().findElement(SAVEBUTTON).click();
+
+        List<WebElement> recordValues = getDriver().findElements(By.xpath("//td[@class='pa-list-table-th']"));
+
+        Assert.assertEquals(recordValues.get(0).getText(), "Fulfillment");
+    }
+
 }
 
