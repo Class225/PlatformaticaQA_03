@@ -32,3 +32,4 @@ jobs:
         run: mvn test
         env:
           CHROME_OPTIONS: --disable-gpu;--no-sandbox;--disable-dev-shm-usage;--headless
+          CI_RUN: true
