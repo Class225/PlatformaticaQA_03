@@ -1,3 +1,5 @@
+package old;
+
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -24,8 +26,8 @@ public class VladimirMTest {
 
         driver.get("https://av.by");
 
-        WebElement bmw = driver.findElement(By.xpath("/html[1]/body[1]/div[1]/div[2]/div[2]/div[1]/main[1]/div[1]" +
-                "/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/ul[3]/li[1]/a[1]/span[1]"));
+        WebElement bmw = driver.findElement(By.xpath("/html[1]/body[1]/div[1]/div[2]/div[2]/div[1]/main[1]/div[1]/" +
+                "div[1]/div[1]/div[2]/div[1]/div[2]/div[1]/ul[3]/li[1]/a[1]/span[1]"));
 
         bmw.click();
 
@@ -34,8 +36,8 @@ public class VladimirMTest {
         model.click();
 
 
-        WebElement modelX7 = driver.findElement(By.xpath("/html[1]/body[1]/div[1]/div[2]/main[1]/div[1]/div[1]/div[1]/div" +
-                "[4]/form[1]/div[1]/div[2]/div[1]/div[2]/div[2]/div[1]/div[1]/div[1]/ul[1]/li[26]/button[1]"));
+        WebElement modelX7 = driver.findElement(By.xpath("/html[1]/body[1]/div[1]/div[2]/main[1]/div[1]/div[1]/div[1]" +
+                "/div[4]/form[1]/div[1]/div[2]/div[1]/div[2]/div[2]/div[1]/div[1]/div[1]/ul[1]/li[27]/button[1]"));
         modelX7.click();
 
         WebElement show = driver.findElement(By.xpath("/html[1]/body[1]/div[1]/div[2]/main[1]/div[1]/div[1]/div[1]/div" +
