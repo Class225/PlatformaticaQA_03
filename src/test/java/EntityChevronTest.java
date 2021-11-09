@@ -14,6 +14,7 @@ public class EntityChevronTest extends BaseTest {
     private static final By CREATENEWFOLDER = By.xpath("//i[text()='create_new_folder']");
     private static final By STRINGSTATUSMENU = By.xpath("//div[@class='filter-option-inner-inner'][text()='Pending']");
     private static final By SAVEBUTTON = By.id("pa-entity-form-save-btn");
+    private static final By SAVEDRATFBUTTON = By.id("pa-entity-form-draft-btn");
     private static final By STRINGSTATUSPENDING = By.xpath("//span[text()='Pending']");
 
     @Test
@@ -121,6 +122,16 @@ public class EntityChevronTest extends BaseTest {
         Assert.assertEquals(recordValues.get(5).getText().substring(0,16), formatterTime.format(time));
         Assert.assertTrue(recordValues.get(6).getText().isEmpty());
         Assert.assertEquals(recordValues.get(7).getText(), "apptester1@tester.test");
+    }
+
+    @Test
+    public void testCreateRecordSaveDraft(){
+        getDriver().findElement(ENTITYCHEVRON).click();
+        getDriver().findElement(CREATENEWFOLDER).click();
+        getDriver().findElement(SAVEDRATFBUTTON).click();
+
+        Assert.assertTrue(getDriver().findElement(By.xpath("//tr[@data-index='0']")).isDisplayed());
+        Assert.assertTrue(getDriver().findElement(By.xpath("//i[@class='fa fa-pencil']")).isDisplayed());
     }
 
 }
