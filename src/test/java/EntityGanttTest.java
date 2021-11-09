@@ -4,6 +4,7 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import utils.TestUtils;
@@ -52,9 +53,7 @@ public class EntityGanttTest extends BaseTest {
 
         getDriver().findElement(By.id("_field_container-user")).click();
         sleep (1000);
-
-        getDriver().findElement(By.xpath("//li[@class = 'selected active']")).click();
-
+        getWait().until(ExpectedConditions.elementToBeClickable(By.xpath("//li[@class = 'selected active']"))).click();
         getDriver().findElement(By.id("pa-entity-form-save-btn")).click();
 
         WebElement blueElement = getDriver().findElement(By.xpath
