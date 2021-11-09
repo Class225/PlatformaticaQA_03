@@ -119,7 +119,8 @@ public class EntityDefaultRecordTest extends BaseTest {
 
         getDriver().findElement(By.xpath("//tbody")).click();
 
-        getWait();
+        System.out.println("Page is displayed: " + getDriver().findElement(By.xpath("//h4")).getText());
+        System.out.println("Page is displayed: " + getDriver().findElement(By.xpath("//h4[contains(text(),'EmbedD')]")).getText());
 
         List<WebElement> webElementFormList = getDriver().findElements(By.xpath(" //span[@class = 'pa-view-field']"));
         System.out.println("List of webElementFormList: " + webElementFormList);
