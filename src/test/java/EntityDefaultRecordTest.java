@@ -1,6 +1,5 @@
 import base.BaseTest;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
@@ -27,8 +26,6 @@ public class EntityDefaultRecordTest extends BaseTest {
     private static final String DATE_INPUT = "07/11/2021";
     private static final By DATETIME_FIELD_LOCATOR = By.id("datetime");
     private static final String DATETIME_INPUT = "06/11/2021 17:22:46";
-    private static final By USER_FIELD_LOCATOR = By.className("filter-option-inner-inner");
-    private static final By USER_LOCATOR = By.xpath("//span[contains(text(),'apptester2@tester.test')]");
     private static final By ADD_BUTTON_LOCATOR = By.xpath("//button[contains(text(), '+')]");
     private static final By STRING_EMBED_FIELD_LOCATOR = By.id("t-11-r-1-string");
     private static final String STRING_EMBED_INPUT = "String Input Value";
@@ -44,8 +41,13 @@ public class EntityDefaultRecordTest extends BaseTest {
     private static final String DATETIME_EMBED_INPUT = "03/03/2021 18:05:10";
     private static final By SAVE_BUTTON_LOCATOR = By.id("pa-entity-form-save-btn");
 
+    public void clearSendKeys(By by, String input) {
+        getDriver().findElement(by).clear();
+        getDriver().findElement(by).sendKeys(input);
+    }
+
     @Test
-    public void testCreateNewRecordWithNewValues() throws InterruptedException {
+    public void testCreateNewRecordWithNewValues() {
 
         Actions act = new Actions(getDriver());
         act.moveToElement(getDriver().findElement(ENTITIES_MENU_LOCATOR)).perform();
@@ -54,73 +56,32 @@ public class EntityDefaultRecordTest extends BaseTest {
 
         getDriver().findElement(ADD_NEW_FORM_BUTTON_LOCATOR).click();
 
-        getDriver().findElement(STRING_FIELD_LOCATOR).clear();
-        getDriver().findElement(STRING_FIELD_LOCATOR).sendKeys(STRING_INPUT);
+        List<By> locatorsList = Arrays.asList(STRING_FIELD_LOCATOR, TEXT_FIELD_LOCATOR, INT_FIELD_LOCATOR,
+                DECIMAL_FIELD_LOCATOR, DATE_FIELD_LOCATOR, DATETIME_FIELD_LOCATOR);
 
-        getDriver().findElement(TEXT_FIELD_LOCATOR).clear();
-        getDriver().findElement(TEXT_FIELD_LOCATOR).sendKeys(TEXT_INPUT);
+        List<String> inputList = Arrays.asList(STRING_INPUT, TEXT_INPUT, INT_INPUT, DECIMAL_INPUT,
+                DATE_INPUT, DATETIME_INPUT);
 
-        getDriver().findElement(INT_FIELD_LOCATOR).clear();
-        getDriver().findElement(INT_FIELD_LOCATOR).sendKeys(INT_INPUT);
-
-        getDriver().findElement(DECIMAL_FIELD_LOCATOR).clear();
-        getDriver().findElement(DECIMAL_FIELD_LOCATOR).sendKeys(DECIMAL_INPUT);
-
-        getDriver().findElement(DATE_FIELD_LOCATOR).clear();
-        getDriver().findElement(DATE_FIELD_LOCATOR).sendKeys(DATE_INPUT);
-
-        getDriver().findElement(DATETIME_FIELD_LOCATOR).clear();
-        getDriver().findElement(DATETIME_FIELD_LOCATOR).sendKeys(DATETIME_INPUT);
+        for (int i = 0; i < inputList.size(); i++) {
+            clearSendKeys(locatorsList.get(i), inputList.get(i));
+        }
 
         TestUtils.scrollClick(getDriver(), ADD_BUTTON_LOCATOR);
 
-        getDriver().findElement(STRING_EMBED_FIELD_LOCATOR).clear();
-        getDriver().findElement(STRING_EMBED_FIELD_LOCATOR).sendKeys(STRING_EMBED_INPUT);
+        List<By> locatorsEmbedList = Arrays.asList(STRING_EMBED_FIELD_LOCATOR, TEXT_EMBED_FIELD_LOCATOR,
+                INT_EMBED_FIELD_LOCATOR, DECIMAL_EMBED_FIELD_LOCATOR, DATE_EMBED_FIELD_LOCATOR, DATETIME_EMBED_FIELD_LOCATOR);
 
-        getDriver().findElement(TEXT_EMBED_FIELD_LOCATOR).clear();
-        getDriver().findElement(TEXT_EMBED_FIELD_LOCATOR).sendKeys(TEXT_EMBED_INPUT);
+        List<String> inputEmbedList = Arrays.asList(STRING_EMBED_INPUT, TEXT_EMBED_INPUT, INT_EMBED_INPUT,
+                DECIMAL_EMBED_INPUT, DATE_EMBED_INPUT, DATETIME_EMBED_INPUT);
 
-        getDriver().findElement(INT_EMBED_FIELD_LOCATOR).clear();
-        getDriver().findElement(INT_EMBED_FIELD_LOCATOR).sendKeys(INT_EMBED_INPUT);
-
-        getDriver().findElement(DECIMAL_EMBED_FIELD_LOCATOR).clear();
-        getDriver().findElement(DECIMAL_EMBED_FIELD_LOCATOR).sendKeys(DECIMAL_EMBED_INPUT);
-
-//        WebElement wb = getDriver().findElement(DATE_EMBED_FIELD_LOCATOR);
-//        JavascriptExecutor jse = (JavascriptExecutor) getDriver();
-//        jse.executeScript("arguments[0].value='" + DATE_EMBED_INPUT + "';", wb);
-
-        getDriver().findElement(DATE_EMBED_FIELD_LOCATOR).click();
-        getDriver().findElement(DATE_EMBED_FIELD_LOCATOR).clear();
-        getDriver().findElement(DATE_EMBED_FIELD_LOCATOR).sendKeys(DATE_EMBED_INPUT);
-
-        getDriver().findElement(DATETIME_EMBED_FIELD_LOCATOR).click();
-        getDriver().findElement(DATETIME_EMBED_FIELD_LOCATOR).clear();
-        getDriver().findElement(DATETIME_EMBED_FIELD_LOCATOR).sendKeys(DATETIME_EMBED_INPUT);
+        for (int i = 0; i < inputEmbedList.size(); i++) {
+            if (i == 4 || i == 5) {
+                getDriver().findElement(locatorsEmbedList.get(i)).click();
+            }
+            clearSendKeys(locatorsEmbedList.get(i), inputEmbedList.get(i));
+        }
 
         getDriver().findElement(SAVE_BUTTON_LOCATOR).click();
-
-        //Assert.assertTrue(getDriver().findElement(By.xpath("//a[contains(text(), '" + STRING_INPUT + "')]")).isDisplayed());
-
-/*        Assert.assertEquals(getDriver().findElement(By
-                .xpath("//td[@class= 'pa-list-table-th'][1]")).getText(), STRING_INPUT);
-
-        Assert.assertEquals(getDriver().findElement(By
-                .xpath("//td[@class= 'pa-list-table-th'][2]")).getText(), TEXT_INPUT);
-
-        Assert.assertEquals(getDriver().findElement(By
-                .xpath("//td[@class= 'pa-list-table-th'][3]")).getText(), INT_INPUT);
-
-        Assert.assertEquals(getDriver().findElement(By
-                .xpath("//td[@class= 'pa-list-table-th'][4]")).getText(), DECIMAL_INPUT);
-
-        Assert.assertEquals(getDriver().findElement(By
-                .xpath("//td[@class= 'pa-list-table-th'][5]")).getText(), DATE_INPUT);
-
-        Assert.assertEquals(getDriver().findElement(By
-                .xpath("//td[@class= 'pa-list-table-th'][6]")).getText(), DATETIME_INPUT);*/
-
-        List<String> inputList = Arrays.asList(STRING_INPUT, TEXT_INPUT, INT_INPUT, DECIMAL_INPUT, DATE_INPUT, DATETIME_INPUT);
 
         List<WebElement> inputListLocators = getDriver().findElements(By.xpath("//td[@class= 'pa-list-table-th']"));
         Assert.assertTrue(inputListLocators.size() != 0);
@@ -136,11 +97,9 @@ public class EntityDefaultRecordTest extends BaseTest {
             Assert.assertEquals(inputListDetails.get(i).getText(), inputList.get(i));
         }
 
-        List<String> inputEmbedList = Arrays.asList("1", STRING_EMBED_INPUT, TEXT_EMBED_INPUT, INT_EMBED_INPUT,
-                DECIMAL_EMBED_INPUT, DATE_EMBED_INPUT, DATETIME_EMBED_INPUT);
-
         List<WebElement> inputEmbedListLocators = getDriver().findElements(By.xpath(" //td"));
-        Assert.assertTrue(inputListDetails.size() != 0);
+        inputEmbedListLocators.remove(0);
+        Assert.assertTrue(inputEmbedListLocators.size() != 0);
         for (int i = 0; i < inputEmbedList.size(); i++) {
             Assert.assertEquals(inputEmbedListLocators.get(i).getText(), inputEmbedList.get(i));
         }
