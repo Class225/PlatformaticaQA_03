@@ -3,7 +3,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 
 import static java.lang.Thread.sleep;
@@ -37,7 +36,6 @@ public class EntityReferenceValuesTest extends BaseTest {
         Assert.assertEquals(getDriver().findElement(By.xpath(ASSERT_LOCATOR_FILTER2)).getText(),FILTER2_VALUE);
     }
 
-    @Ignore
     @Test
     public void testEditRecord() throws InterruptedException {
         testCreateRecord();
