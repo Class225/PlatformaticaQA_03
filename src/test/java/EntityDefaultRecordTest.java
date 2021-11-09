@@ -89,13 +89,10 @@ public class EntityDefaultRecordTest extends BaseTest {
     }
 
     private void compareDataDisplayedWithEntered(List<WebElement> webElementsList, List<String> inputDataList) {
-        System.out.println("compare method starts");
         Assert.assertTrue(webElementsList.size() != 0);
-        System.out.println("webElementList is more then 0");
         for (int i = 0; i < inputDataList.size(); i++) {
             Assert.assertEquals(webElementsList.get(i).getText(), inputDataList.get(i));
-            System.out.println(webElementsList.get(i).getText() + inputDataList.get(i));
-        }
+         }
     }
 
     @Test
@@ -116,18 +113,10 @@ public class EntityDefaultRecordTest extends BaseTest {
 
         List<WebElement> webElementPreviewFormList = getDriver().findElements(By.xpath("//td[@class= 'pa-list-table-th']"));
         compareDataDisplayedWithEntered(webElementPreviewFormList, FORM_INPUT_LIST);
-        System.out.println("Page is displayed: " + getDriver().findElement(By.xpath("//span[contains(text(),'Showing 1 to 1 of 1 rows')]")).getText());
-
-       // getDriver().findElement(By.xpath("//tbody")).click();
 
         getDriver().findElement(By.xpath("//td[@class= 'pa-list-table-th']")).click();
 
-  //      System.out.println("Page is displayed: " + getDriver().findElement(By.xpath("//span[contains(text(),'Showing 1 to 1 of 1 rows')]")).getText());
-        System.out.println("Page is displayed: " + getDriver().findElement(By.xpath("//h4")).getText());
-        System.out.println("Page is displayed: " + getDriver().findElement(By.xpath("//h4[contains(text(),'EmbedD')]")).getText());
-
         List<WebElement> webElementFormList = getDriver().findElements(By.xpath(" //span[@class = 'pa-view-field']"));
-        System.out.println("List of webElementFormList: " + webElementFormList);
         compareDataDisplayedWithEntered(webElementFormList, FORM_INPUT_LIST);
 
         List<WebElement> webElementFormEmbedList = getDriver().findElements(By.xpath(" //td"));
