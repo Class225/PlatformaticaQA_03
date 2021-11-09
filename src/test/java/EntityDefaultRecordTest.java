@@ -20,7 +20,7 @@ public class EntityDefaultRecordTest extends BaseTest {
     private static final By DECIMAL_FIELD_LOCATOR = By.id("decimal");
     private static final By DATE_FIELD_LOCATOR = By.id("date");
     private static final By DATETIME_FIELD_LOCATOR = By.id("datetime");
-    private static final By ADD_BUTTON_LOCATOR = By.xpath("//button[contains(text(), '+')]");
+    private static final By ADD_EMBED_RECORD_BUTTON_LOCATOR = By.xpath("//button[contains(text(), '+')]");
     private static final By STRING_EMBED_FIELD_LOCATOR = By.id("t-11-r-1-string");
     private static final By TEXT_EMBED_FIELD_LOCATOR = By.id("t-11-r-1-text");
     private static final By INT_EMBED_FIELD_LOCATOR = By.id("t-11-r-1-int");
@@ -74,55 +74,53 @@ public class EntityDefaultRecordTest extends BaseTest {
             DATE_EMBED_INPUT,
             DATETIME_EMBED_INPUT);
 
-    public void setElementValue(By by, String input) {
+    private void setElementValue(By by, String input) {
         getDriver().findElement(by).clear();
         getDriver().findElement(by).sendKeys(input);
     }
 
+    private void inputDataToMultipleFields(List<By> locatorsList, List<String> inputDataList) {
+        for (int i = 0; i < inputDataList.size(); i++) {
+            if (locatorsList.get(i).toString().contains("date")) {
+                getDriver().findElement(locatorsList.get(i)).click();
+            }
+            setElementValue(locatorsList.get(i), inputDataList.get(i));
+        }
+    }
+
+    private void compareDataDisplayedWithEntered(List<WebElement> webElementsList, List<String> inputDataList) {
+        Assert.assertTrue(webElementsList.size() != 0);
+        for (int i = 0; i < inputDataList.size(); i++) {
+            Assert.assertEquals(webElementsList.get(i).getText(), inputDataList.get(i));
+        }
+    }
+
     @Test
     public void testCreateNewRecordWithNewValues() {
-
         Actions act = new Actions(getDriver());
         act.moveToElement(getDriver().findElement(ENTITIES_MENU_LOCATOR)).perform();
-
         TestUtils.scrollClick(getDriver(), DEFAULT_MENU_LOCATOR);
 
         getDriver().findElement(ADD_NEW_FORM_BUTTON_LOCATOR).click();
 
-        for (int i = 0; i < FORM_INPUT_LIST.size(); i++) {
-            setElementValue(FORM_LOCATORS_LIST.get(i), FORM_INPUT_LIST.get(i));
-        }
+        inputDataToMultipleFields(FORM_LOCATORS_LIST, FORM_INPUT_LIST);
 
-        TestUtils.scrollClick(getDriver(), ADD_BUTTON_LOCATOR);
+        TestUtils.scrollClick(getDriver(), ADD_EMBED_RECORD_BUTTON_LOCATOR);
 
-        for (int i = 0; i < FORM_EMBED_INPUT_LIST.size(); i++) {
-            if (FORM_EMBED_LOCATORS_LIST.get(i).toString().contains("date")) {
-                getDriver().findElement(FORM_EMBED_LOCATORS_LIST.get(i)).click();
-            }
-            setElementValue(FORM_EMBED_LOCATORS_LIST.get(i), FORM_EMBED_INPUT_LIST.get(i));
-        }
+        inputDataToMultipleFields(FORM_EMBED_LOCATORS_LIST, FORM_EMBED_INPUT_LIST);
 
         getDriver().findElement(SAVE_BUTTON_LOCATOR).click();
 
-        List<WebElement> inputListLocators = getDriver().findElements(By.xpath("//td[@class= 'pa-list-table-th']"));
-        Assert.assertTrue(inputListLocators.size() != 0);
-        for (int i = 0; i < FORM_INPUT_LIST.size(); i++) {
-            Assert.assertEquals(inputListLocators.get(i).getText(), FORM_INPUT_LIST.get(i));
-        }
+        List<WebElement> webElementPreviewFormList = getDriver().findElements(By.xpath("//td[@class= 'pa-list-table-th']"));
+        compareDataDisplayedWithEntered(webElementPreviewFormList, FORM_INPUT_LIST);
 
         getDriver().findElement(By.xpath("//tbody")).click();
 
-        List<WebElement> inputListDetails = getDriver().findElements(By.xpath(" //span[@class = 'pa-view-field']"));
-        Assert.assertTrue(inputListDetails.size() != 0);
-        for (int i = 0; i < FORM_INPUT_LIST.size(); i++) {
-            Assert.assertEquals(inputListDetails.get(i).getText(), FORM_INPUT_LIST.get(i));
-        }
+        List<WebElement> webElementFormList = getDriver().findElements(By.xpath(" //span[@class = 'pa-view-field']"));
+        compareDataDisplayedWithEntered(webElementFormList, FORM_INPUT_LIST);
 
-        List<WebElement> inputEmbedListLocators = getDriver().findElements(By.xpath(" //td"));
-        inputEmbedListLocators.remove(0);
-        Assert.assertTrue(inputEmbedListLocators.size() != 0);
-        for (int i = 0; i < FORM_EMBED_INPUT_LIST.size(); i++) {
-            Assert.assertEquals(inputEmbedListLocators.get(i).getText(), FORM_EMBED_INPUT_LIST.get(i));
-        }
+        List<WebElement> webElementFormEmbedList = getDriver().findElements(By.xpath(" //td"));
+        webElementFormEmbedList.remove(0);
+        compareDataDisplayedWithEntered(webElementFormEmbedList, FORM_EMBED_INPUT_LIST);
     }
 }
