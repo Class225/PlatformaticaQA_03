@@ -37,7 +37,6 @@ public class EntityReferenceValuesTest extends BaseTest {
         Assert.assertEquals(getDriver().findElement(By.xpath(ASSERT_LOCATOR_FILTER2)).getText(),FILTER2_VALUE);
     }
 
-    @Ignore
     @Test
     public void testEditRecord() throws InterruptedException {
         testCreateRecord();
