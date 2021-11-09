@@ -9,10 +9,13 @@ import org.testng.annotations.Test;
 import utils.TestUtils;
 import java.io.File;
 
+import static java.lang.Thread.sleep;
+
 public class EntityGanttTest extends BaseTest {
 
     @Test
-    public void testEntityGantt() {
+    public void testEntityGantt() throws InterruptedException {
+
         final String expectedResult1 = "String";
         final String text = "Text Gantt";
         final String i = "2";
@@ -48,6 +51,8 @@ public class EntityGanttTest extends BaseTest {
         file.sendKeys(new File(("src/test/java/resoursesYK/TEXT.txt")).getAbsolutePath());
 
         getDriver().findElement(By.id("_field_container-user")).click();
+        sleep (1000);
+
         getDriver().findElement(By.xpath("//li[@class = 'selected active']")).click();
 
         getDriver().findElement(By.id("pa-entity-form-save-btn")).click();
