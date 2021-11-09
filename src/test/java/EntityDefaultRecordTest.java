@@ -119,7 +119,10 @@ public class EntityDefaultRecordTest extends BaseTest {
 
         getDriver().findElement(By.xpath("//tbody")).click();
 
+        getWait();
+
         List<WebElement> webElementFormList = getDriver().findElements(By.xpath(" //span[@class = 'pa-view-field']"));
+        System.out.println("List of webElementFormList: " + webElementFormList);
         compareDataDisplayedWithEntered(webElementFormList, FORM_INPUT_LIST);
 
         List<WebElement> webElementFormEmbedList = getDriver().findElements(By.xpath(" //td"));
