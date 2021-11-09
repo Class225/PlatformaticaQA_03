@@ -89,9 +89,12 @@ public class EntityDefaultRecordTest extends BaseTest {
     }
 
     private void compareDataDisplayedWithEntered(List<WebElement> webElementsList, List<String> inputDataList) {
+        System.out.println("compare method starts");
         Assert.assertTrue(webElementsList.size() != 0);
+        System.out.println("webElementList is more then 0");
         for (int i = 0; i < inputDataList.size(); i++) {
             Assert.assertEquals(webElementsList.get(i).getText(), inputDataList.get(i));
+            System.out.println(webElementsList.get(i).getText() + inputDataList.get(i));
         }
     }
 
