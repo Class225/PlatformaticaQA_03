@@ -6,6 +6,8 @@ import org.testng.Assert;
 import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 
+import static java.lang.Thread.sleep;
+
 public class EntityReferenceValuesTest extends BaseTest {
     private static final String ID_LABEL = "label";
     private static final String ID_FILTER1 = "filter_1";
@@ -37,10 +39,11 @@ public class EntityReferenceValuesTest extends BaseTest {
 
     @Ignore
     @Test
-    public void testEditRecord() {
+    public void testEditRecord() throws InterruptedException {
         testCreateRecord();
 
         getDriver().findElement(By.xpath("//div[@class = 'dropdown pull-left']//button")).click();
+        sleep(1000);
         getWait().until(ExpectedConditions.elementToBeClickable(By.xpath("//ul[@role = 'menu']//a[contains(text(), 'edit')]"))).click();
 
         WebElement label = getDriver().findElement(By.id(ID_LABEL));
