@@ -118,9 +118,11 @@ public class EntityDefaultRecordTest extends BaseTest {
         compareDataDisplayedWithEntered(webElementPreviewFormList, FORM_INPUT_LIST);
         System.out.println("Page is displayed: " + getDriver().findElement(By.xpath("//span[contains(text(),'Showing 1 to 1 of 1 rows')]")).getText());
 
-        getDriver().findElement(By.xpath("//tbody")).click();
+       // getDriver().findElement(By.xpath("//tbody")).click();
 
-        System.out.println("Page is displayed: " + getDriver().findElement(By.xpath("//span[contains(text(),'Showing 1 to 1 of 1 rows')]")).getText());
+        getDriver().findElement(By.xpath("//td[@class= 'pa-list-table-th']")).click();
+
+  //      System.out.println("Page is displayed: " + getDriver().findElement(By.xpath("//span[contains(text(),'Showing 1 to 1 of 1 rows')]")).getText());
         System.out.println("Page is displayed: " + getDriver().findElement(By.xpath("//h4")).getText());
         System.out.println("Page is displayed: " + getDriver().findElement(By.xpath("//h4[contains(text(),'EmbedD')]")).getText());
 
