@@ -14,8 +14,11 @@ import static java.lang.Thread.sleep;
 
 public class EntityGanttTest extends BaseTest {
 
+
     @Test
     public void testEntityGantt() throws InterruptedException {
+
+
 
         final String expectedResult1 = "String";
         final String text = "Text Gantt";
@@ -64,5 +67,44 @@ public class EntityGanttTest extends BaseTest {
         Assert.assertEquals(getDriver().findElement
                 (By.xpath("//td[@aria-label = 'String column header Task']")).getText(), expectedResult1);
         Assert.assertTrue(blue.contains(subData));
+    }
+    @Test
+    public void testViewRecord() throws InterruptedException {
+        final String STRING_FIELD = "First Gantt";
+        final String TEXT = "Testing";
+        final String INNITIAL_INT = "1";
+        final String DECIMAL = "01";
+        final String ID_BUTTON_SAVE = "pa-entity-form-save-btn";
+        final String STRING_INPUT = "//input[@id='string']";
+        final String TEXT_INPUT = "//textarea[@id='text']";
+        final String INT_INPUT = "//input[@id='int']";
+        final String DECIMAL_INPUT = "//input[@id='decimal']";
+        final String DATA = "10/11/2021";
+        final String DATA_TIME = "10/11/2021 16:40:48";
+        final String LIST_BUTTON = "//a[@href='index.php?action=action_list&list_type=table&entity_id=35']";
+        final String ACTIONS_BUTTON = "//i[text()='menu']";
+        final String VIEW_MODE_BOTTON = "//a[text()='view']";
+
+        final String expectedResult = "First Gantt";
+        TestUtils.scrollClick(getDriver(), By.xpath("//p[text()= ' Gantt ']"));
+        getDriver().findElement(By.className("card-icon")).click();
+        getDriver().findElement(By.xpath(STRING_INPUT)).sendKeys(STRING_FIELD);
+        getDriver().findElement(By.xpath(TEXT_INPUT)).sendKeys(TEXT);
+        getDriver().findElement(By.xpath(INT_INPUT)).sendKeys(INNITIAL_INT);
+        getDriver().findElement(By.xpath(DECIMAL_INPUT)).sendKeys(DECIMAL);
+        WebElement dat = getDriver().findElement(By.id("date"));
+        dat.sendKeys(Keys.DELETE);
+        dat.sendKeys(DATA);
+        WebElement datTime = getDriver().findElement(By.id("datetime"));
+        datTime.sendKeys(Keys.DELETE);
+        datTime.sendKeys(DATA_TIME);
+        getDriver().findElement(By.id(ID_BUTTON_SAVE)).click();
+        getDriver().findElement(By.xpath(LIST_BUTTON)).click();
+        getDriver().findElement(By.xpath(ACTIONS_BUTTON)).click();
+        getDriver().findElement(By.xpath(VIEW_MODE_BOTTON)).click();
+        String actualResult = getDriver().findElement(By.xpath("//span[@class='pa-view-field']")).getText();
+
+        Assert.assertEquals(actualResult, expectedResult);
+
     }
 }
