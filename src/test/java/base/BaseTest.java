@@ -1,43 +1,55 @@
 package base;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
-import java.util.concurrent.TimeUnit;
+import java.lang.reflect.Method;
 
-public class BaseTest {
+public abstract class BaseTest {
 
-    private static WebDriver driver;
-
-    @BeforeMethod
-    public void before() {
-        WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        driver.manage().window().maximize();
-    }
-
-    @AfterMethod
-    public void after() {
-        driver.quit();
-    }
+    private WebDriver driver;
+    private WebDriverWait wait;
 
     protected WebDriver getDriver() {
         return driver;
     }
 
     protected WebDriverWait getWait() {
-        return new WebDriverWait(getDriver(), 10);
+        if (wait == null) {
+            wait = new WebDriverWait(driver, 10);
+        }
+        return wait;
     }
 
-    public static void scroll(WebDriver driver, WebElement element) {
-        JavascriptExecutor executor = (JavascriptExecutor) driver;
-        executor.executeScript("arguments[0].scrollIntoView();", element);
+    protected void stopDriver() {
+        driver.quit();
+        wait = null;
+
+        BaseUtils.log("Browser closed");
+    }
+
+    @BeforeMethod
+    protected void beforeMethod(Method method) {
+        BaseUtils.logf("Run %s.%s", this.getClass().getName(), method.getName());
+        try {
+            BaseUtils.log("Browser open, get web page and login");
+
+            driver = BaseUtils.createDriver();
+            BaseUtils.get(driver);
+            BaseUtils.login(driver);
+            BaseUtils.reset(driver);
+        } catch (Exception e) {
+            stopDriver();
+            throw e;
+        }
+    }
+
+    @AfterMethod
+    protected void afterMethod(Method method, ITestResult testResult) {
+        stopDriver();
+        BaseUtils.logf("Execution time is %o sec\n", (testResult.getEndMillis() - testResult.getStartMillis()) / 1000);
     }
 }
