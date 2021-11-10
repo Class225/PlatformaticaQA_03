@@ -16,6 +16,16 @@ public class EntityChevronTest extends BaseTest {
     private static final By SAVE_DRAFT_BUTTON = By.id("pa-entity-form-draft-btn");
     private static final By STRING_DROPDOWN = By.id("string");
 
+    public void moveMouseToEntityTabInMenu(){
+        Actions moveMouse = new Actions(getDriver());
+        moveMouse.moveToElement(getDriver().findElement(ENTITIES_TAB_IN_MENU)).perform();
+    }
+
+    public void selectByVisibleText(String visibleText) {
+        Select select = new Select(getDriver().findElement(STRING_DROPDOWN));
+        select.selectByVisibleText(visibleText);
+    }
+
 
     @Test
     public void testCreateRecord(){
@@ -28,17 +38,28 @@ public class EntityChevronTest extends BaseTest {
 
     @Test
     public void testSaveDraftPending(){
-        Actions moveMouse = new Actions(getDriver());
-        moveMouse.moveToElement(getDriver().findElement(ENTITIES_TAB_IN_MENU)).perform();
+        String testingData = "Pending";
+        moveMouseToEntityTabInMenu();
         TestUtils.scrollClick(getDriver(), getDriver().findElement(ENTITYCHEVRON));
         getDriver().findElement(CREATENEWFOLDER).click();
-
-        Select select = new Select(getDriver().findElement(STRING_DROPDOWN));
-        select.selectByVisibleText("Pending");
+        selectByVisibleText(testingData);
         getDriver().findElement(SAVE_DRAFT_BUTTON).click();
 
         Assert.assertTrue(getDriver().findElement(By.xpath("//tr[@data-index='0']//i[@class='fa fa-pencil']")).isDisplayed());
-        Assert.assertEquals(getDriver().findElement(By.xpath("//table//a[contains(text(), 'Pending')]")).getText(), "Pending");
+        Assert.assertEquals(getDriver().findElement(By.xpath("//table//a[contains(text(), 'Pending')]")).getText(), testingData);
+    }
+
+    @Test
+    public void testSaveDraftFulfillment(){
+        String testingData = "Fulfillment";
+        moveMouseToEntityTabInMenu();
+        TestUtils.scrollClick(getDriver(), getDriver().findElement(ENTITYCHEVRON));
+        getDriver().findElement(CREATENEWFOLDER).click();
+        selectByVisibleText(testingData);
+        getDriver().findElement(SAVE_DRAFT_BUTTON).click();
+
+        Assert.assertTrue(getDriver().findElement(By.xpath("//tr[@data-index='0']//i[@class='fa fa-pencil']")).isDisplayed());
+        Assert.assertEquals(getDriver().findElement(By.xpath("//table//a[contains(text(), 'Fulfillment')]")).getText(), testingData);
     }
 
 }
