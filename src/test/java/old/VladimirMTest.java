@@ -38,7 +38,7 @@ public class VladimirMTest {
                 "/div[4]/form[1]/div[1]/div[3]/div[1]/div[3]/div[2]/div[2]/button[1]/span[1]"));
         show.click();
 
-        Thread.sleep(100);
+        Thread.sleep(1000);
 
         String expectedUrl = "https://cars.av.by/bmw/x7";
         String actualUrl = driver.getCurrentUrl();
