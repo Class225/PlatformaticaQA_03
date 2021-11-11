@@ -10,7 +10,7 @@ import java.util.List;
 
 public class EntityDefaultRecordTest extends BaseTest {
 
-    private static final By[] FORM_LOCATORS_LIST = {
+    private static final By[] FORM_LOCATORS = {
             By.id("string"),
             By.id("text"),
             By.id("int"),
@@ -18,7 +18,7 @@ public class EntityDefaultRecordTest extends BaseTest {
             By.id("date"),
             By.id("datetime")};
 
-    private static final String[] FORM_INPUT_LIST = {
+    private static final String[] FORM_INPUT_VALUES = {
             "Value of String Input",
             "Value of Text Input",
             "123",
@@ -26,7 +26,7 @@ public class EntityDefaultRecordTest extends BaseTest {
             "07/11/2021",
             "06/11/2021 17:22:46"};
 
-    private static final By[] FORM_EMBED_LOCATORS_LIST = {
+    private static final By[] EMBED_LOCATORS = {
             By.id("t-11-r-1-string"),
             By.id("t-11-r-1-text"),
             By.id("t-11-r-1-int"),
@@ -34,7 +34,7 @@ public class EntityDefaultRecordTest extends BaseTest {
             By.id("t-11-r-1-date"),
             By.id("t-11-r-1-datetime")};
 
-    private static final String[] FORM_EMBED_INPUT_LIST = {
+    private static final String[] EMBED_INPUT_VALUES = {
             "String Input Value",
             "Text Input Value",
             "88",
@@ -47,19 +47,19 @@ public class EntityDefaultRecordTest extends BaseTest {
         getDriver().findElement(by).sendKeys(input);
     }
 
-    private void inputDataToMultipleFields(By[] locatorsList, String... inputDataList) {
-        for (int i = 0; i < inputDataList.length; i++) {
-            if (locatorsList[i].toString().contains("date")) {
-                getDriver().findElement(locatorsList[i]).click();
+    private void inputDataToMultipleFields(By[] locators, String... inputValues) {
+        for (int i = 0; i < inputValues.length; i++) {
+            if (locators[i].toString().contains("date")) {
+                getDriver().findElement(locators[i]).click();
             }
-            setElementValue(locatorsList[i], inputDataList[i]);
+            setElementValue(locators[i], inputValues[i]);
         }
     }
 
-    private void assertCorrectDataDisplayed(List<WebElement> webElementsList, String... inputDataList) {
-        Assert.assertTrue(webElementsList.size() != 0);
-        for (int i = 0; i < inputDataList.length; i++) {
-            Assert.assertEquals(webElementsList.get(i).getText(), inputDataList[i]);
+    private void assertEquals(List<WebElement> webElements, String... inputData) {
+        Assert.assertTrue(webElements.size() != 0);
+        for (int i = 0; i < inputData.length; i++) {
+            Assert.assertEquals(webElements.get(i).getText(), inputData[i]);
         }
     }
 
@@ -70,23 +70,21 @@ public class EntityDefaultRecordTest extends BaseTest {
         TestUtils.scrollClick(getDriver(), By.xpath("//p[contains(text(),'Default')]"));
 
         getDriver().findElement(By.xpath("//i[contains(text(), 'create_new_folder')]")).click();
-        inputDataToMultipleFields(FORM_LOCATORS_LIST, FORM_INPUT_LIST);
-
+        inputDataToMultipleFields(FORM_LOCATORS, FORM_INPUT_VALUES);
         TestUtils.scrollClick(getDriver(), By.xpath("//button[contains(text(), '+')]"));
-        inputDataToMultipleFields(FORM_EMBED_LOCATORS_LIST, FORM_EMBED_INPUT_LIST);
 
+        inputDataToMultipleFields(EMBED_LOCATORS, EMBED_INPUT_VALUES);
         getDriver().findElement(By.id("pa-entity-form-save-btn")).click();
 
-        List<WebElement> webElementPreviewFormList = getDriver().findElements(By.xpath("//td[@class= 'pa-list-table-th']"));
-        assertCorrectDataDisplayed(webElementPreviewFormList, FORM_INPUT_LIST);
-
+        List<WebElement> webElementsPreviewForm = getDriver().findElements(By.xpath("//td[@class= 'pa-list-table-th']"));
+        assertEquals(webElementsPreviewForm, FORM_INPUT_VALUES);
         getDriver().findElement(By.xpath("//td[@class= 'pa-list-table-th']")).click();
 
-        List<WebElement> webElementFormList = getDriver().findElements(By.xpath(" //span[@class = 'pa-view-field']"));
-        assertCorrectDataDisplayed(webElementFormList, FORM_INPUT_LIST);
+        List<WebElement> webElementsForm = getDriver().findElements(By.xpath(" //span[@class = 'pa-view-field']"));
+        assertEquals(webElementsForm, FORM_INPUT_VALUES);
 
-        List<WebElement> webElementFormEmbedList = getDriver().findElements(By.xpath(" //td"));
-        webElementFormEmbedList.remove(0);
-        assertCorrectDataDisplayed(webElementFormEmbedList, FORM_EMBED_INPUT_LIST);
+        List<WebElement> webElementsEmbed = getDriver().findElements(By.xpath(" //td"));
+        webElementsEmbed.remove(0);
+        assertEquals(webElementsEmbed, EMBED_INPUT_VALUES);
     }
 }
