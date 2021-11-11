@@ -47,7 +47,7 @@ public class EntityDefaultRecordTest extends BaseTest {
         getDriver().findElement(by).sendKeys(input);
     }
 
-    private void inputDataToMultipleFields(By[] locators, String... inputValues) {
+    private void fillFieldsFor(By[] locators, String... inputValues) {
         for (int i = 0; i < inputValues.length; i++) {
             if (locators[i].toString().contains("date")) {
                 getDriver().findElement(locators[i]).click();
@@ -56,10 +56,20 @@ public class EntityDefaultRecordTest extends BaseTest {
         }
     }
 
-    private void assertEquals(List<WebElement> webElements, String... inputData) {
+    private void createNewRecord(String... inputValues) {
+        getDriver().findElement(By.xpath("//i[contains(text(), 'create_new_folder')]")).click();
+        fillFieldsFor(FORM_LOCATORS, inputValues);
+    }
+
+    private void createNewEmbedRecord(String... inputValues) {
+        TestUtils.scrollClick(getDriver(), By.xpath("//button[contains(text(), '+')]"));
+        fillFieldsFor(EMBED_LOCATORS, inputValues);
+    }
+
+    private void assertEquals(List<WebElement> webElements, String... inputValues) {
         Assert.assertTrue(webElements.size() != 0);
-        for (int i = 0; i < inputData.length; i++) {
-            Assert.assertEquals(webElements.get(i).getText(), inputData[i]);
+        for (int i = 0; i < inputValues.length; i++) {
+            Assert.assertEquals(webElements.get(i).getText(), inputValues[i]);
         }
     }
 
@@ -69,15 +79,12 @@ public class EntityDefaultRecordTest extends BaseTest {
         act.moveToElement(getDriver().findElement(By.className("nav-link"))).perform();
         TestUtils.scrollClick(getDriver(), By.xpath("//p[contains(text(),'Default')]"));
 
-        getDriver().findElement(By.xpath("//i[contains(text(), 'create_new_folder')]")).click();
-        inputDataToMultipleFields(FORM_LOCATORS, FORM_INPUT_VALUES);
-        TestUtils.scrollClick(getDriver(), By.xpath("//button[contains(text(), '+')]"));
-
-        inputDataToMultipleFields(EMBED_LOCATORS, EMBED_INPUT_VALUES);
+        createNewRecord(FORM_INPUT_VALUES);
+        createNewEmbedRecord(EMBED_INPUT_VALUES);
         getDriver().findElement(By.id("pa-entity-form-save-btn")).click();
 
-        List<WebElement> webElementsPreviewForm = getDriver().findElements(By.xpath("//td[@class= 'pa-list-table-th']"));
-        assertEquals(webElementsPreviewForm, FORM_INPUT_VALUES);
+        List<WebElement> webElementsPreviewRecord = getDriver().findElements(By.xpath("//td[@class= 'pa-list-table-th']"));
+        assertEquals(webElementsPreviewRecord, FORM_INPUT_VALUES);
         getDriver().findElement(By.xpath("//td[@class= 'pa-list-table-th']")).click();
 
         List<WebElement> webElementsForm = getDriver().findElements(By.xpath(" //span[@class = 'pa-view-field']"));
