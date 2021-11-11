@@ -6,121 +6,106 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import utils.TestUtils;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class EntityDefaultRecordTest extends BaseTest {
 
-    private static final By ENTITIES_MENU_LOCATOR = By.className("nav-link");
-    private static final By DEFAULT_MENU_LOCATOR = By.xpath("//p[contains(text(),'Default')]");
-    private static final By ADD_NEW_FORM_BUTTON_LOCATOR = By.xpath("//i[contains(text(), 'create_new_folder')]");
-    private static final By STRING_FIELD_LOCATOR = By.id("string");
-    private static final By TEXT_FIELD_LOCATOR = By.id("text");
-    private static final By INT_FIELD_LOCATOR = By.id("int");
-    private static final By DECIMAL_FIELD_LOCATOR = By.id("decimal");
-    private static final By DATE_FIELD_LOCATOR = By.id("date");
-    private static final By DATETIME_FIELD_LOCATOR = By.id("datetime");
-    private static final By ADD_EMBED_RECORD_BUTTON_LOCATOR = By.xpath("//button[contains(text(), '+')]");
-    private static final By STRING_EMBED_FIELD_LOCATOR = By.id("t-11-r-1-string");
-    private static final By TEXT_EMBED_FIELD_LOCATOR = By.id("t-11-r-1-text");
-    private static final By INT_EMBED_FIELD_LOCATOR = By.id("t-11-r-1-int");
-    private static final By DECIMAL_EMBED_FIELD_LOCATOR = By.id("t-11-r-1-decimal");
-    private static final By DATE_EMBED_FIELD_LOCATOR = By.id("t-11-r-1-date");
-    private static final By DATETIME_EMBED_FIELD_LOCATOR = By.id("t-11-r-1-datetime");
-    private static final By SAVE_BUTTON_LOCATOR = By.id("pa-entity-form-save-btn");
+    private static final By[] FORM_LOCATORS = {
+            By.id("string"),
+            By.id("text"),
+            By.id("int"),
+            By.id("decimal"),
+            By.id("date"),
+            By.id("datetime")};
 
-    private static final String STRING_INPUT = "Value of String Input";
-    private static final String TEXT_INPUT = "Value of Text Input";
-    private static final String INT_INPUT = "123";
-    private static final String DECIMAL_INPUT = "987.14";
-    private static final String DATE_INPUT = "07/11/2021";
-    private static final String DATETIME_INPUT = "06/11/2021 17:22:46";
-    private static final String STRING_EMBED_INPUT = "String Input Value";
-    private static final String TEXT_EMBED_INPUT = "Text Input Value";
-    private static final String INT_EMBED_INPUT = "88";
-    private static final String DECIMAL_EMBED_INPUT = "41.17";
-    private static final String DATE_EMBED_INPUT = "02/02/2021";
-    private static final String DATETIME_EMBED_INPUT = "03/03/2021 18:05:10";
+    private static final String[] FORM_INPUT_VALUES = {
+            "Value of String Input",
+            "Value of Text Input",
+            "123",
+            "987.14",
+            "07/11/2021",
+            "06/11/2021 17:22:46"};
 
-    private static final List<By> FORM_LOCATORS_LIST = Arrays.asList(
-            STRING_FIELD_LOCATOR,
-            TEXT_FIELD_LOCATOR,
-            INT_FIELD_LOCATOR,
-            DECIMAL_FIELD_LOCATOR,
-            DATE_FIELD_LOCATOR,
-            DATETIME_FIELD_LOCATOR);
+    private static final By[] EMBED_LOCATORS = {
+            By.id("t-11-r-1-string"),
+            By.id("t-11-r-1-text"),
+            By.id("t-11-r-1-int"),
+            By.id("t-11-r-1-decimal"),
+            By.id("t-11-r-1-date"),
+            By.id("t-11-r-1-datetime")};
 
-    private static final List<String> FORM_INPUT_LIST = Arrays.asList(
-            STRING_INPUT,
-            TEXT_INPUT,
-            INT_INPUT,
-            DECIMAL_INPUT,
-            DATE_INPUT,
-            DATETIME_INPUT);
+    private static final String[] EMBED_INPUT_VALUES = {
+            "String Input Value",
+            "Text Input Value",
+            "88",
+            "41.17",
+            "02/02/2021",
+            "03/03/2021 18:05:10"};
 
-    private static final List<By> FORM_EMBED_LOCATORS_LIST = Arrays.asList(
-            STRING_EMBED_FIELD_LOCATOR,
-            TEXT_EMBED_FIELD_LOCATOR,
-            INT_EMBED_FIELD_LOCATOR,
-            DECIMAL_EMBED_FIELD_LOCATOR,
-            DATE_EMBED_FIELD_LOCATOR,
-            DATETIME_EMBED_FIELD_LOCATOR);
-
-    private static final List<String> FORM_EMBED_INPUT_LIST = Arrays.asList(
-            STRING_EMBED_INPUT,
-            TEXT_EMBED_INPUT,
-            INT_EMBED_INPUT,
-            DECIMAL_EMBED_INPUT,
-            DATE_EMBED_INPUT,
-            DATETIME_EMBED_INPUT);
+    private void navigateToDefaultPage() {
+        Actions act = new Actions(getDriver());
+        act.moveToElement(getDriver().findElement(By.className("nav-link"))).perform();
+        TestUtils.scrollClick(getDriver(), By.xpath("//p[contains(text(),'Default')]"));
+    }
 
     private void setElementValue(By by, String input) {
         getDriver().findElement(by).clear();
         getDriver().findElement(by).sendKeys(input);
     }
 
-    private void inputDataToMultipleFields(List<By> locatorsList, List<String> inputDataList) {
-        for (int i = 0; i < inputDataList.size(); i++) {
-            if (locatorsList.get(i).toString().contains("date")) {
-                getDriver().findElement(locatorsList.get(i)).click();
+    private void fillFieldsFor(By[] locators, String... inputValues) {
+        for (int i = 0; i < inputValues.length; i++) {
+            if (locators[i].toString().contains("date")) {
+                getDriver().findElement(locators[i]).click();
             }
-            setElementValue(locatorsList.get(i), inputDataList.get(i));
+            setElementValue(locators[i], inputValues[i]);
         }
     }
 
-    private void compareDataDisplayedWithEntered(List<WebElement> webElementsList, List<String> inputDataList) {
-        Assert.assertTrue(webElementsList.size() != 0);
-        for (int i = 0; i < inputDataList.size(); i++) {
-            Assert.assertEquals(webElementsList.get(i).getText(), inputDataList.get(i));
-         }
+    private void createNewRecord(String... inputValues) {
+        getDriver().findElement(By.xpath("//i[contains(text(), 'create_new_folder')]")).click();
+        fillFieldsFor(FORM_LOCATORS, inputValues);
+    }
+
+    private void createNewEmbedRecord(String... inputValues) {
+        TestUtils.scrollClick(getDriver(), By.xpath("//button[contains(text(), '+')]"));
+        fillFieldsFor(EMBED_LOCATORS, inputValues);
+    }
+
+    private void assertFieldEquals(List<WebElement> webElements, String... inputValues) {
+        Assert.assertTrue(webElements.size() != 0);
+        for (int i = 0; i < inputValues.length; i++) {
+            Assert.assertEquals(webElements.get(i).getText(), inputValues[i]);
+        }
+    }
+
+    public void assertPreviewFormData(String[] inputValues) {
+        List<WebElement> webElementsPreviewRecord = getDriver().findElements(By.xpath("//td[@class= 'pa-list-table-th']"));
+        assertFieldEquals(webElementsPreviewRecord, inputValues);
+    }
+
+    public void assertFormData(String[] inputValues) {
+        List<WebElement> webElementsForm = getDriver().findElements(By.xpath(" //span[@class = 'pa-view-field']"));
+        assertFieldEquals(webElementsForm, inputValues);
+    }
+
+    public void assertEmbedData(String[] inputValues) {
+        List<WebElement> webElementsEmbed = getDriver().findElements(By.xpath(" //td"));
+        webElementsEmbed.remove(0);
+        assertFieldEquals(webElementsEmbed, inputValues);
     }
 
     @Test
     public void testCreateNewRecordWithNewValues() {
-        Actions act = new Actions(getDriver());
-        act.moveToElement(getDriver().findElement(ENTITIES_MENU_LOCATOR)).perform();
-        TestUtils.scrollClick(getDriver(), DEFAULT_MENU_LOCATOR);
+        navigateToDefaultPage();
 
-        getDriver().findElement(ADD_NEW_FORM_BUTTON_LOCATOR).click();
+        createNewRecord(FORM_INPUT_VALUES);
+        createNewEmbedRecord(EMBED_INPUT_VALUES);
+        getDriver().findElement(By.id("pa-entity-form-save-btn")).click();
 
-        inputDataToMultipleFields(FORM_LOCATORS_LIST, FORM_INPUT_LIST);
-
-        TestUtils.scrollClick(getDriver(), ADD_EMBED_RECORD_BUTTON_LOCATOR);
-
-        inputDataToMultipleFields(FORM_EMBED_LOCATORS_LIST, FORM_EMBED_INPUT_LIST);
-
-        getDriver().findElement(SAVE_BUTTON_LOCATOR).click();
-
-        List<WebElement> webElementPreviewFormList = getDriver().findElements(By.xpath("//td[@class= 'pa-list-table-th']"));
-        compareDataDisplayedWithEntered(webElementPreviewFormList, FORM_INPUT_LIST);
-
+        assertPreviewFormData(FORM_INPUT_VALUES);
         getDriver().findElement(By.xpath("//td[@class= 'pa-list-table-th']")).click();
-
-        List<WebElement> webElementFormList = getDriver().findElements(By.xpath(" //span[@class = 'pa-view-field']"));
-        compareDataDisplayedWithEntered(webElementFormList, FORM_INPUT_LIST);
-
-        List<WebElement> webElementFormEmbedList = getDriver().findElements(By.xpath(" //td"));
-        webElementFormEmbedList.remove(0);
-        compareDataDisplayedWithEntered(webElementFormEmbedList, FORM_EMBED_INPUT_LIST);
+        assertFormData(FORM_INPUT_VALUES);
+        assertEmbedData(EMBED_INPUT_VALUES);
     }
 }

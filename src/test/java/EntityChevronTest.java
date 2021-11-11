@@ -4,6 +4,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import utils.TestUtils;
 import java.util.List;
@@ -89,6 +90,7 @@ public class EntityChevronTest extends BaseTest {
         Assert.assertEquals(recordValues.get(0).getText(), "Pending");
     }
 
+    @Ignore
     @Test
     public void testCreateRecordWithValidData() throws InterruptedException {
         final String InputText = "Test";

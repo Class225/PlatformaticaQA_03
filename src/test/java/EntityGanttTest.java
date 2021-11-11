@@ -69,6 +69,7 @@ public class EntityGanttTest extends BaseTest {
                 (By.xpath("//td[@aria-label = 'String column header Task']")).getText(), expectedResult1);
         Assert.assertTrue(blue.contains(subData));
     }
+
     @Ignore
     @Test
     public void testViewRecord() throws InterruptedException {
