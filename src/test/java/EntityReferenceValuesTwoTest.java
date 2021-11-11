@@ -20,6 +20,7 @@ public class EntityReferenceValuesTwoTest extends BaseTest {
         getDriver().findElement(By.xpath("//button[@id='pa-entity-form-save-btn']")).click();
 
         List<WebElement> list = getDriver().findElements(By.xpath("//*[@id='pa-all-entities-table']//td\n"));
+
         Assert.assertEquals(list.get(1).getText(), expectedValue);
         Assert.assertEquals(list.get(2).getText(), expectedValue);
         Assert.assertEquals(list.get(3).getText(), expectedValue);
