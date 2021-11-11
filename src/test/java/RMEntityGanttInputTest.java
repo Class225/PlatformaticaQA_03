@@ -2,10 +2,11 @@ import base.BaseTest;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import utils.TestUtils;
 
-
+@Ignore
 public class RMEntityGanttInputTest extends BaseTest {
 
     @Test
