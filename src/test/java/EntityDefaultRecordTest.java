@@ -42,6 +42,12 @@ public class EntityDefaultRecordTest extends BaseTest {
             "02/02/2021",
             "03/03/2021 18:05:10"};
 
+    private void navigateToDefaultPage() {
+        Actions act = new Actions(getDriver());
+        act.moveToElement(getDriver().findElement(By.className("nav-link"))).perform();
+        TestUtils.scrollClick(getDriver(), By.xpath("//p[contains(text(),'Default')]"));
+    }
+
     private void setElementValue(By by, String input) {
         getDriver().findElement(by).clear();
         getDriver().findElement(by).sendKeys(input);
@@ -66,32 +72,40 @@ public class EntityDefaultRecordTest extends BaseTest {
         fillFieldsFor(EMBED_LOCATORS, inputValues);
     }
 
-    private void assertEquals(List<WebElement> webElements, String... inputValues) {
+    private void assertFieldEquals(List<WebElement> webElements, String... inputValues) {
         Assert.assertTrue(webElements.size() != 0);
         for (int i = 0; i < inputValues.length; i++) {
             Assert.assertEquals(webElements.get(i).getText(), inputValues[i]);
         }
     }
 
+    public void assertPreviewFormData(String[] inputValues) {
+        List<WebElement> webElementsPreviewRecord = getDriver().findElements(By.xpath("//td[@class= 'pa-list-table-th']"));
+        assertFieldEquals(webElementsPreviewRecord, inputValues);
+    }
+
+    public void assertFormData(String[] inputValues) {
+        List<WebElement> webElementsForm = getDriver().findElements(By.xpath(" //span[@class = 'pa-view-field']"));
+        assertFieldEquals(webElementsForm, inputValues);
+    }
+
+    public void assertEmbedData(String[] inputValues) {
+        List<WebElement> webElementsEmbed = getDriver().findElements(By.xpath(" //td"));
+        webElementsEmbed.remove(0);
+        assertFieldEquals(webElementsEmbed, inputValues);
+    }
+
     @Test
     public void testCreateNewRecordWithNewValues() {
-        Actions act = new Actions(getDriver());
-        act.moveToElement(getDriver().findElement(By.className("nav-link"))).perform();
-        TestUtils.scrollClick(getDriver(), By.xpath("//p[contains(text(),'Default')]"));
+        navigateToDefaultPage();
 
         createNewRecord(FORM_INPUT_VALUES);
         createNewEmbedRecord(EMBED_INPUT_VALUES);
         getDriver().findElement(By.id("pa-entity-form-save-btn")).click();
 
-        List<WebElement> webElementsPreviewRecord = getDriver().findElements(By.xpath("//td[@class= 'pa-list-table-th']"));
-        assertEquals(webElementsPreviewRecord, FORM_INPUT_VALUES);
+        assertPreviewFormData(FORM_INPUT_VALUES);
         getDriver().findElement(By.xpath("//td[@class= 'pa-list-table-th']")).click();
-
-        List<WebElement> webElementsForm = getDriver().findElements(By.xpath(" //span[@class = 'pa-view-field']"));
-        assertEquals(webElementsForm, FORM_INPUT_VALUES);
-
-        List<WebElement> webElementsEmbed = getDriver().findElements(By.xpath(" //td"));
-        webElementsEmbed.remove(0);
-        assertEquals(webElementsEmbed, EMBED_INPUT_VALUES);
+        assertFormData(FORM_INPUT_VALUES);
+        assertEmbedData(EMBED_INPUT_VALUES);
     }
 }
