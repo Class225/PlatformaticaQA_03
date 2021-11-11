@@ -12,18 +12,17 @@ import java.util.Date;
 
 public class EntityChevronTest extends BaseTest {
 
-    private static final By ENTITIES_TAB_IN_MENU = By.xpath("//a[@href='#menu-list-parent']");
-    private static final By ENTITY_CHEVRON = By.xpath("//p[text()=' Chevron ']");
-    private static final By CREATE_NEW_FOLDER = By.xpath("//i[text()='create_new_folder']");
-    private static final By STRING_STATUS_MENU = By.xpath("//div[@class='filter-option-inner-inner'][text()='Pending']");
     private static final By SAVE_BUTTON = By.id("pa-entity-form-save-btn");
     private static final By SAVE_DRAFT_BUTTON = By.id("pa-entity-form-draft-btn");
     private static final By STRING_DROPDOWN = By.id("string");
+    private static final By STRING_STATUS_MENU = By.xpath("//div[@class='filter-option-inner-inner'][text()='Pending']");
     private static final By STRING_STATUS_PENDING = By.xpath("//span[text()='Pending']");
 
-    public void moveMouseToEntityTabInMenu() {
+    public void openNewChevronCreationWidget() {
         Actions moveMouse = new Actions(getDriver());
-        moveMouse.moveToElement(getDriver().findElement(ENTITIES_TAB_IN_MENU)).perform();
+        moveMouse.moveToElement(getDriver().findElement(By.xpath("//a[@href='#menu-list-parent']"))).perform();
+        TestUtils.scrollClick(getDriver(), getDriver().findElement(By.xpath("//p[text()=' Chevron ']")));
+        getDriver().findElement(By.xpath("//i[text()='create_new_folder']")).click();
     }
 
     public void selectByVisibleText(String visibleText) {
@@ -33,8 +32,7 @@ public class EntityChevronTest extends BaseTest {
 
     @Test
     public void testCreateRecord() {
-        getDriver().findElement(ENTITY_CHEVRON).click();
-        getDriver().findElement(CREATE_NEW_FOLDER).click();
+        openNewChevronCreationWidget();
         getDriver().findElement(SAVE_BUTTON).click();
 
         Assert.assertTrue(getDriver().findElement(By.xpath("//tr[@data-index='0']")).isDisplayed());
@@ -43,9 +41,7 @@ public class EntityChevronTest extends BaseTest {
     @Test
     public void testSaveDraftPending() {
         String testingData = "Pending";
-        moveMouseToEntityTabInMenu();
-        TestUtils.scrollClick(getDriver(), getDriver().findElement(ENTITY_CHEVRON));
-        getDriver().findElement(CREATE_NEW_FOLDER).click();
+        openNewChevronCreationWidget();
         selectByVisibleText(testingData);
         getDriver().findElement(SAVE_DRAFT_BUTTON).click();
 
@@ -56,9 +52,7 @@ public class EntityChevronTest extends BaseTest {
     @Test
     public void testSaveDraftFulfillment() {
         String testingData = "Fulfillment";
-        moveMouseToEntityTabInMenu();
-        TestUtils.scrollClick(getDriver(), getDriver().findElement(ENTITY_CHEVRON));
-        getDriver().findElement(CREATE_NEW_FOLDER).click();
+        openNewChevronCreationWidget();
         selectByVisibleText(testingData);
         getDriver().findElement(SAVE_DRAFT_BUTTON).click();
 
@@ -67,9 +61,20 @@ public class EntityChevronTest extends BaseTest {
     }
 
     @Test
+    public void testSaveDraftSent(){
+        String testingData = "Sent";
+        openNewChevronCreationWidget();
+        selectByVisibleText(testingData);
+        getDriver().findElement(SAVE_DRAFT_BUTTON).click();
+        getDriver().findElement(By.xpath("//a[@href='index.php?action=action_list&list_type=table&entity_id=36&stage=Sent']")).click();
+
+        Assert.assertTrue(getDriver().findElement(By.xpath("//tr[@data-index='0']//i[@class='fa fa-pencil']")).isDisplayed());
+        Assert.assertEquals(getDriver().findElement(By.xpath("//table//a[contains(text(), 'Sent')]")).getText(), testingData);
+    }
+
+    @Test
     public void testCreateRecordPending() {
-        getDriver().findElement(ENTITY_CHEVRON).click();
-        getDriver().findElement(CREATE_NEW_FOLDER).click();
+        openNewChevronCreationWidget();
         getDriver().findElement(STRING_STATUS_MENU).click();
         try {
             Thread.sleep(2000);
@@ -96,8 +101,7 @@ public class EntityChevronTest extends BaseTest {
         SimpleDateFormat formatterTime = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         Date time = new Date();
 
-        getDriver().findElement(ENTITY_CHEVRON).click();
-        getDriver().findElement(CREATE_NEW_FOLDER).click();
+        openNewChevronCreationWidget();
         getDriver().findElement(STRING_STATUS_MENU).click();
         try {
             Thread.sleep(2000);
