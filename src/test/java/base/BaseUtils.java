@@ -97,7 +97,9 @@ public final class BaseUtils {
     static WebDriver createDriver() {
         WebDriver driver = new ChromeDriver(chromeOptions);
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-
+        if (!(chromeOptions.is("--headless"))) {
+            driver.manage().window().maximize();
+        }
         return driver;
     }
 
