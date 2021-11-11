@@ -6,6 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import utils.TestUtils;
 import java.io.File;
@@ -68,6 +69,8 @@ public class EntityGanttTest extends BaseTest {
                 (By.xpath("//td[@aria-label = 'String column header Task']")).getText(), expectedResult1);
         Assert.assertTrue(blue.contains(subData));
     }
+
+    @Ignore
     @Test
     public void testViewRecord() throws InterruptedException {
         final String STRING_FIELD = "First Gantt";
